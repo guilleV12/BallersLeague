@@ -26,10 +26,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::resource('ligas', LigaController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
-    //->middleware(['auth'])
-;
+Route::group(['prefix' => 'ligas'], function () {
+    Route::resource('ligas', LigaController::class)
+        ->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+    Route::get('liga/{liga}', [LigaController::class, 'liga'])
+        ->name('ligas.liga');
+});
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

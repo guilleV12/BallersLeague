@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('ligas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('mejor_jugador_id')->nullable();
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->string('ubicacion');
+            $table->binary('logo');
             $table->timestamps();
         });
     }
