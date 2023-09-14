@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef } from 'react';
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
+export default forwardRef(function DateInput({ type = 'date', className = '', isFocused = false, max = '',...props }, ref) {
     const input = ref ? ref : useRef();
 
     useEffect(() => {
@@ -13,6 +13,7 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
         <input
             {...props}
             type={type}
+            max={max}
             className={
                 'border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm ' +
                 className

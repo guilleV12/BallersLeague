@@ -5,11 +5,16 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import DateInput from '@/Components/DateInput';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        nombre: '',
+        apellido: '',
         email: '',
+        fecha_nacimiento: '',
+        dni: '',
         password: '',
         password_confirmation: '',
     });
@@ -26,26 +31,45 @@ export default function Register() {
         post(route('register'));
     };
 
+    const current = new Date();
+    const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+
     return (
         <GuestLayout>
             <Head title="Register" />
-
-            <form onSubmit={submit}>
+            <main className='flex justify-center my-[10%]'>
+            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 pb-20 rounded-lg shadow-xl'>
+                <ApplicationLogo className='m-0' texto={false}/>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="nombre" value="Nombre" />
 
                     <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
+                        id="nombre"
+                        name="nombre"
+                        value={data.nombre}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="nombre"
                         isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
+                        onChange={(e) => setData('nombre', e.target.value)}
                     />
 
-                    <InputError message={errors.name} className="mt-2" />
+                    <InputError message={errors.nombre} className="mt-2" />
+                    
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="apellido" value="Apellido" />
+
+                    <TextInput
+                        id="apellido"
+                        name="apellido"
+                        value={data.apellido}
+                        className="mt-1 block w-full"
+                        autoComplete="apellido"
+                        onChange={(e) => setData('apellido', e.target.value)}
+                    />
+
+                    <InputError message={errors.apellido} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -59,10 +83,40 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.email} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="fecha_nacimiento" value="Fecha de nacimiento" />
+
+                    <DateInput  
+                       id="fecha_nacimiento"
+                       name="fecha_nacimiento"
+                       max={date}
+                       value={data.fecha_nacimiento}
+                       className="mt-1 block w-full"
+                       autoComplete="fecha_nacimiento"
+                       onChange={(e) => setData('fecha_nacimiento', e.target.value)}
+                    />
+
+                    <InputError message={errors.fecha_nacimiento} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="dni" value="Dni" />
+
+                    <TextInput
+                        id="dni"
+                        name="dni"
+                        value={data.dni}
+                        className="mt-1 block w-full"
+                        autoComplete="dni"
+                        onChange={(e) => setData('dni', e.target.value)}
+                    />
+
+                    <InputError message={errors.dni} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
@@ -76,14 +130,13 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirmar password" />
 
                     <TextInput
                         id="password_confirmation"
@@ -93,7 +146,6 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
@@ -104,14 +156,15 @@ export default function Register() {
                         href={route('login')}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        Already registered?
+                        Ya tiene una cuenta?
                     </Link>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
+                        Registrar
                     </PrimaryButton>
                 </div>
             </form>
+            </main>
         </GuestLayout>
     );
 }

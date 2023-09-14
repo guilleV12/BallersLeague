@@ -1,5 +1,8 @@
 import logo from "./Images/TPFL.png";
+import logoSinTxt from "./Images/LogoNoTxt.png";
 
-export default function ApplicationLogo({className='', ...props}) {
-    return <img src={logo} alt="Ballers League logo" title="Ballers League" className={className} {...props}/>
+export default function ApplicationLogo({className='', texto=false, ...props}) {
+    return (
+        <img src={texto?logo:logoSinTxt} alt="Ballers League logo" title="Ballers League" className={className} {...props}/>
+        )
 }

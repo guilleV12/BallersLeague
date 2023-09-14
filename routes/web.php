@@ -3,6 +3,7 @@
 use App\Http\Controllers\LigaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,19 +19,18 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'auth' => Auth::user(),
     ]);
 });
 
 Route::group(['prefix' => 'ligas'], function () {
-    Route::resource('ligas', LigaController::class)
-        ->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
-    Route::get('liga/{liga}', [LigaController::class, 'liga'])
-        ->name('ligas.liga');
+    Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+    Route::get('liga/{liga}', [LigaController::class, 'liga'])->name('ligas.liga');
 });
 
 Route::get('/dashboard', function () {
