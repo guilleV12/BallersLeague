@@ -8,11 +8,17 @@ import { Liga } from '@/Components/Liga'
 const Index = ({auth, user, ligas}) => {
 
   return (
+    <>
+    <Head title="Ligas">
+                        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
+                        </script>
+                        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
+                        </script>
+    </Head>
     <AuthenticatedLayout 
         auth={auth}
         user={user}
     >
-        <Head title='Ligas'/>
         <div className='max-w-2xl mx-auto p-4  sm:p-6 lg:p-8'>
             <div className='mt-6 bg-indigo-400 rounded-lg divide-y-4'>
                 {
@@ -23,6 +29,7 @@ const Index = ({auth, user, ligas}) => {
             </div>
         </div>
     </AuthenticatedLayout>
+    </>
   )
 }
 

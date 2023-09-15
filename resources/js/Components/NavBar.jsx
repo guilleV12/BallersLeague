@@ -27,15 +27,19 @@ const NavBar = ({auth}) => {
                         ${open ? 'top-[100%] opacity-100' : 'top-[-490px]'} md:opacity-100 opacity-0`}>
                             <li className="md:ml-2 ml-1  md:my-0 my-1">
                                 <Link href={route('profile.edit')} alt="Perfil" title="Ir al perfil">
-                                    <PrimaryButton className="py-4 md:w-auto w-full">
-                                        Perfil
+                                    <PrimaryButton className="py-3 md:w-auto w-full rounded-xl">
+                                        <span className="text-2xl text-white">
+                                            <ion-icon name='person-outline'></ion-icon>
+                                        </span>
                                     </PrimaryButton>
                                 </Link>
                             </li>
                             <li className="md:ml-2 ml-1 md:my-0 my-1">
                                 <Link href={route('logout')} method="post" alt="Cerrar sesion" title="Cerrar sesion">
-                                    <PrimaryButton className="py-4 md:w-auto w-full bg-red-500">
-                                        Cerrar sesion
+                                    <PrimaryButton className="py-3 md:w-auto w-full bg-red-500 rounded-xl">
+                                        <span className="text-2xl text-white">
+                                        <ion-icon name='exit-outline'></ion-icon>
+                                        </span>
                                     </PrimaryButton>
                                 </Link>
                             </li>

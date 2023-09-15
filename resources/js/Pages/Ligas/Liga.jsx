@@ -8,6 +8,13 @@ import { Liga } from '@/Components/Liga'
 const MiLiga = ({auth, user, liga}) => {
 
   return (
+    <>
+    <Head title="Ligas">
+                        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
+                        </script>
+                        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
+                        </script>
+    </Head>
     <AuthenticatedLayout 
         auth={auth}
         user={user}
@@ -19,6 +26,7 @@ const MiLiga = ({auth, user, liga}) => {
             </div>
         </div>
     </AuthenticatedLayout>
+    </>
   )
 }
 
