@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArbitroController;
+use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -28,9 +31,22 @@ Route::get('/', function () {
     ]);
 });
 
-Route::group(['prefix' => 'ligas'], function () {
+Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
     Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
-    Route::get('liga/{liga}', [LigaController::class, 'liga'])->name('ligas.liga');
+});
+
+Route::group(['prefix' => 'equipos', 'middleware' => ['auth']], function () {
+    Route::resource('equipos', EquipoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+});
+
+Route::group(['prefix' => 'jugadores', 'middleware' => ['auth']], function () {
+    Route::get('jugadores/{equipo}', [JugadorController::class, 'index'])->name('jugadores.index');
+    Route::resource('jugadores', JugadorController::class)->only(['store', 'update', 'destroy']);
+});
+
+Route::group(['prefix' => 'arbitros', 'middleware' => ['auth']], function () {
+    Route::resource('arbitros', ArbitroController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::patch('arbitros/{arbitro}', [ArbitroController::class, 'aceptar'])->name('arbitros.aceptar');
 });
 
 Route::get('/dashboard', function () {

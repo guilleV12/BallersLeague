@@ -1,18 +1,26 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Link } from '@inertiajs/react';
-import NavBar from '@/Components/NavBar';
-import Footer from '@/Components/Footer';
+import { Head, Link } from '@inertiajs/react';
+import NavBar from '@/Components/Partials/NavBar';
+import Footer from '@/Components/Partials/Footer';
+import SideBar from '@/Components/Partials/SideBar';
 
 export default function Guest({ children }) {
     return (
         <>
-        <div className="relative sm:flex min-h-screen bg-gray-200">
-            <NavBar auth={false}/>  
-                <main className='sm:flex sm:justify-center sm:items-center w-full pt-[13%] md:pt-[10%]'>
+        <Head>
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </Head>
+        <div className="bg-gray-50 dark:bg-slate-900">
+            <NavBar auth={false}/>
+            <SideBar auth={false}/>  
+                <main className='sm:flex sm:justify-center sm:items-center w-full min-h-screen'>
                     {children}
                 </main>
         </div>
         <Footer/>
+        <script src="./node_modules/preline/dist/preline.js"></script>
+        <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         </>
     );
 }

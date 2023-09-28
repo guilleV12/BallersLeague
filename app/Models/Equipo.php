@@ -12,7 +12,8 @@ class Equipo extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'logo'
+        'logo',
+        'liga_id'
     ];
 
     public function liga()

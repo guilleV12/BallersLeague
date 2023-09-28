@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
-import NavBar from '@/Components/NavBar';
-import Footer from '@/Components/Footer';
-import SideBar from '@/Components/SideBar';
+import { Head, Link } from '@inertiajs/react';
+import NavBar from '@/Components/Partials/NavBar';
+import Footer from '@/Components/Partials/Footer';
+import SideBar from '@/Components/Partials/SideBar';
 
-export default function Authenticated({ user, children}) {
+export default function Authenticated({ user, children, classMain}) {
 
     return (
         <>
-        <div className="relative sm:flex min-h-screen bg-gray-200">
+        <Head>
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </Head>
+       <div className="bg-gray-50 dark:bg-slate-900">
             <NavBar auth={user}/>
-            <SideBar/>
-                <main className='flex justify-center items-center w-full pt-[13%] md:pt-[10%]'>
+            <SideBar auth={user}/>  
+                <main className={'sm:flex sm:justify-center sm:items-center w-full min-h-screen '+classMain}>
                     {children}
                 </main>
         </div>
         <Footer/>
+        <script src="./node_modules/preline/dist/preline.js"></script>
+        <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
         </>
     );
 }

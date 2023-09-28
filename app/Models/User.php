@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function ligas()
     {
-        return $this->hasMany(Liga::class);
+        return $this->hasOne(Liga::class);
     }
 
     public function arbitro()

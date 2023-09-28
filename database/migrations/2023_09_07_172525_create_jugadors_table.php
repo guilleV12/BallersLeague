@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->binary('foto_perfil');
-            $table->foreignId('equipo_id')->constrained('equipos','id');
+            $table->foreignId('equipo_id')->constrained('equipos','id')->onDelete('cascade');
             $table->timestamps();
         });
     }

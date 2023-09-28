@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('liga_id')->constrained('ligas','id');
+            $table->foreignId('liga_id')->constrained('ligas','id')->onDelete('cascade');
             $table->string('nombre');
             $table->string('descripcion');
             $table->binary('logo');

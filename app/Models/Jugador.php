@@ -14,7 +14,7 @@ class Jugador extends Model
         'apellido',
         'dni',
         'foto_perfil',
-        'posicion'
+        'equipo_id',
     ];
 
     public function equipo()

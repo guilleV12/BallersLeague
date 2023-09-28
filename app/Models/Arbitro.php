@@ -9,6 +9,12 @@ class Arbitro extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id_user',
+        'id_liga',
+        'confirmado',
+    ];
+
     public function user()
     {
         return $this->hasOne(User::class);

@@ -1,32 +1,23 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import InputError from '@/Components/InputError'
-import PrimaryButton from '@/Components/PrimaryButton'
-import { useForm, Head } from '@inertiajs/react'
-import { Liga } from '@/Components/Liga'
+import TablaPaginada from '@/Components/Liga/TablaPaginada'
+import { Head } from '@inertiajs/react'
+import { CardCrear } from '@/Components/CardCrear'
 
-const Index = ({auth, user, ligas}) => {
+
+const Index = ({ user, ligas, success, users }) => {
 
   return (
     <>
-    <Head title="Ligas">
-                        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
-                        </script>
-                        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
-                        </script>
-    </Head>
-    <AuthenticatedLayout 
-        auth={auth}
-        user={user}
-    >
-        <div className='max-w-2xl mx-auto p-4  sm:p-6 lg:p-8'>
-            <div className='mt-6 bg-indigo-400 rounded-lg divide-y-4'>
-                {
-                    ligas.map( liga =>
-                        <Liga key={liga.id} liga={liga}/>
-                        )
-                }
-            </div>
+    <Head title="Ligas"/>
+    <AuthenticatedLayout user={user} classMain={(ligas.length == 0) ? `bg-black` : ``}>
+        <div className='flex justify-center w-2/3'>
+            {success ? (
+              <CardCrear children={success}/>
+            ):(
+              ''
+            )}
+            <TablaPaginada data={ligas} user={user} users={users} className=' w-[70%]'/>          
         </div>
     </AuthenticatedLayout>
     </>

@@ -37,7 +37,7 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <main className='flex justify-center my-[10%]'>
+            <main className='flex justify-center my-[3%]'>
             <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 pb-20 rounded-lg shadow-xl'>
                 <ApplicationLogo className='m-0' texto={false}/>
                 <div>

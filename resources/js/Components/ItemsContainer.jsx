@@ -1,6 +1,6 @@
 import React from 'react'
 import { Item } from './Item'
-import { InfoContacto, NavegacionNoAuth, RedesSociales } from './Footer/menu'
+import { InfoContacto, NavegacionNoAuth, RedesSociales } from './Partials/menu'
 
 export const ItemsContainer = () => {
   return (

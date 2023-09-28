@@ -5,8 +5,8 @@ import PrimaryButton from '@/Components/PrimaryButton'
 import { useForm, Head } from '@inertiajs/react'
 import { Liga } from '@/Components/Liga'
 
-const MiLiga = ({auth, user, liga}) => {
-
+const MiLiga = ({auth, user, ligas}) => {
+  console.log(ligas);
   return (
     <>
     <Head title="Ligas">
@@ -18,13 +18,13 @@ const MiLiga = ({auth, user, liga}) => {
     <AuthenticatedLayout 
         auth={auth}
         user={user}
-    >
-        <Head title='Ligas'/>
+        children={
         <div className='max-w-2xl mx-auto p-4  sm:p-6 lg:p-8'>
             <div className='mt-6 bg-indigo-400 rounded-lg divide-y-4'>
-                <p>{liga.name}</p>
+                
             </div>
         </div>
+        }>
     </AuthenticatedLayout>
     </>
   )
