@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('jugadors', function (Blueprint $table) {
             $table->id();
-            $table->string('dni')->unique();
+            $table->string('dni');
             $table->string('nombre');
             $table->string('apellido');
+            $table->date('fecha_nacimiento');
             $table->binary('foto_perfil');
             $table->foreignId('equipo_id')->constrained('equipos','id')->onDelete('cascade');
             $table->timestamps();

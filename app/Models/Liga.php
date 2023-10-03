@@ -13,7 +13,8 @@ class Liga extends Model
         'nombre',
         'descripcion',
         'ubicacion',
-        'logo'
+        'logo',
+        'categoria'
     ];
 
     public function user()

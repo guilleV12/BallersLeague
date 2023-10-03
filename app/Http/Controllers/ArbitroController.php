@@ -28,29 +28,27 @@ class ArbitroController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'email' => 'required|exists:users,email',
             'id_liga' => 'required|exists:ligas,id',
         ]);
+
         $usuario = User::where('email',$validated['email'])->get();
         $liga = Liga::where('id',$validated['id_liga'])->get();
+
         $arbitro = new Arbitro([
             'id_user'=>$usuario[0]->id,
             'id_liga'=>$validated['id_liga'],
             'confirmado'=>false,
         ]);
+
         (Mail::to($validated['email'])->send(new InvitacionArbitro($usuario[0], $liga[0])));
+
         $arbitro->save();
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Arbitro $arbitro)
     {
     }
@@ -59,31 +57,20 @@ class ArbitroController extends Controller
     {
         $arbitro->confirmado = true;
         $arbitro->save();
-        return back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Arbitro $arbitro)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Arbitro $arbitro)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Arbitro $arbitro)
     {
         $arbitro->delete();
-        return back()->with('success', 'Liga eliminada exitosamente.');
     }
 }

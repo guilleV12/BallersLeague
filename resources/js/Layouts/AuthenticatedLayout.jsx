@@ -4,7 +4,7 @@ import NavBar from '@/Components/Partials/NavBar';
 import Footer from '@/Components/Partials/Footer';
 import SideBar from '@/Components/Partials/SideBar';
 
-export default function Authenticated({ user, children, classMain}) {
+export default function Authenticated({ user, children, classMain, miLiga}) {
 
     return (
         <>
@@ -14,7 +14,7 @@ export default function Authenticated({ user, children, classMain}) {
         </Head>
        <div className="bg-gray-50 dark:bg-slate-900">
             <NavBar auth={user}/>
-            <SideBar auth={user}/>  
+            <SideBar auth={user} miLiga={miLiga}/>  
                 <main className={'sm:flex sm:justify-center sm:items-center w-full min-h-screen '+classMain}>
                     {children}
                 </main>

@@ -42,10 +42,10 @@ const NavBar = ({auth}) => {
                                     </Dropdown.Trigger>
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('profile.edit')}>
-                                            Perfil
+                                            <PrimaryButton className="flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full">Perfil</PrimaryButton>
                                         </Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method='post'>
-                                            Cerrar sesion
+                                            <PrimaryButton className="flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full">Cerrar sesion</PrimaryButton>
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

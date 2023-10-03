@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import Alert from '@/Components/Alerts/Alert';
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
@@ -21,7 +21,7 @@ export default function UpdatePasswordForm({ className = '' }) {
 
         put(route('password.update'), {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {reset(); setShowAlert(true)},
             onError: (errors) => {
                 if (errors.password) {
                     reset('password', 'password_confirmation');
@@ -36,13 +36,18 @@ export default function UpdatePasswordForm({ className = '' }) {
         });
     };
 
+    const [showAlert, setShowAlert] = useState(false);
+    const closeAlert = () => {
+        setShowAlert(false);
+    };
+
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
+                <h2 className="text-lg font-medium text-gray-900">Actualizar Password</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay secure.
+                    Su password debe contener al menos 8 caracteres.
                 </p>
             </header>
 
@@ -95,17 +100,9 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Guardar</PrimaryButton>
 
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
+                    {showAlert &&(<Alert titulo={'Password cambiada con exito!'} texto={''} tiempo={3000} icono={'success'} showAlert={showAlert} closeAlert={closeAlert}/>)}
                 </div>
             </form>
         </section>

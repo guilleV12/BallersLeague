@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import TablaJugadores from './TablaJugadores';
 
 const TablaPaginadaJugadores = ({ liga, user, jugadores, equipo, isAnadirJugadorOpen, openAnadirJugadorModal, closeAnadirJugadorModal, openEditarJugadorModal,
-closeEditarJugadorModal, isEditarJugadorOpen, jugadorEditar, openEliminarJugadorModal, closeEliminarJugadorModal, isEliminarJugadorOpen, jugadorEliminar, handleDelete }) => {
+closeEditarJugadorModal, isEditarJugadorOpen, jugadorEditar, openEliminarJugadorModal, closeEliminarJugadorModal, isEliminarJugadorOpen, jugadorEliminar, handleDelete, setShowAlert, setTituloAlert }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -24,7 +24,7 @@ closeEditarJugadorModal, isEditarJugadorOpen, jugadorEditar, openEliminarJugador
       <TablaJugadores liga={liga} user={user} jugadores={currentData} equipo={equipo} isAnadirJugadorOpen={isAnadirJugadorOpen} openAnadirJugadorModal={openAnadirJugadorModal}
        closeAnadirJugadorModal={closeAnadirJugadorModal} openEditarJugadorModal={openEditarJugadorModal} closeEditarJugadorModal={closeEditarJugadorModal}
        isEditarJugadorOpen={isEditarJugadorOpen} jugadorEditar={jugadorEditar} openEliminarJugadorModal={openEliminarJugadorModal} closeEliminarJugadorModal={closeEliminarJugadorModal} 
-       isEliminarJugadorOpen={isEliminarJugadorOpen} jugadorEliminar={jugadorEliminar} handleDelete={handleDelete}/>
+       isEliminarJugadorOpen={isEliminarJugadorOpen} jugadorEliminar={jugadorEliminar} handleDelete={handleDelete} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
       <div className="flex flex-col mt-10 items-center">
         {/* Texto de ayuda */}
         <span className="text-lg text-gray-700 dark:text-gray-400">

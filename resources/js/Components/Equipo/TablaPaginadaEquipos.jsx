@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import TablaEquipos from './TablaEquipos';
 
-const TablaPaginadaEquipos = ({ liga, user, equipos, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, handleDelete,
-    closeEditarEquipoModal, closeDeleteModal, }) => {
+const TablaPaginadaEquipos = ({ liga, user, equipos, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, handleDelete, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -21,9 +20,7 @@ const TablaPaginadaEquipos = ({ liga, user, equipos, openEditarEquipoModal, open
 
   return (
     <div>
-      <TablaEquipos liga={liga} user={user} equipos={currentData} openEditarEquipoModal={openEditarEquipoModal} openDeleteModal={openDeleteModal} equipoEditar={equipoEditar} 
-        equipoEliminar={equipoEliminar} isDeleteModalOpen={isDeleteModalOpen} isEditarModalOpen={isEditarModalOpen} handleDelete={handleDelete} 
-        closeEditarEquipoModal={closeEditarEquipoModal} closeDeleteModal={closeDeleteModal} />
+      <TablaEquipos liga={liga} user={user} equipos={currentData} openEditarEquipoModal={openEditarEquipoModal} openDeleteModal={openDeleteModal} equipoEditar={equipoEditar} equipoEliminar={equipoEliminar} isDeleteModalOpen={isDeleteModalOpen} isEditarModalOpen={isEditarModalOpen} handleDelete={handleDelete} closeEditarEquipoModal={closeEditarEquipoModal} closeDeleteModal={closeDeleteModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
       <div className="flex flex-col mt-10 items-center">
         {/* Texto de ayuda */}
         <span className="text-lg text-gray-700 dark:text-gray-400">

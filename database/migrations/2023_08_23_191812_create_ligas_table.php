@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('ubicacion');
             $table->binary('logo');
+            $table->string('categoria');
             $table->timestamps();
         });
     }

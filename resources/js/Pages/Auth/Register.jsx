@@ -38,8 +38,8 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
             <main className='flex justify-center my-[3%]'>
-            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 pb-20 rounded-lg shadow-xl'>
-                <ApplicationLogo className='m-0' texto={false}/>
+            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 py-10 rounded-lg shadow-lg'>
+                <ApplicationLogo className='m-0' texto={true}/>
                 <div>
                     <InputLabel htmlFor="nombre" value="Nombre" />
 

@@ -9,8 +9,7 @@ export const CardInfo = ({ tipo, user }) => {
         }
       };
   return (
-    <div ref={alerta} id="alert-additional-content-4" className={`p-4
-     ${tipo === 'info' ? 
+    <div ref={alerta} id="alert-additional-content-4" className={`px-4 py-10 ${tipo === 'info' ? 
      (`text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:text-yellow-300 dark:border-yellow-800`) : 
      (tipo === 'bienvenido' ? 
      (`text-green-800 border border-green-300 rounded-lg bg-green-50`) : 

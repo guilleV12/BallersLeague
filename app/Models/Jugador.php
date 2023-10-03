@@ -13,6 +13,7 @@ class Jugador extends Model
         'nombre',
         'apellido',
         'dni',
+        'fecha_nacimiento',
         'foto_perfil',
         'equipo_id',
     ];

@@ -19,7 +19,8 @@ class LigaSeeder extends Seeder
             'nombre' => 'Pagame juga y no te quejes',
             'descripcion' => 'Liga donde se paga, si no cumplis te sancionan, pero si ellos no cumplen te aguantas.',
             'ubicacion' => 'Neuquen Capital',
-            'logo' => 'images/LigaLogo1.png',
+            'logo' => 'LigaLogo1.png',
+            'categoria' => 'Mayores',
         ];
 
         Liga::create($liga1);

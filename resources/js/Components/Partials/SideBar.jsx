@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BreadCrumb from '../BreadCrumb';
 import ResponsiveToggleSB from '../ResponsiveToggleSB';
 import ApplicationLogo from '../ApplicationLogo';
 import Dropdown from '../Dropdown';
 import PrimaryButton from '../PrimaryButton';
 
-export const SideBar = ({auth}) => {
+export const SideBar = ({ auth, miLiga }) => {
     return (
         <>
         <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden dark:bg-gray-800 dark:border-gray-700">
@@ -51,12 +51,15 @@ export const SideBar = ({auth}) => {
                             <Dropdown.Link href={route('ligas.index')}>
                                 <PrimaryButton className='flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full'>Ver todas</PrimaryButton>
                             </Dropdown.Link>
-                            <Dropdown.Link href={route('ligas.show',[auth.id])}>
-                                <PrimaryButton className='flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full'>Mi liga</PrimaryButton>
-                            </Dropdown.Link>
-                            <Dropdown.Link href={route('ligas.create')}>
-                                <PrimaryButton className='flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full'>Crear liga</PrimaryButton>
-                            </Dropdown.Link>
+                                {(miLiga[0]) ? (
+                                    <Dropdown.Link href={route('ligas.show',[auth.id])}>
+                                        <PrimaryButton className='flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full'>Mi liga</PrimaryButton>
+                                    </Dropdown.Link>
+                                ) : (
+                                    <Dropdown.Link href={route('ligas.create')}>
+                                        <PrimaryButton className='flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full'>Crear liga</PrimaryButton>
+                                    </Dropdown.Link>
+                                )}
                             
                         </Dropdown.Content>
                     </Dropdown>

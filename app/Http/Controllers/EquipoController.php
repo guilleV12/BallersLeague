@@ -24,71 +24,61 @@ class EquipoController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:100',
+            'nombre' => 'required|string|max:100|unique:equipos,nombre',
             'descripcion' => 'required|string|max:255',
             'logo' => 'required|file|mimes:png|max:2048',
             'liga_id' => 'required|exists:ligas,id',
         ]);
-            $filename = 'logo_equipo_'.$validated['nombre'].'_user_'.$request->user()->id.'.png';
-            $validated['logo']->move(public_path('images'),$filename);
-            $validated['logo'] = $filename;
-            $equipo = new Equipo([
-                'nombre' => $validated['nombre'],
-                'descripcion' => $validated['descripcion'],
-                'logo' => $validated['logo'],
-                'liga_id' => $validated['liga_id'],
-            ]);
-            $equipo->save();    
-            return back()->with('success', 'Equipo agregado exitosamente.');
+
+        $filename = 'logo_equipo_'.$validated['nombre'].'_user_'.$request->user()->id.'.png';
+        $validated['logo']->move(public_path('images'),$filename);
+        $validated['logo'] = $filename;
+        $equipo = new Equipo([
+            'nombre' => $validated['nombre'],
+            'descripcion' => $validated['descripcion'],
+            'logo' => $validated['logo'],
+            'liga_id' => $validated['liga_id'],
+        ]);
+
+        $equipo->save();    
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Equipo $equipo)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Equipo $equipo)
     {
         
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Equipo $equipo)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255|unique:equipos,nombre,'.$equipo->id,
             'descripcion' => 'required|string|max:255',
             'logo' => 'image|mimes:png|max:2048',
         ]);
+
         $equipo->nombre = $request->nombre;
         $equipo->descripcion = $request->descripcion;
+
         if ($request->logo){
             Storage::disk('local')->delete('public/images/'.$equipo->logo);
             $filename = 'logo_equipo_'.$validated['nombre'].'_user_'.$request->user()->id.'.png';
             $validated['logo']->move(public_path('images'),$filename);
             $equipo->logo = $filename;
-        }
+        };
+
         $equipo->save();
-        return back()->with('success', 'El equipo se ha actualizado correctamente');
     }
 
     public function destroy(Equipo $equipo)
     {
         $equipo->delete();
-        return back()->with('success', 'Liga eliminada exitosamente.');
     }
 }

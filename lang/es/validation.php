@@ -2,16 +2,6 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
 
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es una URL válida.',
@@ -22,7 +12,7 @@ return [
     'alpha_num'            => 'El campo :attribute solo puede contener letras y números.',
     'array'                => 'El campo :attribute debe ser un array.',
     'before'               => 'El campo :attribute debe ser una fecha anterior a :date.',
-    'before_or_equal'      => 'El campo :attribute debe ser una fecha anterior o igual a :date.',
+    'before_or_equal'      => 'El jugador debe ser de la categoria correspondiente a la liga.',
     'between'              => [
         'numeric' => 'El campo :attribute debe ser un valor entre :min y :max.',
         'file'    => 'El archivo :attribute debe pesar entre :min y :max kilobytes.',
@@ -41,7 +31,7 @@ return [
     'distinct'             => 'El campo :attribute tiene un valor duplicado.',
     'email'                => 'El campo :attribute debe ser una dirección de correo válida.',
     'ends_with'            => 'El campo :attribute debe finalizar con alguno de los siguientes valores: :values',
-    'exists'               => 'El campo :attribute seleccionado no existe.',
+    'exists'               => 'El :attribute ingresado no esta registrado en Ballers League.',
     'file'                 => 'El campo :attribute debe ser un archivo.',
     'filled'               => 'El campo :attribute debe tener un valor.',
     'gt'                   => [

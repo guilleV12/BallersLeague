@@ -19,12 +19,14 @@ class LigaController extends Controller
             'user'=>Auth::user(),
             'ligas'=>Liga::all(),
             'users'=>User::all(),
+            'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
         ]);
     }
 
     public function create()
     {
         $user = User::find(Auth::user()->id);
+        
         return Inertia::render('Ligas/Create', [
             'user'=>$user,
             'liga'=>Liga::where('user_id',$user->id)->get(),
@@ -38,18 +40,29 @@ class LigaController extends Controller
             'descripcion' => 'required|string|max:255',
             'ubicacion' => 'required|string|max:255',
             'logo' => 'required|file|mimes:png|max:2048',
+            'categoria' => 'required|string',
         ]);
+
             $filename = 'logo_liga_usuario' . $request->user()->id . '.png';
             $validated['logo']->move(public_path('images'),$filename);
             $validated['logo'] = $filename;
             $request->user()->ligas()->create($validated);
-            return redirect(route('ligas.index'))->with('success', 'Liga creada exitosamente.');
+
+            return Inertia::render('Ligas/Index', [
+                'user'=>Auth::user(),
+                'ligas'=>Liga::all(),
+                'users'=>User::all(),
+                'tituloAlert'=>'Liga creada con exito!',
+                'activarAlert'=>true,
+                'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+            ]);
     }
     
 
     public function show(Request $request, $user)
     {
         $liga = Liga::where('user_id',$user)->get();
+        
         if (count($liga)>0){
             $equipos = Equipo::where('liga_id',$liga[0]->id)->get();
             return Inertia::render('Ligas/Show', [
@@ -59,13 +72,13 @@ class LigaController extends Controller
                 'userAdmin'=>( count($liga)>0 )?( User::where('id',$liga[0]->user_id)->get() ):( null ),
                 'arbitros'=>Arbitro::where('id_liga',$liga[0]->id)->get(),
                 'users'=>User::all(),
+                'miLiga'=>Liga::where('user_id', Auth::user()->id)->get(),
             ]);
         }else{
-            return Inertia::render('Ligas/Create', [
+            return Inertia::render('Ligas/Show', [
                 'user'=>Auth::user(),
-                'liga'=>(-1),
-                'equipos'=>null,
-                'userAdmin'=>null,
+                'liga'=>$liga,
+                'miLiga'=>$liga,
             ]);
         }
         
@@ -78,24 +91,36 @@ class LigaController extends Controller
             'descripcion' => 'required|string',
             'ubicacion' => 'required|string|max:255',
             'logo' => 'image|mimes:png|max:2048',
+            'categoria' => 'required|string',
         ]);
+
         $liga->nombre = $request->nombre;
         $liga->descripcion = $request->descripcion;
         $liga->ubicacion = $request->ubicacion;
+        $liga->categoria = $request->categoria;
+
         if ($request->logo){
             Storage::disk('local')->delete('public/images/'.$liga->logo);
             $filename = 'logo_liga_usuario' . $request->user()->id . '.png';
             $validated['logo']->move(public_path('images'),$filename);
             $liga->logo = $filename;
         }
+
         $liga->save();
-        return back()->with('success', 'La liga se ha actualizado correctamente');
     }
     
 
     public function destroy(Liga $liga)
     {
         $liga->delete();
-        return redirect(route('ligas.index'))->with('success', 'Liga eliminada exitosamente.');
+
+        return Inertia::render('Ligas/Index', [
+            'user'=>Auth::user(),
+            'ligas'=>Liga::all(),
+            'users'=>User::all(),
+            'tituloAlert'=>'Liga eliminada con exito!',
+            'activarAlert'=>true,
+            'miLiga'=>Liga::where('user_id',Auth::user()->id),
+        ]);    
     }
 }

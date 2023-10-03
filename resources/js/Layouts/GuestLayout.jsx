@@ -4,7 +4,7 @@ import NavBar from '@/Components/Partials/NavBar';
 import Footer from '@/Components/Partials/Footer';
 import SideBar from '@/Components/Partials/SideBar';
 
-export default function Guest({ children }) {
+export default function Guest({ children, liga }) {
     return (
         <>
         <Head>
@@ -13,7 +13,7 @@ export default function Guest({ children }) {
         </Head>
         <div className="bg-gray-50 dark:bg-slate-900">
             <NavBar auth={false}/>
-            <SideBar auth={false}/>  
+            <SideBar auth={false} liga={liga} miLiga={false}/>  
                 <main className='sm:flex sm:justify-center sm:items-center w-full min-h-screen'>
                     {children}
                 </main>

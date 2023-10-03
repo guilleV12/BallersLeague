@@ -3,47 +3,72 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 import { Transition } from '@headlessui/react';
+import Alert from '@/Components/Alerts/Alert';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        name: user.name,
+        nombre: user.nombre,
+        apellido: user.apellido,
         email: user.email,
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        patch(route('profile.update'),{
+            onSuccess: () => {setShowAlert(true)},
+        });
+    };
+
+    const [showAlert, setShowAlert] = useState(false);
+    const closeAlert = () => {
+        setShowAlert(false);
     };
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+                <h2 className="text-lg font-medium text-gray-900">Informacion de perfil</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
+                    Actualizar informacion de perfil.
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="nombre" value="Nombre" />
 
                     <TextInput
-                        id="name"
+                        id="nombre"
                         className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.nombre}
+                        onChange={(e) => setData('nombre', e.target.value)}
                         required
                         isFocused
-                        autoComplete="name"
+                        autoComplete="nombre"
                     />
 
-                    <InputError className="mt-2" message={errors.name} />
+                    <InputError className="mt-2" message={errors.nombre} />
+                </div>
+
+                <div>
+                    <InputLabel htmlFor="apellido" value="Apellido" />
+
+                    <TextInput
+                        id="apellido"
+                        className="mt-1 block w-full"
+                        value={data.apellido}
+                        onChange={(e) => setData('apellido', e.target.value)}
+                        required
+                        autoComplete="apellido"
+                    />
+
+                    <InputError className="mt-2" message={errors.apellido} />
                 </div>
 
                 <div>
@@ -61,6 +86,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
+                {showAlert &&(<Alert titulo={'Perfil actualizado con exito!'} texto={''} tiempo={3000} icono={'success'} showAlert={showAlert} closeAlert={closeAlert}/>)}
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
