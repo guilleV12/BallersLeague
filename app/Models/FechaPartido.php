@@ -11,7 +11,12 @@ class FechaPartido extends Model
 
     protected $fillable = [
         'hora',
-        'fecha'
+        'fecha',
+        'calendario_id',
+        'equipo_1',
+        'equipo_2',
+        'arbitro_1',
+        'arbitro_2',
     ];
 
     public function equipos()

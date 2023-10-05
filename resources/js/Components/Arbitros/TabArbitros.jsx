@@ -37,7 +37,7 @@ export const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setSho
         {isDeleteModalOpen === true ? (
             <ModalEliminarArbitro arbitro={arbitroEliminar} user={user} onDelete={closeDeleteModal} onCancel={closeDeleteModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
         ):('')}
-        <table className="text-sm text-gray-500 dark:text-gray-400 w-full">
+        <table className="text-sm text-gray-500 dark:text-gray-400 w-full h-min-screen">
             <thead className=" text-lg text-left font-bold text-white uppercase bg-black dark:bg-gray-700 dark:text-gray-400">
                 <tr className='grid grid-cols-5'>
                   <th scope="col" className="px-6 py-1">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArbitroController;
+use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
@@ -45,6 +46,10 @@ Route::group(['prefix' => 'jugadores', 'middleware' => ['auth']], function () {
 Route::group(['prefix' => 'arbitros', 'middleware' => ['auth']], function () {
     Route::resource('arbitros', ArbitroController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::patch('arbitros/{arbitro}', [ArbitroController::class, 'aceptar'])->name('arbitros.aceptar');
+});
+
+Route::group(['prefix' => 'calendario', 'middleware' => ['auth']], function () {
+    Route::resource('calendario', CalendarioController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::get('/dashboard', function () {

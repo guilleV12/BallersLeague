@@ -27,7 +27,7 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:100|unique:equipos,nombre',
+            'nombre' => 'required|string|max:100|unique:equipos,nombre,NULL,id,liga_id,' . $request->liga_id,
             'descripcion' => 'required|string|max:255',
             'logo' => 'required|file|mimes:png|max:2048',
             'liga_id' => 'required|exists:ligas,id',
@@ -59,7 +59,7 @@ class EquipoController extends Controller
     public function update(Request $request, Equipo $equipo)
     {
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255|unique:equipos,nombre,'.$equipo->id,
+            'nombre' => 'required|string|max:100|unique:equipos,nombre,'.$equipo->id.',id,liga_id,' . $request->liga_id,
             'descripcion' => 'required|string|max:255',
             'logo' => 'image|mimes:png|max:2048',
         ]);

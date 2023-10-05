@@ -4,7 +4,7 @@ import ModalEliminarEquipo from './ModalEliminarEquipo';
 import PrimaryButton from '../PrimaryButton';
 import Dropdown from '../Dropdown';
 
-const TablaEquipos = ({ liga, user, equipos, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
+const TablaEquipos = ({ fechas, liga, user, equipos, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
   return (
     <>
     <table className="text-sm text-gray-500 dark:text-gray-400 w-full">
@@ -64,7 +64,7 @@ const TablaEquipos = ({ liga, user, equipos, openEditarEquipoModal, openDeleteMo
               ))}
           </tbody>
     </table>
-      {isDeleteModalOpen &&(<ModalEliminarEquipo equipo={equipoEliminar} onCancel={closeDeleteModal} onDelete={closeDeleteModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
+      {isDeleteModalOpen &&(<ModalEliminarEquipo fechas={fechas} equipo={equipoEliminar} onCancel={closeDeleteModal} onDelete={closeDeleteModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
       {isEditarModalOpen&& (<ModalEquipo equipo={equipoEditar} liga={liga} onCancel={closeEditarEquipoModal} onAdd={closeEditarEquipoModal} onEdit={closeEditarEquipoModal} className={''} accion={'editar'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
     </>
   );

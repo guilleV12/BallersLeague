@@ -10,8 +10,9 @@ import { ModalAddArbitro } from './ModalAddArbitro';
 import { TabArbitros } from '../Arbitros/TabArbitros';
 import Alert from '../Alerts/Alert';
 import TabFixture from '../Fixture/TabFixture';
+import { ModalGenerarFixture } from '../Fixture/ModalGenerarFixture';
 
-export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users }) => {
+export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, calendario, fechas }) => {
   const [activeTab, setActiveTab] = useState('liga'); // Tab inicialmente activo
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // State to manage the delete modal
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State to manage the delete modal
@@ -112,6 +113,7 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users }
           {isDeleteModalOpen &&(<ModalEliminarLiga onDelete={closeDeleteModal} onCancel={closeDeleteModal} className={'pointer-events-auto'} liga={liga} /> )}
           {isEditModalOpen &&(<CardEditarLiga setTituloAlert={setTituloAlert} user={user} liga={liga} onCancel={closeEditModal} onEdit={closeEditModal} className={'pointer-events-auto'} setShowAlert={setShowAlert}/>)}
           {isAnadirArbitroModalOpen &&(<ModalAddArbitro liga={liga} accion={'agregar'} onCancel={closeAnadirArbitroModal} onAdd={closeAnadirArbitroModal} className={'pointer-events-auto'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
+          {isGenerarFixtureOpen &&(<ModalGenerarFixture equipos={equipos} calendario={calendario} fechas={fechas} liga={liga} closeGenerarFixtureModal={closeGenerarFixtureModal}/>)}
           <div id="defaultTabContent">
               <div className={`${activeTab === 'liga' ? 'block' : 'hidden'} p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800`} id="liga" role="tabpanel" aria-labelledby="liga-tab">
                   <TabInfoLiga liga={liga} user={user} userAdmin={userAdmin}/>
@@ -120,13 +122,13 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users }
                     <CardEstadisticasLiga liga={liga} user={user}/>
               </div>
               <div className={`${activeTab === 'equipos' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="equipos" role="tabpanel" aria-labelledby="equipos-tab">
-                    <CardEquipos user={user} liga={liga} equipos={equipos} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
+                    <CardEquipos fechas={fechas} user={user} liga={liga} equipos={equipos} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
               </div>
               <div className={`${activeTab === 'arbitros' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="arbitros" role="tabpanel" aria-labelledby="arbitros-tab">
                     <TabArbitros arbitros={arbitros} liga={liga} users={users} userAdmin={userAdmin} userAuth={user} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
               </div>
               <div className={`${activeTab === 'fixture' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="fixture" role="tabpanel" aria-labelledby="fixture-tab">
-                    <TabFixture/>
+                    <TabFixture calendario={calendario} fechas={fechas} equipos={equipos} arbitros={arbitros}/>
               </div>
           </div>
           {showAlert &&(<Alert titulo={tituloAlert} texto={''} tiempo={3000} showAlert={showAlert} icono={'success'} closeAlert={closeAlert}/>)}

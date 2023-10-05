@@ -28,7 +28,7 @@ class FechaPartidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

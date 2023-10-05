@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Arbitro;
+use App\Models\Calendario;
 use App\Models\Equipo;
+use App\Models\FechaPartido;
 use App\Models\Liga;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,6 +64,7 @@ class LigaController extends Controller
     public function show(Request $request, $user)
     {
         $liga = Liga::where('user_id',$user)->get();
+        $calendario = Calendario::where('liga_id',$liga[0]->id)->first();
         
         if (count($liga)>0){
             $equipos = Equipo::where('liga_id',$liga[0]->id)->get();
@@ -73,6 +76,8 @@ class LigaController extends Controller
                 'arbitros'=>Arbitro::where('id_liga',$liga[0]->id)->get(),
                 'users'=>User::all(),
                 'miLiga'=>Liga::where('user_id', Auth::user()->id)->get(),
+                'calendario'=>$calendario,
+                'fechas' =>$calendario ? FechaPartido::where('calendario_id', $calendario->id)->get() : null,
             ]);
         }else{
             return Inertia::render('Ligas/Show', [

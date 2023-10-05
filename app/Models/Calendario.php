@@ -11,7 +11,8 @@ class Calendario extends Model
 
     protected $fillable = [
         'fecha_inicial',
-        'fecha_final'
+        'fecha_final',
+        'liga_id',
     ];
 
     public function liga()
