@@ -30,10 +30,10 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-            <main className='flex justify-center'>
+            <main className='flex justify-center ml-[10%]'>
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 pb-20 rounded-lg shadow-xl'>
+            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 py-10 rounded-lg shadow-xl'>
                 <ApplicationLogo className='m-0 pl-1' texto={true}/>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />

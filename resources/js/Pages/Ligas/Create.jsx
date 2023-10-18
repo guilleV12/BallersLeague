@@ -28,7 +28,7 @@ const Create = ({ user, liga }) => {
     <>
     <Head title='Crear liga'/>
     <AuthenticatedLayout user={user} liga={liga} miLiga={liga}>
-        <main className='grid grid-cols-1 lg:pb-[9%] mt-5'>
+        <main className='grid grid-cols-1 lg:pb-[9%] mt-5 ml-[10%]'>
         {(liga[0]) ? ( 
                     <AlertRedireccion titulo={'Solo puede tener una liga activa a la vez! Sera redirigido a su liga'} texto={''} tiempo={3500} icono={'error'} redirectUrl={route('ligas.show',user.id)}/>
             ) : (

@@ -17,7 +17,7 @@ const Index = ({ user, ligas, users, tituloAlert, activarAlert, miLiga }) => {
     <AuthenticatedLayout user={user} miLiga={miLiga}>
         <div className='flex justify-center w-2/3'>
             {showAlert &&(<Alert titulo={tituloAlert?tituloAlert:''} texto={''} tiempo={3000} showAlert={showAlert} icono={'success'} closeAlert={closeAlert}></Alert>)}
-            <TablaPaginada data={ligas} user={user} users={users} className=' w-[70%]'/>          
+            <TablaPaginada data={ligas} user={user} users={users} className=' w-[70%] ml-[10%] '/>          
         </div>
     </AuthenticatedLayout>
     </>

@@ -7,11 +7,11 @@ import Dropdown from '../Dropdown';
 const TablaEquipos = ({ fechas, liga, user, equipos, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
   return (
     <>
-    <table className="text-sm text-gray-500 dark:text-gray-400 w-full">
-          <thead className="text-lg text-left font-bold text-white uppercase bg-black dark:bg-gray-700 dark:text-gray-400">
+    <table className="text-md text-gray-500 dark:text-gray-400 w-full">
+          <thead className=" text-left font-semibold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
               <tr className='grid grid-cols-5'>
                 <th scope="col" className="flex justify-center py-1">
-                  Logo
+                  
                 </th>
                 <th scope="col" className="px-6 py-1">
                   Nombre
@@ -23,24 +23,25 @@ const TablaEquipos = ({ fechas, liga, user, equipos, openEditarEquipoModal, open
                   Jugadores
                 </th>
                 <th scope="col" className='px-6 py-1 flex justify-end'>
-                  {equipos.length > 0 && liga.user_id === user.id ? ('Opciones') : 'Accion'}
+                  Accion
                 </th>
               </tr>
           </thead>
           <tbody>
               {equipos.map((equipo) => (
                 <tr key={equipo.id} className="bg-white border-b grid grid-cols-5 dark:bg-gray-900 dark:border-gray-700">
-                    <td className="px-6 text-lg py-4"><img src={`/images/${equipo.logo}?${new Date().getTime()}`}></img></td>
-                    <td scope="row" className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white overflow-hidden">
+                    <td className="px-6 py-4"><img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-32 w-32'></img></td>
+                    <td scope="row" className="flex items-center px-6 py-4  text-gray-900 dark:text-white">
                       {equipo.nombre}
                     </td>
-                    <td className="flex px-6 text-lg py-4 items-center font-medium text-gray-900 whitespace-nowrap overflow-hidden">{equipo.descripcion}</td>
-                    <td className='pt-2 pr-5 text-lg flex items-center '>
+                    <td className="flex px-6 py-4 items-center text-gray-900">{equipo.descripcion}</td>
+                    <td className='pt-2 pr-5 flex items-center justify-center'>
                         <a href={route('jugadores.index',equipo.id)}>
-                            <PrimaryButton className='flex justify-center bg-orange-500 text-xl mt-1 hover:bg-orange-600 hover:text-white w-full'>Lista de jugadores</PrimaryButton>
+                            <PrimaryButton className='flex justify-center bg-orange-500 text-xl mt-1 hover:bg-orange-600 hover:text-white w-full'>jugadores</PrimaryButton>
                         </a>       
                     </td>
-                    <td className='pt-2 pr-5 text-lg flex justify-end '>
+                    <td className='pt-2 pr-5 flex justify-end items-center'>
+                      {liga.user_id === user.id &&(
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <span className='text-3xl text-orange-500 font-bold hover:cursor-pointer'>
@@ -58,7 +59,8 @@ const TablaEquipos = ({ fechas, liga, user, equipos, openEditarEquipoModal, open
                                    
                                 </ul>
                             </Dropdown.Content>
-                        </Dropdown>              
+                        </Dropdown>   
+                      )}           
                     </td>
                 </tr>
               ))}

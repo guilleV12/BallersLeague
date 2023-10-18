@@ -16,6 +16,7 @@ const ModalJugador = ({ jugador, equipo, onCancel, onAdd, onEdit, accion, setSho
         fecha_nacimiento: (accion === 'agregar' ? '' : jugador.fecha_nacimiento),
         foto_perfil: undefined,
         equipo_id:equipo.id,
+        liga_id:equipo.liga_id,
     })
 
     const submit = (e) => {
@@ -49,11 +50,14 @@ const ModalJugador = ({ jugador, equipo, onCancel, onAdd, onEdit, accion, setSho
 
   return (
     <>
-    <div id="anadir-modal" className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center w-full h-full p-3 overflow-x-hidden overflow-y-auto`}>
-            <div className="relative w-full max-w-md max-h-full shadow-lg border-black border rounded-lg">
-                    <form onSubmit={submit} className=' bg-gray-100 border border-gray-100 px-20 py-5 rounded-lg shadow-xl' encType='multipart/form-data'>
+            <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
+
+    <div id="anadir-modal" className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md max-h-full shadow-lg border-black border rounded-lg z-50 mt-[2%]`}>
+            <div className="relative w-full max-w-md max-h-full rounded-lg">
+
+                    <form onSubmit={submit} className=' bg-gray-100 border border-gray-100 px-20 pb-5 rounded-lg shadow-xl' encType='multipart/form-data'>
                             <div className='w-full flex justify-center items-center mb-2'>
-                                <img src={`/images/${accion === 'agregar' ? equipo.logo : jugador.foto_perfil}?${new Date().getTime()}`} alt={`logo de equipo ${equipo.logo}`} title={`logo de equipo ${equipo.logo}`} className="h-52 w-auto rounded-full border border-black" />
+                                <img src={`/images/${accion === 'agregar' ? equipo.logo : jugador.foto_perfil}?${new Date().getTime()}`} alt={`logo de equipo ${equipo.logo}`} title={`logo de equipo ${equipo.logo}`} className="h-52 w-auto rounded-full" />
                             </div>
                             <div>
                                 <InputLabel htmlFor='nombre' value='Nombre de jugador'/>

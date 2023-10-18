@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calendario;
 use App\Models\Equipo;
+use App\Models\FechaPartido;
+use App\Models\Goleadores;
+use App\Models\TablaPosiciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,6 +47,19 @@ class EquipoController extends Controller
             'liga_id' => $validated['liga_id'],
         ]);
 
+        //si llega la variable destruirEstructuraActual se eliminara fixture/partidos/tablas posiciones y goleadores
+       
+        if ($request->destruirEstructuraActual === "1" || true){
+            
+            $calendario = Calendario::where('liga_id', $request->liga_id)->first();
+            $fechasFixture = FechaPartido::where('calendario_id', $calendario->id)->get();
+            $fechasFixture->each->delete();
+            $tablaPosiciones = TablaPosiciones::where('liga_id', $request->liga_id)->get();
+            $tablaPosiciones->each->delete();
+            $goleadores = Goleadores::where('liga_id', $request->liga_id)->get();
+            $goleadores->each->delete();
+        }
+
         $equipo->save();    
     }
 
@@ -77,8 +94,19 @@ class EquipoController extends Controller
         $equipo->save();
     }
 
-    public function destroy(Equipo $equipo)
+    public function destroy(Equipo $equipo, Request $request)
     {
+        if ($request->destruirEstructuraActual === "1" || true){
+            
+            $calendario = Calendario::where('liga_id', $request->liga_id)->first();
+            $fechasFixture = FechaPartido::where('calendario_id', $calendario->id)->get();
+            $fechasFixture->each->delete();
+            $tablaPosiciones = TablaPosiciones::where('liga_id', $request->liga_id)->get();
+            $tablaPosiciones->each->delete();
+            $goleadores = Goleadores::where('liga_id', $request->liga_id)->get();
+            $goleadores->each->delete();
+        }
         $equipo->delete();
+
     }
 }

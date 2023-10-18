@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\LigaSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\EquipoSeeder;
+use Database\Seeders\JugadorSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             LigaSeeder::class,
+            EquipoSeeder::class,
+            JugadorSeeder::class,
+            GoleadoresSeeder::class,
         ]);
     }
     

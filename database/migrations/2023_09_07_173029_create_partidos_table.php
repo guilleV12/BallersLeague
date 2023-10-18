@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('puntaje_equipo_1');
             $table->integer('puntaje_equipo_2');
             $table->foreignId('fecha_partido_id')->constrained('fecha_partidos','id')->cascadeOnDelete();
+            $table->foreignId('calendario_id')->constrained('calendarios','id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

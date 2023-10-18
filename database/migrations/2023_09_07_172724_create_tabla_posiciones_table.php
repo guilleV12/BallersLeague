@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('equipo_id')->constrained('equipos','id')->cascadeOnDelete();
             $table->foreignId('liga_id')->constrained('ligas','id')->cascadeOnDelete();
-            $table->integer('posicion');
+            $table->integer('posicion')->nullable();
+            $table->integer('ganados')->nullable();
+            $table->integer('perdidos')->nullable();
             $table->timestamps();
         });
     }

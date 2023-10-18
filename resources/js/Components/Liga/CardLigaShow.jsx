@@ -11,8 +11,9 @@ import { TabArbitros } from '../Arbitros/TabArbitros';
 import Alert from '../Alerts/Alert';
 import TabFixture from '../Fixture/TabFixture';
 import { ModalGenerarFixture } from '../Fixture/ModalGenerarFixture';
+import ModalDeleteFixture from '../Fixture/ModalDeleteFixture';
 
-export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, calendario, fechas }) => {
+export const CardLigaShow = ({ jugadorPartido, partidos, jugadores, liga, user, equipos, userAdmin, arbitros, users, calendario, fechas }) => {
   const [activeTab, setActiveTab] = useState('liga'); // Tab inicialmente activo
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // State to manage the delete modal
   const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State to manage the delete modal
@@ -20,7 +21,14 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, 
   const [showAlert, setShowAlert] = useState(false);
   const [tituloAlert, setTituloAlert] = useState('');
   const [isGenerarFixtureOpen, setGenerarFixtureOpen] = useState(false);
+  const [isDeleteFixtureOpen, setDeleteFixtureOpen] = useState(false);
 
+  const openDeleteFixtureModal = () => {
+    setDeleteFixtureOpen(true);
+  };
+  const closeDeleteFixtureModal = () => {
+    setDeleteFixtureOpen(false);
+  };
   const openGenerarFixtureModal = () => {
     setGenerarFixtureOpen(true);
   };
@@ -54,31 +62,31 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, 
 
   return (
     <div className={`w-full my-10 ml-[10%] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${isDeleteModalOpen ? `pointer-events-none` : ''}`}>
-          <ul className="flex flex-wrap justify-between text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
+          <ul className="flex flex-wrap justify-between text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
               <div className='flex'>  
                     <li className="mr-2">
                         <button id="liga-tab" onClick={() => handleTabClick('liga')} data-tabs-target="#liga" type="button" role="tab" aria-controls="liga" aria-selected={activeTab === 'liga'} className={`inline-block p-4 rounded-tl-lg text-black hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-orange-500 ${ activeTab === 'liga' ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''}`}>
-                            <p className='text-xl font-bold'>Liga</p>
+                            <p className='text-xl font-semibold'>Liga</p>
                         </button>
                     </li>
                     <li className="mr-2">
                         <button id="estadisticas-tab" onClick={() => handleTabClick('estadisticas')} data-tabs-target="#estadisticas" type="button" role="tab" aria-controls="estadisticas" aria-selected={activeTab === 'estadisticas'} className={`inline-block p-4 text-black hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'estadisticas' ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''}`}>
-                            <p className='text-xl font-bold'>Estadisticas</p>
+                            <p className='text-xl font-semibold'>Estadisticas</p>
                         </button>
                     </li>
                     <li className="mr-2">
                         <button id="equipos-tab" onClick={() => handleTabClick('equipos')} data-tabs-target="#equipos" type="button" role="tab" aria-controls="equipos" aria-selected={activeTab === 'equipos'} className={`inline-block p-4 text-black hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'equipos' ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''}`}>
-                            <p className='text-xl font-bold'>Equipos</p>
+                            <p className='text-xl font-semibold'>Equipos</p>
                         </button>
                     </li>
                     <li className="mr-2">
                         <button id="arbitros-tab" onClick={() => handleTabClick('arbitros')} data-tabs-target="#arbitros" type="button" role="tab" aria-controls="arbitros" aria-selected={activeTab === 'arbitros'} className={`inline-block p-4 text-black hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'arbitros' ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''}`}>
-                            <p className='text-xl font-bold'>Arbitros</p>
+                            <p className='text-xl font-semibold'>Arbitros</p>
                         </button>
                     </li>
                     <li className="mr-2">
                         <button id="fixture-tab" onClick={() => handleTabClick('fixture')} data-tabs-target="#fixture" type="button" role="tab" aria-controls="fixture" aria-selected={activeTab === 'fixture'} className={`inline-block p-4 text-black hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'fixture' ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''}`}>
-                            <p className='text-xl font-bold'>Fixture</p>
+                            <p className='text-xl font-semibold'>Fixture</p>
                         </button>
                     </li>
               </div>
@@ -93,17 +101,12 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, 
                             <Dropdown.Content>
                                   <ul className='p-2'>
                                       <li>
-                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white' onClick={openEditModal}>Editar</PrimaryButton>
+                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white' onClick={openEditModal}>Editar Liga</PrimaryButton>
                                       </li>
                                       <li>
-                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white mt-1' onClick={openDeleteModal}>Eliminar</PrimaryButton>
+                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white mt-1' onClick={openDeleteModal}>Eliminar Liga</PrimaryButton>
                                       </li>
-                                      <li>
-                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white mt-1' onClick={openAnadirArbitroModal}>Anadir arbitro</PrimaryButton>
-                                      </li>
-                                      <li>
-                                          <PrimaryButton className='flex justify-center w-full bg-orange-500 text-xl hover:bg-orange-600 hover:text-white mt-1' onClick={openGenerarFixtureModal}>Generar fixture</PrimaryButton>
-                                      </li>
+                                                                            
                                   </ul>
                             </Dropdown.Content>
                         </Dropdown>
@@ -113,7 +116,8 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, 
           {isDeleteModalOpen &&(<ModalEliminarLiga onDelete={closeDeleteModal} onCancel={closeDeleteModal} className={'pointer-events-auto'} liga={liga} /> )}
           {isEditModalOpen &&(<CardEditarLiga setTituloAlert={setTituloAlert} user={user} liga={liga} onCancel={closeEditModal} onEdit={closeEditModal} className={'pointer-events-auto'} setShowAlert={setShowAlert}/>)}
           {isAnadirArbitroModalOpen &&(<ModalAddArbitro liga={liga} accion={'agregar'} onCancel={closeAnadirArbitroModal} onAdd={closeAnadirArbitroModal} className={'pointer-events-auto'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
-          {isGenerarFixtureOpen &&(<ModalGenerarFixture equipos={equipos} calendario={calendario} fechas={fechas} liga={liga} closeGenerarFixtureModal={closeGenerarFixtureModal}/>)}
+          {isGenerarFixtureOpen &&(<ModalGenerarFixture equipos={equipos} calendario={calendario} fechas={fechas} liga={liga} closeGenerarFixtureModal={closeGenerarFixtureModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
+          {isDeleteFixtureOpen &&(<ModalDeleteFixture calendario={calendario} fechas={fechas} liga={liga} closeDeleteFixtureModal={closeDeleteFixtureModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
           <div id="defaultTabContent">
               <div className={`${activeTab === 'liga' ? 'block' : 'hidden'} p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800`} id="liga" role="tabpanel" aria-labelledby="liga-tab">
                   <TabInfoLiga liga={liga} user={user} userAdmin={userAdmin}/>
@@ -125,10 +129,10 @@ export const CardLigaShow = ({ liga, user, equipos, userAdmin, arbitros, users, 
                     <CardEquipos fechas={fechas} user={user} liga={liga} equipos={equipos} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
               </div>
               <div className={`${activeTab === 'arbitros' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="arbitros" role="tabpanel" aria-labelledby="arbitros-tab">
-                    <TabArbitros arbitros={arbitros} liga={liga} users={users} userAdmin={userAdmin} userAuth={user} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
+                    <TabArbitros arbitros={arbitros} liga={liga} users={users} userAdmin={userAdmin} userAuth={user} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert} openAnadirArbitroModal={openAnadirArbitroModal}/>
               </div>
               <div className={`${activeTab === 'fixture' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="fixture" role="tabpanel" aria-labelledby="fixture-tab">
-                    <TabFixture calendario={calendario} fechas={fechas} equipos={equipos} arbitros={arbitros}/>
+                    <TabFixture jugadorPartido={jugadorPartido} partidos={partidos} jugadores={jugadores} openDeleteFixtureModal={openDeleteFixtureModal} openGenerarFixtureModal={openGenerarFixtureModal} user={user} calendario={calendario} fechas={fechas} equipos={equipos} arbitros={arbitros} liga={liga} users={users} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
               </div>
           </div>
           {showAlert &&(<Alert titulo={tituloAlert} texto={''} tiempo={3000} showAlert={showAlert} icono={'success'} closeAlert={closeAlert}/>)}

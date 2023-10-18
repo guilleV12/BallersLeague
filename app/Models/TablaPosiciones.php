@@ -10,7 +10,11 @@ class TablaPosiciones extends Model
     use HasFactory;
 
     protected $fillable = [
-        'posicion'
+        'posicion',
+        'equipo_id',
+        'liga_id',
+        'ganados',
+        'perdidos',
     ];
 
     public function equipo()

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import InputError from '@/Components/InputError'
 import PrimaryButton from '@/Components/PrimaryButton'
 import { useForm, router } from '@inertiajs/react'
@@ -6,15 +6,31 @@ import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import FileInput from '@/Components/FileInput'
 import SecondaryButton from '../SecondaryButton'
+import ModalEliminarFixture from '../Modales/ModalEliminarFixture'
 
-const ModalEquipo = ({ equipo, liga, onCancel, onAdd, onEdit, className, accion, setShowAlert, setTituloAlert }) => {
+const ModalEquipo = ({ fechasPartido, equipo, liga, onCancel, onAdd, onEdit, className, accion, setShowAlert, setTituloAlert }) => {
+
     const { data, setData, post, processing, reset, errors, setError } = useForm({
         nombre: (accion === 'agregar' ? '' : equipo.nombre),
         descripcion: (accion === 'agregar' ? '' : equipo.descripcion),
         logo: undefined,
         liga_id:liga.id,
+        destruirEstructuraActual: (fechasPartido&&(fechasPartido.length > 0 ? true : false)),
     });
-console.log(equipo.id);
+    const [isEliminarFechasPartidoOpen, setEliminarFechasPartidoOpen] = useState(false);
+    const [isAdvertenciaLeida, setAdvertenciaLeida] = useState(false);
+    useEffect(() => {
+        if (fechasPartido){
+            if (fechasPartido.length > 0 && isAdvertenciaLeida === false){
+                setEliminarFechasPartidoOpen(true);
+                setAdvertenciaLeida(true);
+            }
+        }
+    }, [fechasPartido]);
+    const closeModalEliminarFixture = () =>{
+        setEliminarFechasPartidoOpen(false);
+        setAdvertenciaLeida(true);
+    };
     const submit = (e) => {
             e.preventDefault();
             (accion === 'agregar') ? (
@@ -42,11 +58,13 @@ console.log(equipo.id);
     };
 return (
     <>
-    <div id="anadir-modal" className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center w-full h-full overflow-x-hidden overflow-y-auto ${className}`}>
-            <div className="relative w-full max-w-md max-h-full shadow-lg border-black border rounded-lg">
-                    <form onSubmit={submit} className=' bg-gray-100 px-20 py-5 rounded-lg' encType='multipart/form-data'>
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
+    <div id="anadir-modal" className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md max-h-full shadow-lg border-black border rounded-lg z-50 my-[2%] ${className}`}>
+            <div className="relative w-full max-w-md max-h-full rounded-lg">
+            {isEliminarFechasPartidoOpen &&(<ModalEliminarFixture accion={closeModalEliminarFixture} />)}
+                    <form onSubmit={submit} className=' bg-gray-100 px-20 pb-5 rounded-lg' encType='multipart/form-data'>
                             <div className='w-full flex justify-center items-center mb-2'>
-                                    <img src={(`/images/${accion === 'agregar' ? (liga.logo) : (equipo.logo)}?${new Date().getTime()}`)} alt={'logo de liga '+liga.nombre} title={'logo de liga '+liga.nombre} className="h-52 w-auto rounded-full border border-black" />
+                                    <img src={(`/images/${accion === 'agregar' ? (liga.logo) : (equipo.logo)}?${new Date().getTime()}`)} alt={'logo de liga '+liga.nombre} title={'logo de liga '+liga.nombre} className="h-52 w-auto rounded-full" />
                             </div>
                             <div>
                                 <InputLabel htmlFor='nombre' value='Nombre de equipo'/>

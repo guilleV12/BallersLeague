@@ -10,7 +10,9 @@ class JugadorPartido extends Model
     use HasFactory;
 
     protected $fillable = [
-        'puntos_anotados'
+        'puntos_anotados',
+        'jugador_id',
+        'partido_id',
     ];
 
     public function partido()

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('calendario_id')->constrained('calendarios','id')->cascadeOnDelete();
             $table->foreignId('equipo_1')->constrained('equipos','id')->cascadeOnDelete();
             $table->foreignId('equipo_2')->constrained('equipos','id')->cascadeOnDelete();
-            $table->foreignId('arbitro_1')->constrained('arbitros','id')->nullable()->cascadeOnDelete();
-            $table->foreignId('arbitro_2')->constrained('arbitros','id')->nullable()->cascadeOnDelete();
+            $table->foreignId('arbitro_1')->nullable()->constrained('arbitros', 'id')->onUpdate('cascade')->onDelete('set null');            
+            $table->foreignId('arbitro_2')->nullable()->constrained('arbitros', 'id')->onUpdate('cascade')->onDelete('set null'); 
             $table->date('fecha')->nullable();
             $table->time('horario')->nullable();
             $table->timestamps();

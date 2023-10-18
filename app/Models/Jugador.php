@@ -16,6 +16,7 @@ class Jugador extends Model
         'fecha_nacimiento',
         'foto_perfil',
         'equipo_id',
+        'liga_id',
     ];
 
     public function equipo()

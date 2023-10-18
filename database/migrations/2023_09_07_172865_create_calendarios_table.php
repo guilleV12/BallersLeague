@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('calendarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('liga_id')->constrained('ligas','id');
+            $table->foreignId('liga_id')->constrained('ligas','id')->onDelete('cascade');
             $table->date('fecha_inicial')->nullable();
             $table->date('fecha_final')->nullable();
             $table->timestamps();

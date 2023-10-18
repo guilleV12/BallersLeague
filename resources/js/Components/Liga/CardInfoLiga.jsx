@@ -11,8 +11,8 @@ function LeagueInfoCard({ liga, userAdmin, className }) {
     <div className={`${className}`}>
         <div className="flow-root">
                 <div className="w-full flex justify-center overflow-x-auto shadow-lg sm:rounded-lg border border-black">
-                        <table className="w-full text-2xl text-left text-gray-500 dark:text-gray-400">
-                                <caption className='bg-orange-500 text-white font-extrabold py-5'>Informacion de liga</caption>
+                        <table className="w-full text-left text-black text-lg dark:text-gray-400">
+                                <caption className='bg-orange-500 text-white text-xl font-semibold py-5'>Informacion</caption>
                                 <tbody>
                                     <tr className="bg-gray-50 border-b dark:bg-gray-900 dark:border-gray-700 justify-around">
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

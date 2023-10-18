@@ -35,10 +35,12 @@ const CardEditarLiga = ({ setTituloAlert, liga, onEdit, onCancel, setShowAlert }
 
   return (
     <>
-        <div className='fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center w-full h-full p-4 overflow-x-hidden overflow-y-auto'>
-            <form onSubmit={submit} className=' bg-gray-100 py-5 px-20 rounded-lg border border-black shadow-lg ' encType='multipart/form-data'>
+        <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
+
+        <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md max-h-full shadow-lg border-black border rounded-lg z-50 my-[2%]'>
+            <form onSubmit={submit} className=' bg-gray-100 px-20 pb-5 rounded-lg ' encType='multipart/form-data'>
                 <div className='w-full flex justify-center items-center'>
-                        <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt={`logo liga: ${liga.nombre}`}  className='h-72 w-auto'/>
+                        <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt={`logo liga: ${liga.nombre}`}  className='h-52 w-auto'/>
                 </div>
                 <div>
                         <InputLabel htmlFor='nombre' value='Nombre de liga'/>

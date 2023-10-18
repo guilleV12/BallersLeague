@@ -25,9 +25,12 @@ export const ModalAddArbitro = ({ liga, accion, onCancel, onAdd, setShowAlert, s
         })
     }
   return (
-    <div id="anadir-modal" className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center w-full h-full p-3 overflow-x-hidden overflow-y-auto`}>
-            <div className="relative w-full max-w-md max-h-full shadow-lg rounded-lg border border-black">
-                    <form onSubmit={submit} className=' bg-gray-100 px-20 py-10 rounded-lg' encType='multipart/form-data'>
+    <>
+            <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
+
+    <div id="anadir-modal" className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md max-h-full shadow-lg border-black border rounded-lg z-50`}>
+            <div className="relative w-full max-w-md max-h-full rounded-lg">
+                    <form onSubmit={submit} className=' bg-gray-100 px-20 pb-5 rounded-lg' encType='multipart/form-data'>
                         <div className='w-full flex justify-center items-center'>
                             <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt="Logo de la Liga" className="h-52 w-auto rounded-full" />
                         </div>
@@ -49,5 +52,6 @@ export const ModalAddArbitro = ({ liga, accion, onCancel, onAdd, setShowAlert, s
                     </form>
             </div>
     </div>
+    </>
   )
 }

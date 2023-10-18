@@ -3,7 +3,7 @@ import ModalEliminarArbitro from './ModalEliminarArbitro';
 import PrimaryButton from '../PrimaryButton';
 import { ModalConfirmar } from './ModalConfirmar';
 
-export const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert }) => {
+export const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, openAnadirArbitroModal }) => {
   const [arbitroEliminar, setArbitroEliminar] = useState(null);
   const [arbitroConfirmar, setArbitroConfirmar] = useState(null);
   const [user, setUser] = useState(null);
@@ -30,15 +30,23 @@ export const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setSho
   };
 
   return (
-    <div className='flex justify-center'>
+    <div className='grid grid-cols-1 justify-center'>
         {isConfirmarModalOpen === true ? (
             <ModalConfirmar closeConfirmarModal={closeConfirmarModal} arbitro={arbitroConfirmar} liga={liga} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
         ):('')}
         {isDeleteModalOpen === true ? (
             <ModalEliminarArbitro arbitro={arbitroEliminar} user={user} onDelete={closeDeleteModal} onCancel={closeDeleteModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>
         ):('')}
+         {userAdmin.id === userAuth.id && (
+          <div className='flex w-full justify-center bg-black pt-1 '>
+            <PrimaryButton className='bg-orange-500 text-xl my-3 hover:bg-orange-600 hover:text-white py-4' onClick={openAnadirArbitroModal}>
+                    Añadir arbitro
+            </PrimaryButton>
+          </div>
+         )}
+        
         <table className="text-sm text-gray-500 dark:text-gray-400 w-full h-min-screen">
-            <thead className=" text-lg text-left font-bold text-white uppercase bg-black dark:bg-gray-700 dark:text-gray-400">
+            <thead className=" text-lg text-left font-semibold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
                 <tr className='grid grid-cols-5'>
                   <th scope="col" className="px-6 py-1">
                     Nombre
@@ -51,22 +59,22 @@ export const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setSho
                   <th scope='col' className='px-6 py-1'>
                     Estado
                   </th>
-                  <th scope="col" className='px-6 py-1'>
-                    ACCION
+                  <th scope="col" className='px-6 py-1 flex justify-end'>
+                    Accion
                   </th>
                 </tr>
             </thead>
             <tbody>
                 {arbitros.map((arbitro) => (
                     users.map((usuario) => (usuario.id === arbitro.id_user) ? (
-                        <tr key={arbitro.id} className="bg-white border-b grid grid-cols-5 dark:bg-gray-900 dark:border-gray-700">
-                            <td className="px-6 text-lg py-4 font-medium flex items-center text-gray-900">{usuario.nombre}</td>
-                            <td scope="row" className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{usuario.apellido}</td>
-                            <td className="flex px-6 text-lg py-4 items-center">{usuario.dni}</td>
-                            <td className="flex px-6 text-md font-bold py-4 items-center">
+                        <tr key={arbitro.id} className="bg-white border-b grid grid-cols-5 dark:bg-gray-900 dark:border-gray-700 text-lg ">
+                            <td className="px-6 py-4 font-medium flex items-center text-gray-900">{usuario.nombre}</td>
+                            <td scope="row" className="flex items-center px-6 py-4 font-medium text-gray-900 dark:text-white">{usuario.apellido}</td>
+                            <td className="flex px-6 py-4 items-center text-black">{usuario.dni}</td>
+                            <td className="flex px-6  py-4 items-center">
                               {arbitro.confirmado === 1 ? (<span className='text-green-400'>Confirmado</span>) : (<span className='text-yellow-400'>Esperando respuesta</span>)}
                             </td>
-                            <td className='py-2 text-lg'>
+                            <td className='py-2 px-4'>
                                   { userAdmin.id === userAuth.id ? (
                                       <PrimaryButton onClick={() => openDeleteModal(usuario,arbitro)} className='bg-red-500 w-full flex justify-center'>Eliminar</PrimaryButton>
                                     ):('')}

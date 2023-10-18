@@ -3,9 +3,12 @@
 use App\Http\Controllers\ArbitroController;
 use App\Http\Controllers\CalendarioController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\FechaPartidoController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
+use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\ProfileController;
+use App\Models\FechaPartido;
 use App\Models\Liga;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +53,17 @@ Route::group(['prefix' => 'arbitros', 'middleware' => ['auth']], function () {
 
 Route::group(['prefix' => 'calendario', 'middleware' => ['auth']], function () {
     Route::resource('calendario', CalendarioController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+    Route::patch('calendario/{calendario}', [CalendarioController::class, 'destroyFixture'])->name('calendario.destroyfixture');
+});
+
+Route::group(['prefix' => 'fechapartido', 'middleware' => ['auth']], function () {
+    Route::resource('fechapartido', FechaPartidoController::class)->only(['store', 'update', 'destroy', 'show']);
+    Route::patch('fechapartido/{fechapartido}', [FechaPartidoController::class, 'update'])->name('fechapartido.update');
+    Route::put('fechapartido/{fechapartido}', [FechaPartidoController::class, 'asignarArbitrosTodos'])->name('fechapartido.asignarArbitros');
+});
+
+Route::group(['prefix' => 'partido', 'middleware' => ['auth']], function () {
+    Route::resource('partido', PartidoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::get('/dashboard', function () {

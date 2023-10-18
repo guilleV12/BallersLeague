@@ -41,8 +41,8 @@ const CardJugadores = ({ user, liga, equipo, jugadores }) => {
             <a href={route('ligas.show',liga.user_id)}><img className="h-52 w-auto rounded-full shadow-xl" src={'/images/'+liga.logo}  alt={`Liga `+liga.nombre} title={`Liga `+liga.nombre}/></a>
             <img className="h-52 w-auto rounded-full shadow-xl" src={'/images/'+equipo.logo}  alt={`Liga `+liga.nombre}/>
             {(user.id === liga.user_id) && (
-              <PrimaryButton className='bg-orange-500 text-xl h-20 hover:bg-orange-600 hover:text-white' onClick={openAnadirJugadorModal}>
-                  Añadir jugador <span className='text-2xl'><ion-icon name="add-circle"></ion-icon></span>
+              <PrimaryButton className='bg-orange-500 text-xl my-3 hover:bg-orange-600 hover:text-white py-4' onClick={openAnadirJugadorModal}>
+                  Añadir jugador
               </PrimaryButton>
             )}
         </div>

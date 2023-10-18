@@ -9,6 +9,14 @@ class Goleadores extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'jugador_id',
+        'liga_id',
+        'puntos',
+        'promedio',
+        'cantidad_partidos',
+    ];
+
     public function jugador()
     {
         return $this->hasMany(Jugador::class);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Calendario;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
+use App\Models\Goleadores;
+use App\Models\TablaPosiciones;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Exists;
 
@@ -24,7 +26,7 @@ class CalendarioController extends Controller
     {
         //crear fechas segun vueltas indicadas con id de este calendario, la fecha ini de calendario marca la fecha min que podran tener las fechas de cada fecha_partido
         $validated = $request->validate([
-            'fecha_inicial' => 'required|date|after:'. date('d-m-Y'),
+            'fecha_inicial' => 'required|date',
             'cantidad_vueltas' => 'required|numeric',
         ]);
 
@@ -42,9 +44,10 @@ class CalendarioController extends Controller
        
         if ($request->regenerarFixture == true){
             FechaPartido::where('calendario_id', $calendario[0]->id)->delete();
-            $calendario[0]->fecha_inicial = $request->fecha_inicial;
-            $calendario[0]->save();
         }
+
+        $calendario[0]->fecha_inicial = $request->fecha_inicial;
+        $calendario[0]->save();
 
         for ($i=0; $i < $validated['cantidad_vueltas']; $i++) { 
             $this->generarFechasPartido($calendario[0]);
@@ -65,9 +68,14 @@ class CalendarioController extends Controller
         //
     }
 
-    public function destroy(Calendario $calendario)
+    public function destroyFixture(Calendario $calendario)
     {
-        //
+        
+        $tablaPosiciones = TablaPosiciones::where('liga_id', $calendario->liga_id)->get();
+        $tablaPosiciones->each->delete();
+        $goleadores = Goleadores::where('liga_id', $calendario->liga_id)->get();
+        $goleadores->each->delete();
+        FechaPartido::where('calendario_id', $calendario->id)->delete();
     }
 
     public function generarFechasPartido(Calendario $calendario)

@@ -11,7 +11,9 @@ class Partido extends Model
 
     protected $fillable = [
         'puntaje_equipo_1',
-        'puntaje_equipo_2'
+        'puntaje_equipo_2',
+        'fecha_partido_id',
+        'calendario_id',
     ];
 
     public function fecha_partidos()

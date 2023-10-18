@@ -14,15 +14,15 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
   };
   return (
     <>
-    {isAnadirJugadorOpen &&(<ModalJugador jugador={jugadorEditar} equipo={equipo} liga={liga} onCancel={closeAnadirJugadorModal} onAdd={closeAnadirJugadorModal} onEdit={closeAnadirJugadorModal} accion={'agregar'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
+    {isAnadirJugadorOpen &&(<ModalJugador jugadores={jugadores} jugador={jugadorEditar} equipo={equipo} liga={liga} onCancel={closeAnadirJugadorModal} onAdd={closeAnadirJugadorModal} onEdit={closeAnadirJugadorModal} accion={'agregar'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
     {isEditarJugadorOpen &&(<ModalJugador jugador={jugadorEditar} equipo={equipo} liga={liga} onCancel={closeEditarJugadorModal} onAdd={closeAnadirJugadorModal} onEdit={closeEditarJugadorModal} accion={'editar'} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
     {isEliminarJugadorOpen &&(<ModalEliminarJugador jugador={jugadorEliminar} onDelete={closeEliminarJugadorModal} onCancel={closeEliminarJugadorModal} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
     
-    <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full border border-gray-200 rounded-lg shadow">
-      <thead className="text-lg font-bold text-white uppercase bg-black dark:bg-gray-700 dark:text-gray-400 border border-gray-50 rounded-lg">
+    <table className=" text-left text-black dark:text-gray-400 w-full border border-gray-200 rounded-lg shadow">
+      <thead className="text-lg font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400 border border-gray-50 rounded-lg">
         <tr className='grid grid-cols-6'>
           <th scope='col' className='px-6 py-1'>
-            Foto
+            
           </th>
           <th scope="col" className="px-6 py-1">
             Nombre
@@ -36,19 +36,19 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
           <th scope="col" className="px-6 py-1">
             Edad
           </th>
-          <th scope="col" className={`${(jugadores.length > 0 && liga.user_id === user.id) ? ' ' : 'hidden'}`}>
-            
+          <th scope="col" className='px-6 py-1 flex justify-end'>
+            Accion
           </th>
         </tr>
       </thead>
       <tbody>
         {jugadores.map((jugador) => (
           <tr key={jugador.id} className="bg-white border-b grid grid-cols-6 dark:bg-gray-900 dark:border-gray-700">
-            <td scope="row" className="items-center px-6 text-lg py-4"><img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='rounded-full h-[70%] object-cover border border-black'></img></td>
-            <td className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{jugador.nombre}</td>
-            <td className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{jugador.apellido}</td>
-            <td className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap">{jugador.dni}</td>
-            <td className="flex items-center px-6 text-lg py-4 font-medium text-gray-900 whitespace-nowrap">{edad(jugador)}</td>
+            <td scope="row" className="items-center px-6 text-lg py-4"><img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='h-20 w-auto rounded-full'></img></td>
+            <td className="px-6 py-1 flex items-center justify-start">{jugador.nombre}</td>
+            <td className="px-6 py-1 flex items-center justify-start">{jugador.apellido}</td>
+            <td className="px-6 py-1 flex items-center justify-start">{jugador.dni}</td>
+            <td className="px-6 py-1 flex items-center justify-start">{edad(jugador)}</td>
             <td className={`pt-2 pr-2 text-lg flex justify-end ${(liga.user_id === user.id) ? '' : 'hidden'}`}>
               <Dropdown>
                   <Dropdown.Trigger>

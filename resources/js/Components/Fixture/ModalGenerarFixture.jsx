@@ -7,8 +7,7 @@ import InputLabel from '../InputLabel'
 import InputError from '../InputError'
 import { ModalConfirmacionBorrar } from './ModalConfirmacionBorrar'
 
-export const ModalGenerarFixture = ({ liga, closeGenerarFixtureModal, fechas, equipos }) => {
-console.log(equipos);
+export const ModalGenerarFixture = ({ liga, closeGenerarFixtureModal, fechas, equipos, setShowAlert, setTituloAlert }) => {
     const [isModalConfirmacionFixture, setModalConfirmacionFixture] = useState(false);
     const [regenerar, setRegenerar] = useState(false);
 
@@ -38,6 +37,8 @@ console.log(equipos);
             onSuccess: () => {
                 reset();
                 closeGenerarFixtureModal();
+                setShowAlert(true);
+                setTituloAlert('Fixture generado con exito!');
             },
             onError: (response) => {
                 setError({ ...errors, ...response });
@@ -48,8 +49,12 @@ console.log(equipos);
     const submit = (e) => {
         e.preventDefault();
         if (fechas){
-            if (!regenerar){
-                openModalConfirmacionFixture();
+            if (fechas.length > 0){
+                if (!regenerar){
+                    openModalConfirmacionFixture();
+                } else {
+                    enviar();
+                }
             } else {
                 enviar();
             }
@@ -57,13 +62,17 @@ console.log(equipos);
             enviar();
         }
     };
+
   return (
-    <div id="delete-confirmation-modal" className={`fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center w-full h-full p-4 overflow-x-hidden overflow-y-auto`}>
-        <div className="relative w-full max-w-md max-h-full shadow-lg border-black border rounded-lg">
+    <>
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
+
+    <div id="delete-confirmation-modal" className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-md max-h-full shadow-lg border-black border rounded-lg z-50`}>
+        <div className="relative w-full max-w-md max-h-full rounded-lg">
             {equipos &&( equipos.length > 1 ? (
-                <form onSubmit={submit} className=' bg-gray-100 border border-gray-100 px-20 py-5 rounded-lg shadow-xl' encType='multipart/form-data'>
+                <form onSubmit={submit} className=' bg-gray-100 border border-gray-100 px-20 pb-5 rounded-lg shadow-xl' encType='multipart/form-data'>
                     <div className='w-full flex justify-center items-center mb-2'>
-                        <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt={`logo de equipo ${liga.logo}`} title={`logo de equipo ${liga.logo}`} className="h-52 w-auto rounded-full border border-black" />
+                        <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt={`logo de equipo ${liga.logo}`} title={`logo de equipo ${liga.logo}`} className="h-52 w-auto rounded-full" />
                     </div>
                     <div>
                         <InputLabel htmlFor='fecha_inicial' value='Fecha inicio de la liga'/>
@@ -89,11 +98,12 @@ console.log(equipos);
                         <SecondaryButton className='hover:bg-red-400 ml-2' onClick={closeGenerarFixtureModal}>
                             CANCELAR
                         </SecondaryButton>
-                    </div>
+                        </div>
                 </form>
-            ) : (<>
-                        <div className="flex items-center justify-between p-5 border-b rounded-t bg-orange-500 dark:border-gray-600">
-                                <h3 className="text-xl font-medium text-white dark:text-white">
+            ) : (
+                <>
+                        <div className="flex items-center justify-center p-5 border-b rounded-t bg-orange-500 dark:border-gray-600">
+                                <h3 className="text-xl font-semibold text-white dark:text-white">
                                     No hay equipos suficientes!
                                 </h3>
                         </div>
@@ -102,21 +112,16 @@ console.log(equipos);
                                     Debe tener al menos dos equipos para generar un fixture.
                                 </p>
                         </div>
-                        <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <PrimaryButton className='' onClick={closeGenerarFixtureModal}>Cerrar</PrimaryButton>
+                        <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <PrimaryButton className='hover:bg-red-400' onClick={closeGenerarFixtureModal}>Cerrar</PrimaryButton>
                         </div>
                 </>
             ))}
                
         </div>
-        {isModalConfirmacionFixture && (
-        <ModalConfirmacionBorrar
-          confirmar={confirmarGenerarFixture}
-          closeModalGenerarFixture={closeGenerarFixtureModal}
-          closeModalConfirmacionFixture={closeModalConfirmacionFixture}
-        />
-      )}
+        {isModalConfirmacionFixture && (<ModalConfirmacionBorrar confirmar={confirmarGenerarFixture} closeModalGenerarFixture={closeGenerarFixtureModal} closeModalConfirmacionFixture={closeModalConfirmacionFixture}/>)}
     </div>
+    </>
         )
 }
 export default ModalGenerarFixture;
