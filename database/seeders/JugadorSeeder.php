@@ -15,7 +15,7 @@ class JugadorSeeder extends Seeder
     public function run(): void
     {   
         $jugadores = [];
-        $faker = FakerFactory::create();
+        $faker = FakerFactory::create('es_AR');
 
         
         // Crear jugadores para cada equipo
@@ -23,10 +23,10 @@ class JugadorSeeder extends Seeder
             for ($i = 1; $i <= 5; $i++) {
                 $jugador = [
                     'dni' => '012345' . $equipoID . $i,
-                    'nombre' => $faker->firstName(),
+                    'nombre' => $faker->firstNameMale(),
                     'apellido' => $faker->lastName(),
                     'fecha_nacimiento' => '2000-10-10',
-                    'foto_perfil' => 'Jugador' . $i . '.png',
+                    'foto_perfil' => 'foto_jugador_'.'012345' . $equipoID . $i.'_equipo_'.$equipoID.'.png',
                     'equipo_id' => $equipoID,
                     'liga_id' => 1,
                 ];

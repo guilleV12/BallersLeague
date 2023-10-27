@@ -11,13 +11,13 @@ export default function Home({ auth, liga, miLiga }){
         <Head title="Ballers League"/>   
         {auth ? (
             <AuthenticatedLayout user={auth} liga={liga} miLiga={miLiga}>
-                <main className='w-full ml-[10%]'>
+                <main className='flex justify-center  w-full lg:w-3/4 h-fit lg:ml-[15.5rem] xl:ml-[18rem]'>
                     <HomeContent/>
                 </main>
             </AuthenticatedLayout>
         ) : (
             <GuestLayout>
-                <main className='w-full ml-[10%]'>
+                <main className='flex justify-center w-full lg:w-3/4 h-fit  lg:ml-[15.5rem] xl:ml-[18rem]'>
                     <HomeContent/>
                 </main>
             </GuestLayout>

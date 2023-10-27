@@ -2,7 +2,7 @@ import React from 'react'
 
 export const CardLiga = ({ path, liga, className }) => {
   return (
-        <div className={`w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${className}`}>
+        <div className={`bg-white dark:bg-gray-800 ${className} w-[90%]`}>
                 <div className="flex flex-col items-center justify-center pb-10">
                         <img className="h-52 w-auto my-5 rounded-full shadow-xl" src={'/images/'+path}  alt={`Liga `+liga.nombre}/>
                         <h5 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{liga.nombre}</h5>

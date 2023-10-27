@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Dropdown from '../Dropdown';
-import PrimaryButton from '../PrimaryButton';
 import ModalEditarFecha from './ModalEditarFecha';
-import ModalCargarPartido from './ModalCargarPartido';
-import ModalVerEstadisticas from '../Estadisticas/ModalVerEstadisticas';
+import ModalCrearPartido from './ModalCrearPartido';
+import ModalVerEstadisticas from './ModalVerEstadisticas';
+import { BotonContenido, BotonEditar, BotonOpciones } from '../BotonesAcciones';
 
-export const TablaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, openGenerarFixtureModal, openDeleteFixtureModal, jugadores }) => {
+export const TablaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores }) => {
 const [isModalEditarFechaOpen, setModalEditarFechaOpen] = useState(false);
 const [fechaEditar, setFechaEditar] = useState(false);
 const [isModalCargarResultadoOpen, setModalCargarResultadoOpen] = useState(false);
@@ -61,13 +61,13 @@ const closeModalCargarResultado = () => {
   return (
     <div>
 
-        <table className="text-md text-black dark:text-gray-400 w-full">
-            <thead className=" text-left font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
-                <tr className='grid grid-cols-7'>
-                    <th scope="col" className="px-4 py-1 flex items-center justify-start">
+        <table className="text-black dark:text-gray-400 w-full">
+            <thead className="text-base text-left font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
+                <tr className='grid grid-cols-3 md:grid-cols-7'>
+                    <th scope="col" className="px-4 py-1 hidden md:flex items-center justify-start">
                         Fecha
                     </th>
-                    <th scope="col" className="px-4 py-1 flex items-center justify-start">
+                    <th scope="col" className="px-4 py-1 hidden md:flex items-center justify-start">
                         Horario
                     </th>
                     <th scope="col" className="px-4 py-1 flex items-center justify-start">
@@ -76,10 +76,10 @@ const closeModalCargarResultado = () => {
                     <th scope="col" className="px-4 py-1 flex items-center justify-start">
                         Equipo visitante
                     </th>
-                    <th scope='col' className='px-4 py-1 flex items-center justify-start'>
+                    <th scope='col' className='px-4 py-1 hidden md:flex items-center justify-start'>
                         Arbitros
                     </th>
-                    <th scope='col' className='px-4 py-1 flex items-center justify-start'>
+                    <th scope='col' className='px-4 py-1 hidden md:flex items-center justify-start'>
                         Ganador
                     </th>
                     <th scope="col" className='px-4 py-1 flex items-center justify-end'>
@@ -89,24 +89,38 @@ const closeModalCargarResultado = () => {
             </thead>
             <tbody>
                 {fechas &&(fechas.map((fecha, index) => (
-                    <tr key={index} className='grid grid-cols-7 py-2 border-b'>
-                        <td scope="col" className="px-6 py-1 flex items-center justify-start">
+                    <tr key={index} className='grid grid-cols-3 md:grid-cols-7 py-2 border-b text-sm'>
+                        <td scope="col" className="px-6 py-1 hidden md:flex items-center justify-start">
                             {fecha.fecha ? fecha.fecha : 'No definida'}
                         </td>
-                        <td scope="col" className="px-6 py-1 flex items-center justify-start">
+                        <td scope="col" className="px-6 py-1 hidden md:flex items-center justify-start">
                             {fecha.horario ? fecha.horario : 'No definido'}
                         </td>
                         <td scope="col" className="px-6 py-1 flex items-center justify-start">
-                            {equipos &&(equipos.map((equipo)=>(
-                                equipo.id === fecha.equipo_1 ? equipo.nombre : ''
-                            )))}
+                            <div className='hidden md:flex items-center justify-start'>
+                                {equipos &&(equipos.map((equipo)=>(
+                                    equipo.id === fecha.equipo_1 ? equipo.nombre : ''
+                                )))}
+                            </div>
+                            <div className='flex md:hidden items-center justify-start'>
+                                {equipos &&(equipos.map((equipo)=>(
+                                    equipo.id === fecha.equipo_1 ? <img key={equipo.id} src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto md:w-32 rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img> : ''
+                                )))}
+                            </div>
                         </td>
                         <td scope="col" className="px-6 py-1 flex items-center justify-start">
-                            {equipos &&(equipos.map((equipo)=>(
-                                equipo.id === fecha.equipo_2 ? equipo.nombre : ''
-                            )))}
+                            <div className='hidden md:flex items-center justify-start'>
+                                {equipos &&(equipos.map((equipo)=>(
+                                    equipo.id === fecha.equipo_2 ? equipo.nombre : ''
+                                )))}
+                            </div>
+                            <div className='flex md:hidden items-center justify-start'>
+                                {equipos &&(equipos.map((equipo)=>(
+                                    equipo.id === fecha.equipo_2 ? <img key={equipo.id} src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto md:w-32 rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img> : ''
+                                )))}
+                            </div>
                         </td>
-                        <td scope='col' className='px-6 py-1 text-sm flex items-center justify-start'>
+                        <td scope='col' className='px-6 py-1 text-sm hidden md:flex items-center justify-start'>
                             {arbitros &&(arbitros.map((arbitro)=>(
                                 arbitro.id === fecha.arbitro_1 ? (
                                     users.map((user) => (
@@ -123,7 +137,7 @@ const closeModalCargarResultado = () => {
                                 ) : ''
                             )))}
                         </td>
-                        <td scope="col" className="px-6 py-1 flex items-center justify-start">
+                        <td scope="col" className="px-6 py-1 hidden md:flex items-center justify-start">
                         {
                             partidos &&(partidos.map((partido, index) => (
                                 (partido.fecha_partido_id === fecha.id) ? (
@@ -151,35 +165,42 @@ const closeModalCargarResultado = () => {
                             {liga.user_id === user.id &&(
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <span className='text-3xl text-orange-500 font-bold hover:cursor-pointer'>
-                                            <ion-icon name="options"></ion-icon>
-                                        </span>
+                                            <BotonOpciones/>
                                     </Dropdown.Trigger>
                                     <Dropdown.Content>
                                         <ul className='p-1'>
                                             <li>
-                                                <PrimaryButton className={`flex justify-center bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full `} onClick={() => {openModalEditarFecha(fecha)}}>Editar</PrimaryButton>
+                                                <BotonEditar
+                                                    onClick={() => {openModalEditarFecha(fecha)}}
+                                                    className={' block w-full justify-center'}
+                                                    />
                                             </li>
                                             <li>
-                                                <PrimaryButton className={`flex justify-center mt-1 bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full `} onClick={() => {openModalCargarResultado(fecha, fecha.equipo_1, fecha.equipo_2)}}>
-                                                    {partidos.length > 0 ? (
+                                                <BotonContenido
+                                                    onClick={() => {openModalCargarResultado(fecha, fecha.equipo_1, fecha.equipo_2)}}
+                                                    className={' block w-full justify-center mt-1'}
+                                                    nombre={partidos.length > 0 ? (
                                                         partidos.find((partido) => partido.fecha_partido_id === fecha.id) ? (
                                                             'Eliminar resultado'
                                                         ):('Cargar resultado')
                                                     ):(
                                                         'Cargar resultado'
-                                                    )
-                                                    }
-                                                </PrimaryButton>
+                                                    )}
+                                                    />                                               
                                             </li>
-                                            {partidos.length > 0 ? (
-                                                        partidos.find((partido) => partido.fecha_partido_id === fecha.id) ? (
-                                                            <PrimaryButton className={`flex justify-center mt-1 bg-orange-500 text-xl hover:bg-orange-600 hover:text-white w-full h-full `} onClick={() => {openModalVerEstadisticas(fecha)}}>Estadisticas</PrimaryButton>
+                                                {partidos.length > 0 ? (
+                                                    partidos.find((partido) => partido.fecha_partido_id === fecha.id) ? (
+                                                    <li>
+                                                        <BotonContenido
+                                                            onClick={() => {openModalVerEstadisticas(fecha)}}
+                                                            className={' block w-full justify-center mt-1'}
+                                                            nombre={'Estadisticas'}
+                                                            />
+                                                        </li>
                                                         ):('')
                                                     ):(
                                                         ''
-                                                    )
-                                                    }
+                                                )}
                                         </ul>
                                     </Dropdown.Content>
                                 </Dropdown>  
@@ -189,9 +210,46 @@ const closeModalCargarResultado = () => {
                     )))}
             </tbody>
         </table>
-        { isModalEditarFechaOpen &&( <ModalEditarFecha liga={liga} closeModalEditarFecha={closeModalEditarFecha} fechaEditar={fechaEditar} arbitros={arbitros} users={users} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
-        { isModalCargarResultadoOpen &&( <ModalCargarPartido eliminar={eliminar} jugadoresParticiparon={jugadoresPartidoCargar} partido={partidoJugado} jugadores={jugadores} equipos={equipos} equipos_puntajes={equiposResultados} liga={liga} fecha_partido={fechaEditar} closeModalCargarResultado={closeModalCargarResultado} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert}/>)}
-        { isModalVerEstadisticasOpen &&( <ModalVerEstadisticas users={users} arbitros={arbitros} jugadorPartido={jugadorPartido} jugadores={jugadores} equipos={equipos} partidos={partidos} fechaPartidoVer={fechaPartidoVer} setShowAlert={setShowAlert} setTituloAlert={setTituloAlert} closeModalVerEstadisticas={closeModalVerEstadisticas}/>)}
+        { isModalEditarFechaOpen &&( 
+            <ModalEditarFecha 
+                liga={liga} 
+                closeModalEditarFecha={closeModalEditarFecha} 
+                fechaEditar={fechaEditar} 
+                arbitros={arbitros} 
+                users={users} 
+                setShowAlert={setShowAlert} 
+                setTituloAlert={setTituloAlert}
+                />
+        )}
+        { isModalCargarResultadoOpen &&( 
+            <ModalCrearPartido 
+                eliminar={eliminar} 
+                jugadoresParticiparon={jugadoresPartidoCargar} 
+                partido={partidoJugado} 
+                jugadores={jugadores} 
+                equipos={equipos} 
+                equipos_puntajes={equiposResultados} 
+                liga={liga} 
+                fecha_partido={fechaEditar} 
+                closeModalCargarResultado={closeModalCargarResultado} 
+                setShowAlert={setShowAlert} 
+                setTituloAlert={setTituloAlert}
+                />
+        )}
+        { isModalVerEstadisticasOpen &&( 
+            <ModalVerEstadisticas 
+                users={users} 
+                arbitros={arbitros} 
+                jugadorPartido={jugadorPartido} 
+                jugadores={jugadores} 
+                equipos={equipos} 
+                partidos={partidos} 
+                fechaPartidoVer={fechaPartidoVer} 
+                setShowAlert={setShowAlert} 
+                setTituloAlert={setTituloAlert} 
+                closeModalVerEstadisticas={closeModalVerEstadisticas}
+                />
+        )}
     </div>
   )
 }

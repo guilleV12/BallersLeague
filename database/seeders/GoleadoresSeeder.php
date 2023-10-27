@@ -17,7 +17,7 @@ class GoleadoresSeeder extends Seeder
     {   
         $goleadores = [];
 
-        for ($i=1; $i <= 20; $i++) { 
+        for ($i=1; $i <= 25; $i++) { 
             $goleador = [
                 'jugador_id' => $i,
                 'liga_id' => 1,

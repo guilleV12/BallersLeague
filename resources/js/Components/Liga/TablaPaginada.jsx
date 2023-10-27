@@ -7,7 +7,7 @@ function TablaPaginada({ data, user, className, users }) {
   const [currentPage, setCurrentPage] = useState(0);
 
   // Calcular el índice de inicio y fin de la página actual
-  const startIndex = currentPage * itemsPerPage;
+  const startIndex = currentPage * itemsPerPage; 
   const endIndex = startIndex + itemsPerPage;
 
   // Datos a mostrar en la página actual
@@ -25,13 +25,13 @@ function TablaPaginada({ data, user, className, users }) {
             <tbody>
               {currentData.map((item) => (
                 <tr key={item.id}>
-                  <td><CardLiga path={item.logo} liga={item} className={'my-5'}/></td>
+                  <td className='flex justify-center'><CardLiga path={item.logo} liga={item} className={'bg-white rounded-lg w-full h-3/4 border border-black shadow-lg shadow-gray-500 px-10 py-5'}/></td>
                 </tr>
               ))}
             </tbody>
         </table>
 
-        <div className="flex flex-col items-center my-10">
+        <div className="flex flex-col items-center my-10 ">
             {/* Texto de ayuda */}
             <span className="text-lg text-gray-700 dark:text-gray-400">
               Mostrando{' '}
@@ -43,7 +43,7 @@ function TablaPaginada({ data, user, className, users }) {
             <ReactPaginate
               pageCount={Math.ceil(data.length / itemsPerPage)}
               onPageChange={handlePageChange}
-              containerClassName={'pagination flex w-full justify-center bg-white p-5 border border-gray-200 rounded-lg shadow'} // Clase para el contenedor principal
+              containerClassName={'pagination flex w-[90%] justify-center bg-white rounded-lg h-3/4 border border-black shadow-lg shadow-gray-500 px-10 py-5'} // Clase para el contenedor principal
               activeClassName={' bg-orange-500 text-white flex justify-center items-center'} // Clase para la página actual
               previousClassName={'flex justify-center items-center px-3 h-10 text-xl font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'} // Clase para el botón "Anterior"
               nextClassName={'flex justify-center items-center px-3 h-10 text-xl font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'} // Clase para el botón "Siguiente"

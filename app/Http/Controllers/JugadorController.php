@@ -19,13 +19,13 @@ class JugadorController extends Controller
         $jugadores = Jugador::where('equipo_id', $equipo->id)->get();
         $liga = Liga::where('id',$equipo->liga_id)->get();
 
-        return Inertia::render('Jugadores/Index', [
-            'user'=>Auth::user(),
-            'liga'=>$liga[0],
-            'jugadores'=>$jugadores,
-            'equipo'=>$equipo,
-            'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
-        ]);
+            return Inertia::render('Jugadores/Index', [
+                'user'=>Auth::user(),
+                'liga'=>$liga[0],
+                'jugadores'=>$jugadores,
+                'equipo'=>$equipo,
+                'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+            ]);
     }
 
     public function create()

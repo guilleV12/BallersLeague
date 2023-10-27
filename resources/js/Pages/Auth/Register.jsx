@@ -37,11 +37,11 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <main className='flex justify-center my-[3%] ml-[10%]'>
-            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 py-10 rounded-lg shadow-lg'>
-                <ApplicationLogo className='m-0' texto={true}/>
+            <main className='flex justify-center w-full h-fit lg:pl-[14rem]'>
+            <form onSubmit={submit} className='bg-white w-[90%] md:w-fit h-fit border border-black px-10 py-5 rounded-lg shadow-lg shadow-gray-500'>
+                <ApplicationLogo className='m-0 pl-2 w-60' texto={true}/>
                 <div>
-                    <InputLabel htmlFor="nombre" value="Nombre" />
+                    <InputLabel htmlFor="nombre" value="Nombre" className="text-xs"/>
 
                     <TextInput
                         id="nombre"
@@ -51,6 +51,7 @@ export default function Register() {
                         autoComplete="nombre"
                         isFocused={true}
                         onChange={(e) => setData('nombre', e.target.value)}
+                        icon={<ion-icon name="person"></ion-icon>}
                     />
 
                     <InputError message={errors.nombre} className="mt-2" />
@@ -58,7 +59,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="apellido" value="Apellido" />
+                    <InputLabel htmlFor="apellido" value="Apellido" className="text-xs"/>
 
                     <TextInput
                         id="apellido"
@@ -67,13 +68,14 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="apellido"
                         onChange={(e) => setData('apellido', e.target.value)}
+                        icon={<ion-icon name="person"></ion-icon>}
                     />
 
                     <InputError message={errors.apellido} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" className="text-xs"/>
 
                     <TextInput
                         id="email"
@@ -83,13 +85,14 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
+                        icon={<ion-icon name="at-circle-outline"></ion-icon>}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="fecha_nacimiento" value="Fecha de nacimiento" />
+                    <InputLabel htmlFor="fecha_nacimiento" value="Fecha de nacimiento" className="text-xs"/>
 
                     <DateInput  
                        id="fecha_nacimiento"
@@ -105,7 +108,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="dni" value="Dni" />
+                    <InputLabel htmlFor="dni" value="Dni" className="text-xs"/>
 
                     <TextInput
                         id="dni"
@@ -114,13 +117,14 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="dni"
                         onChange={(e) => setData('dni', e.target.value)}
+                        icon={<ion-icon name="document-text"></ion-icon>}
                     />
 
                     <InputError message={errors.dni} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Password" className="text-xs"/>
 
                     <TextInput
                         id="password"
@@ -130,13 +134,14 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirmar password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirmar password" className="text-xs"/>
 
                     <TextInput
                         id="password_confirmation"
@@ -146,6 +151,7 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
@@ -154,7 +160,7 @@ export default function Register() {
                 <div className="flex items-center justify-end mt-4">
                     <Link
                         href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="underline text-xs text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                     >
                         Ya tiene una cuenta?
                     </Link>

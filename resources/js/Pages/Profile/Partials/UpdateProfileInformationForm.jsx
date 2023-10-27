@@ -41,7 +41,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="nombre" value="Nombre" />
+                    <InputLabel htmlFor="nombre" value="Nombre" className='text-xs'/>
 
                     <TextInput
                         id="nombre"
@@ -51,13 +51,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         required
                         isFocused
                         autoComplete="nombre"
+                        icon={<ion-icon name="person"></ion-icon>}
                     />
 
                     <InputError className="mt-2" message={errors.nombre} />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="apellido" value="Apellido" />
+                    <InputLabel htmlFor="apellido" value="Apellido" className='text-xs'/>
 
                     <TextInput
                         id="apellido"
@@ -66,13 +67,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         onChange={(e) => setData('apellido', e.target.value)}
                         required
                         autoComplete="apellido"
+                        icon={<ion-icon name="person"></ion-icon>}
                     />
 
                     <InputError className="mt-2" message={errors.apellido} />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" className='text-xs'/>
 
                     <TextInput
                         id="email"
@@ -82,6 +84,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         onChange={(e) => setData('email', e.target.value)}
                         required
                         autoComplete="username"
+                        icon={<ion-icon name="at-circle-outline"></ion-icon>}
                     />
 
                     <InputError className="mt-2" message={errors.email} />
@@ -96,7 +99,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                             >
                                 Click here to re-send the verification email.
                             </Link>

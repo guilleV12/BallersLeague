@@ -67,9 +67,9 @@ class LigaController extends Controller
     public function show(Request $request, $user)
     {
         $liga = Liga::where('user_id',$user)->get();
-        $calendario = Calendario::where('liga_id',$liga[0]->id)->first();
 
         if (count($liga)>0){
+            $calendario = Calendario::where('liga_id',$liga[0]->id)->first();
             $equipos = Equipo::where('liga_id',$liga[0]->id)->get();
             return Inertia::render('Ligas/Show', [
                 'user'=>Auth::user(),

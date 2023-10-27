@@ -15,7 +15,7 @@ export default forwardRef(function DateInput({ type = 'date', className = '', is
             type={type}
             max={max}
             className={
-                'border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm ' +
+                'border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm text-sm ' +
                 className
             }
             ref={input}

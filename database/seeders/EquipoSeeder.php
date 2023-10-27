@@ -17,31 +17,31 @@ class EquipoSeeder extends Seeder
             'liga_id'=>'1',
             'nombre'=>'Boston Celtics',
             'descripcion'=>'Tatum y brown pechea',
-            'logo'=>'EquipoLogo2.png'
+            'logo'=>'logo_equipo_Boston Celtics_user_1.png'
         ];
         $equipo2 = [
             'liga_id'=>'1',
             'nombre'=>'Atlanta Hawks',
             'descripcion'=>'Trae tira mucho y lo cubren',
-            'logo'=>'EquipoLogo1.png'
+            'logo'=>'logo_equipo_Atlanta Hawks_user_1.png'
         ];
         $equipo3 = [
             'liga_id'=>'1',
             'nombre'=>'Houston Rockets',
             'descripcion'=>'Juventud, a ver cuando demuestran',
-            'logo'=>'EquipoLogo5.png'
+            'logo'=>'logo_equipo_Houston Rockets_user_1.png'
         ];
         $equipo4 = [
             'liga_id'=>'1',
             'nombre'=>'Dallas Mavericks',
             'descripcion'=>'Luka tira y le ponen 4 alrededor',
-            'logo'=>'EquipoLogo3.png'
+            'logo'=>'logo_equipo_Dallas Mavericks_user_1.png'
         ];
         $equipo5 = [
             'liga_id'=>'1',
             'nombre'=>'Los Angeles Clippers',
             'descripcion'=>'Si kawhi y pg no se rompen',
-            'logo'=>'EquipoLogo4.png'
+            'logo'=>'logo_equipo_Los Angeles Clippers_user_1.png'
         ];
 
         Equipo::create($equipo1);

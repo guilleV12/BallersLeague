@@ -53,7 +53,7 @@ export default function UpdatePasswordForm({ className = '' }) {
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" />
+                    <InputLabel htmlFor="current_password" value="Current Password" className='text-xs'/>
 
                     <TextInput
                         id="current_password"
@@ -63,13 +63,14 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.current_password} className="mt-2" />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel htmlFor="password" value="New Password" className='text-xs'/>
 
                     <TextInput
                         id="password"
@@ -79,13 +80,14 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" className='text-xs'/>
 
                     <TextInput
                         id="password_confirmation"
@@ -94,6 +96,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />

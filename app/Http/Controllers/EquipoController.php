@@ -6,6 +6,7 @@ use App\Models\Calendario;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
 use App\Models\Goleadores;
+use App\Models\Liga;
 use App\Models\TablaPosiciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -48,8 +49,8 @@ class EquipoController extends Controller
         ]);
 
         //si llega la variable destruirEstructuraActual se eliminara fixture/partidos/tablas posiciones y goleadores
-       
-        if ($request->destruirEstructuraActual === "1" || true){
+       //dd($request);
+        if ($request->destruirEstructuraActual === "1" || $request->destruirEstructuraActual === true){
             
             $calendario = Calendario::where('liga_id', $request->liga_id)->first();
             $fechasFixture = FechaPartido::where('calendario_id', $calendario->id)->get();
@@ -57,7 +58,12 @@ class EquipoController extends Controller
             $tablaPosiciones = TablaPosiciones::where('liga_id', $request->liga_id)->get();
             $tablaPosiciones->each->delete();
             $goleadores = Goleadores::where('liga_id', $request->liga_id)->get();
-            $goleadores->each->delete();
+            foreach ($goleadores as $goleador) {
+                $goleador->puntos = 0;
+                $goleador->cantidad_partidos = 0;
+                $goleador->promedio = 0;
+                $goleador->save();
+            }
         }
 
         $equipo->save();    
@@ -97,14 +103,20 @@ class EquipoController extends Controller
     public function destroy(Equipo $equipo, Request $request)
     {
         if ($request->destruirEstructuraActual === "1" || true){
-            
-            $calendario = Calendario::where('liga_id', $request->liga_id)->first();
+            $liga = Liga::where('id', $equipo->liga_id)->first();
+            $calendario = Calendario::where('liga_id', $liga->id)->first();
             $fechasFixture = FechaPartido::where('calendario_id', $calendario->id)->get();
             $fechasFixture->each->delete();
             $tablaPosiciones = TablaPosiciones::where('liga_id', $request->liga_id)->get();
             $tablaPosiciones->each->delete();
             $goleadores = Goleadores::where('liga_id', $request->liga_id)->get();
-            $goleadores->each->delete();
+            foreach ($goleadores as $goleador) {
+                $goleador->puntos = 0;
+                $goleador->cantidad_partidos = 0;
+                $goleador->promedio = 0;
+                $goleador->save();
+            }
+        
         }
         $equipo->delete();
 

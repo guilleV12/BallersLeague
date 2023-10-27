@@ -55,14 +55,6 @@ class CalendarioController extends Controller
         
     }
 
-    public function show(Calendario $calendario)
-    {
-        //
-    }
-    public function edit(Calendario $calendario)
-    {
-        //
-    }
     public function update(Request $request, Calendario $calendario)
     {
         //
@@ -74,7 +66,12 @@ class CalendarioController extends Controller
         $tablaPosiciones = TablaPosiciones::where('liga_id', $calendario->liga_id)->get();
         $tablaPosiciones->each->delete();
         $goleadores = Goleadores::where('liga_id', $calendario->liga_id)->get();
-        $goleadores->each->delete();
+        foreach ($goleadores as $goleador) {
+            $goleador->puntos = 0;
+            $goleador->cantidad_partidos = 0;
+            $goleador->promedio = 0;
+            $goleador->save();
+        }
         FechaPartido::where('calendario_id', $calendario->id)->delete();
     }
 

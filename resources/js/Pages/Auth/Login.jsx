@@ -29,14 +29,17 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
-            <main className='flex justify-center ml-[10%]'>
+            <Head title="Iniciar sesion" />
+            <main className='flex justify-center w-full lg:pl-[13rem]'>
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit} className='bg-white border-2 border-gray-300 px-20 py-10 rounded-lg shadow-xl'>
-                <ApplicationLogo className='m-0 pl-1' texto={true}/>
+            <form onSubmit={submit} className='bg-white w-[90%] md:w-fit border border-black px-10 py-5 rounded-lg shadow-lg shadow-gray-500'>
+                <div className='flex justify-center'>
+                    <ApplicationLogo className='m-0 pl-2 w-60' texto={true}/>
+                </div>
+                
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" className='text-xs'/>
 
                     <TextInput
                         id="email"
@@ -47,13 +50,14 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
+                        icon={<ion-icon name="at-circle-outline"></ion-icon>}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Password" className='text-xs'/>
 
                     <TextInput
                         id="password"
@@ -63,6 +67,7 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        icon={<ion-icon name="lock-closed"></ion-icon>}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -75,7 +80,7 @@ export default function Login({ status, canResetPassword }) {
                             checked={data.remember}
                             onChange={(e) => setData('remember', e.target.checked)}
                         />
-                        <span className="ml-2 text-sm text-gray-600">Recordarme</span>
+                        <span className="ml-2 text-xs text-gray-600">Recordarme</span>
                     </label>
                 </div>
 
@@ -83,7 +88,7 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-xs text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                         >
                             Olvidaste tu password?
                         </Link>

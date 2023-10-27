@@ -5,6 +5,11 @@ import Footer from '@/Components/Partials/Footer';
 import SideBar from '@/Components/Partials/SideBar';
 
 export default function Authenticated({ user, children, classMain, miLiga}) {
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!isSidebarOpen);
+      };
 
     return (
         <>
@@ -12,10 +17,10 @@ export default function Authenticated({ user, children, classMain, miLiga}) {
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         </Head>
-       <div className="bg-gray-50 dark:bg-slate-900">
-            <NavBar auth={user}/>
-            <SideBar auth={user} miLiga={miLiga}/>  
-                <main className={'sm:flex sm:justify-center sm:items-center w-full min-h-screen '+classMain}>
+       <div className="bg-gray-100 dark:bg-slate-900">
+            <NavBar auth={user} toggleSidebar={toggleSidebar}/>
+            <SideBar auth={user} miLiga={miLiga} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>  
+                <main className={'w-full h-fit lg:min-h-screen py-10 '+classMain}>
                     {children}
                 </main>
         </div>

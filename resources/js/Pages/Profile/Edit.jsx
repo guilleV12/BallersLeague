@@ -9,28 +9,26 @@ export default function Edit({ auth, mustVerifyEmail, status, miLiga }) {
         <AuthenticatedLayout
             user={auth.user} miLiga={miLiga}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
+            classMain={' flex w-full justify-center h-fit lg:min-h-screen lg:pl-[15rem]'}
         >
-            <Head title="Profile" />
-
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 ml-[10%]">
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <Head title="Perfil" />
+                <div className='w-[90%] md:w-fit flex flex-col justify-center'>
+                    <div className="px-10 py-5 border border-black bg-white shadow-lg shadow-gray-500 rounded-lg">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
-                            className="max-w-xl"
+                            className=""
                         />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdatePasswordForm className="max-w-xl" />
+                    <div className="px-10 py-5 border border-black bg-white shadow-lg shadow-gray-500 rounded-lg mt-5">
+                        <UpdatePasswordForm className="" />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
+                    <div className="px-10 py-5 border border-black bg-white shadow-lg shadow-gray-500 rounded-lg mt-5">
+                        <DeleteUserForm className="" />
                     </div>
                 </div>
-            </div>
         </AuthenticatedLayout>
     );
 }

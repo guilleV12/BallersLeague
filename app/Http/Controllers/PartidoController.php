@@ -40,10 +40,10 @@ class PartidoController extends Controller
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_2)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos - 1;
         } else {
-            $tablaPosicionesGanador = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_1)->first();
+            $tablaPosicionesGanador = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_2)->first();
             $tablaPosicionesGanador->ganados = $tablaPosicionesGanador->ganados - 1;
 
-            $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_2)->first();
+            $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_1)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos - 1;
         }
         $tablaPosicionesGanador->save();
@@ -150,7 +150,7 @@ class PartidoController extends Controller
             ]);
             $jugadorPartido->save();
             $jugadorGoleador = Goleadores::where('jugador_id', $jugadorId)->first();
-            $jugadorGoleador->cantidad_partidos = $jugadorGoleador->cantidad_partido + 1;
+            $jugadorGoleador->cantidad_partidos = $jugadorGoleador->cantidad_partidos + 1;
             $jugadorGoleador->puntos = $jugadorGoleador->puntos + $puntos;
             $jugadorGoleador->promedio = $jugadorGoleador->puntos / $jugadorGoleador->cantidad_partidos;
             $jugadorGoleador->save();
