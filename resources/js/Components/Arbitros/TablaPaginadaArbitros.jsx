@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import TablaFixture from './TablaFixture';
 import Paginacion from '../Paginacion/Paginacion';
+import TablaArbitros from './TablaArbitros';
 
-const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores }) => {
+const TablaPaginadaEquipos = ({ arbitros, openDeleteModal, openConfirmarModal, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -12,7 +12,7 @@ const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos,
   const endIndex = startIndex + itemsPerPage;
 
   // Datos a mostrar en la página actual
-  const currentData = fechas.slice(startIndex, endIndex);
+  const currentData = arbitros.slice(startIndex, endIndex);
 
   // Manejar el cambio de página
   const handlePageChange = (selectedPage) => {
@@ -21,30 +21,25 @@ const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos,
 
   return (
     <div className=' h-min-screen'>
-        <TablaFixture 
-          jugadorPartido={jugadorPartido} 
-          jugadores={jugadores} 
-          partidos={partidos} 
-          fechas={currentData} 
-          equipos={equipos} 
-          arbitros={arbitros} 
-          liga={liga} 
-          users={users} 
-          user={user} 
-          setShowAlert={setShowAlert} 
-          setTituloAlert={setTituloAlert}
-          />
-
+      <TablaArbitros
+        openDeleteModal={openDeleteModal}
+        arbitros={currentData}
+        users={users}
+        openConfirmarModal={openConfirmarModal} 
+        userAdmin={userAdmin}
+        userAuth={userAuth}
+        />
       <Paginacion 
         itemsPerPage={5}
         startIndex={startIndex} 
         endIndex={endIndex} 
-        elemento={fechas}
-        elementoNombre={'Partidos'}
+        elemento={arbitros}
+        elementoNombre={'Arbitros'}
         handlePageChange={handlePageChange} 
         />
+
     </div>
   );
 };
 
-export default TablaPaginadaFixture;
+export default TablaPaginadaEquipos;

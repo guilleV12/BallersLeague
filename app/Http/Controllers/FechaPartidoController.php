@@ -51,7 +51,7 @@ class FechaPartidoController extends Controller
     }
 
     public function update(Request $request, FechaPartido $fechapartido)
-    {
+    {//dd($request);
         $partidoJugado = Partido::where('fecha_partido_id', $fechapartido->id)->first();
     
         if ($partidoJugado) {

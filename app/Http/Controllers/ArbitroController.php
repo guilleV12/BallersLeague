@@ -29,11 +29,19 @@ class ArbitroController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {//dd($request);
+        $messages = [
+            'email.required' => 'El campo email es obligatorio.',
+            'email.exists' => 'El correo electrónico no esta registrado en Baller League.',
+            'email.unique' => 'Este correo electrónico ya está en uso por un árbitro.',
+            'id_liga.required' => 'El campo id_liga es obligatorio.',
+            'id_liga.exists' => 'La liga seleccionada no existe en la tabla de ligas.',
+        ];
+
         $validated = $request->validate([
-            'email' => 'required|exists:users,email',
+            'email' => 'required|exists:users,email|unique:arbitros,email',
             'id_liga' => 'required|exists:ligas,id',
-        ]);
+        ], $messages);
 
         $usuario = User::where('email',$validated['email'])->get();
         $liga = Liga::where('id',$validated['id_liga'])->get();
@@ -41,6 +49,7 @@ class ArbitroController extends Controller
         $arbitro = new Arbitro([
             'id_user'=>$usuario[0]->id,
             'id_liga'=>$validated['id_liga'],
+            'email'=>$validated['email'],
             'confirmado'=>false,
         ]);
 

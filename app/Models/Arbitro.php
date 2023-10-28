@@ -13,6 +13,7 @@ class Arbitro extends Model
         'id_user',
         'id_liga',
         'confirmado',
+        'email',
     ];
 
     public function user()

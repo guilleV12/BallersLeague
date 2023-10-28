@@ -199,7 +199,7 @@ return (
                     setTituloAlert={setTituloAlert}
                     liga={liga}
                     fechas={''}
-                    setDataPartido={setData}
+                    setDataObj={setData}
                     leftPosition={'left-[25%]'}
                     topPosition={'top-[8%]'}
                     classNameForm={'h-full overflow-y-auto'}

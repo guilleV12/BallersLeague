@@ -30,8 +30,15 @@ const ModalCrearElemento = ({
   handleSelect2Change,
   classNameModal,
   classNameForm,
-  setDataPartido,
+  setDataObj,
+  patch,
   topPosition,
+  users,
+  arbitros,
+  arbitrosSelecto1,
+  arbitrosSelecto2,
+  setArbitrosSelecto1,
+  setArbitrosSelecto2
 }) => {
 
   const { data, setData, post, reset, setError, errors } = useForm(formData);
@@ -49,6 +56,25 @@ const ModalCrearElemento = ({
         },
         });
   };
+
+  const requestData = elementoName === 'Fecha' ? formData : (data);
+
+  const asignarArbitros = () => {
+    router.post(route(actionRoute,elemento.id), {
+        ...requestData,
+        _method: 'put',
+        forceFormData: true,
+    }, {
+    onSuccess: () => {
+        setShowAlert(true);
+        setTituloAlert(`${elementoName} editado con éxito`);
+        onCancel();
+    },
+    onError: (response) => {
+        setError({ ...errors, ...response });
+    },
+    });
+  }
 
   const submit = (e) => {
     e.preventDefault();
@@ -96,20 +122,24 @@ const ModalCrearElemento = ({
             }
         }
     } else if (accion === 'editar') {
-        router.post(route(actionRoute,elemento.id), {
-            ...data,
-            _method: 'put',
-            forceFormData: true,
-        }, {
-        onSuccess: () => {
-            setShowAlert(true);
-            setTituloAlert(`${elementoName} editado con éxito`);
-            onCancel();
-        },
-        onError: (response) => {
-            setError({ ...errors, ...response });
-        },
-      });
+        if (elementoName === 'Fechas'){
+            asignarArbitros();
+        }else{
+            router.post(route(actionRoute,elemento.id), {
+                ...requestData,
+                _method: patch&&(patch===true?'patch':'put'),
+                forceFormData: true,
+            }, {
+            onSuccess: () => {
+                setShowAlert(true);
+                setTituloAlert(`${elementoName} editado con éxito`);
+                onCancel();
+            },
+            onError: (response) => {
+                setError({ ...errors, ...response });
+            },
+            });
+        }
     }
   };
 
@@ -124,7 +154,13 @@ const ModalCrearElemento = ({
             <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
                 Cargar resultado
             </div>
-          ):('')}
+          ):(
+            elementoName === 'Fechas' ? (
+                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
+                    Asignar arbitros
+                </div>
+            ) : ('')
+          )}
             <div className='px-20'>
                 <div className='w-full flex justify-center items-center '>
                     <div className='w-52 h-52 rounded-full bg-white flex justify-center items-center'>
@@ -136,8 +172,8 @@ const ModalCrearElemento = ({
                     elementoName={elementoName}
                     onCancel={onCancel}
                     data={data}
-                    dataPartidos={formData}
-                    setDataPartido={setDataPartido}
+                    dataObj={formData}
+                    setDataObj={setDataObj}
                     errors={errors}
                     accion={accion}
                     setData={setData}
@@ -150,6 +186,12 @@ const ModalCrearElemento = ({
                     jugadoresEquipo2={jugadoresEquipo2}
                     handleSelectChange={handleSelectChange}
                     handleSelect2Change={handleSelect2Change}
+                    users={users}
+                    arbitros={arbitros}
+                    arbitrosSelecto1={arbitrosSelecto1}
+                    arbitrosSelecto2={arbitrosSelecto2}
+                    setArbitrosSelecto1={setArbitrosSelecto1}
+                    setArbitrosSelecto2={setArbitrosSelecto2}
                     />
             </div>
         </form>

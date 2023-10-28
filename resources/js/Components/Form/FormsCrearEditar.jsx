@@ -5,15 +5,17 @@ import FormPartido from './FormPartido';
 import { BotonCancelar, BotonContenido } from '../BotonesAcciones';
 import FormFixture from './FormFixture';
 import FormJugador from './FormJugador';
+import FormFecha from './FormFecha';
+import FormArbitrosFechas from './FormArbitrosFechas';
 
 const FormsCrearEditar = ({
   elementoName,
   onCancel,
   data,
-  dataPartidos,
+  dataObj,
   errors,
   setData,
-  setDataPartido,
+  setDataObj,
   accion,
   eliminar,
   equipos,
@@ -24,9 +26,14 @@ const FormsCrearEditar = ({
   jugadoresEquipo1,
   jugadoresEquipo2,
   handleSelectChange,
-  handleSelect2Change
+  handleSelect2Change,
+  arbitros,
+  users,
+  arbitrosSelecto1,
+  arbitrosSelecto2,
+  setArbitrosSelecto1,
+  setArbitrosSelecto2
 }) => {
-
 
   return (
     <>
@@ -67,9 +74,9 @@ const FormsCrearEditar = ({
                     <FormPartido
                         elementoName={elementoName}
                         onCancel={onCancel}
-                        data={dataPartidos}
+                        data={dataObj}
                         errors={errors}
-                        setData={setDataPartido}
+                        setData={setDataObj}
                         equiposFiltrados={equiposFiltrados}
                         selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
                         selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
@@ -90,7 +97,27 @@ const FormsCrearEditar = ({
                             accion={accion}
                             />
                     ):(
-                        ''
+                        elementoName === 'Fecha' ? (
+                            <FormFecha
+                                elementoName={elementoName}
+                                onCancel={onCancel}
+                                data={dataObj}
+                                errors={errors}
+                                setData={setDataObj}
+                                arbitros={arbitros}
+                                users={users}
+                                arbitrosSelecto1={arbitrosSelecto1}
+                                arbitrosSelecto2={arbitrosSelecto2}
+                                setArbitrosSelecto1={setArbitrosSelecto1}
+                                setArbitrosSelecto2={setArbitrosSelecto2}
+                                />
+                        ):(
+                            elementoName === 'Fechas' ? (
+                                <FormArbitrosFechas
+                                    />
+                            ):('')
+                        )
+                        
                     )
                 )
             )
@@ -98,34 +125,37 @@ const FormsCrearEditar = ({
     )}
 
     <div className="flex items-center justify-center mt-4">
-        {eliminar === true ? (
-            <>
-            <BotonEliminar
-                className={' ml-2'}
-                />
-            <BotonCancelar
-                className={' ml-2'}
-                onClick={onCancel}
-                nombre={'Cancelar'}
-                />
-            </>
-        ) : (
-            <>
-            <BotonContenido
-                nombre={accion === 'agregar' ? (
-                    'Agregar'
+        {   
+                eliminar === true ? (
+                    <>
+                    <BotonEliminar
+                        className={' ml-2'}
+                        />
+                    <BotonCancelar
+                        className={' ml-2'}
+                        onClick={onCancel}
+                        nombre={'Cancelar'}
+                        />
+                    </>
                 ) : (
-                    'Editar'
-                )}
-                className={' ml-2'}
-                />
-            <BotonCancelar
-                onClick={onCancel}
-                className={' ml-2'}
-                nombre={'Cancelar'}
-                />
-            </>
-        )}
+                    <>
+                    <BotonContenido
+                        nombre={accion === 'agregar' ? (
+                            'Agregar'
+                        ) : (
+                            'Editar'
+                        )}
+                        className={' ml-2'}
+                        />
+                    <BotonCancelar
+                        onClick={onCancel}
+                        className={' ml-2'}
+                        nombre={'Cancelar'}
+                        />
+                    </>
+                )
+            
+        }
     </div>
     </>
   );

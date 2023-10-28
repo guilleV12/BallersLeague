@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InputError from '../InputError';
 import InputLabel from '../InputLabel';
 import TextInput from '../TextInput';
+import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
 const FormArbitro = ({
   elementoName,
@@ -15,7 +16,6 @@ const FormArbitro = ({
 
   return (
     <>
-    
           <TextInput
               id="id_liga"
               type="number"

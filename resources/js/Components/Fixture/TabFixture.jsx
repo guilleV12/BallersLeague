@@ -87,6 +87,7 @@ const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario,
         <ModalAsignarArbitros
           calendario={calendario}
           arbitros={arbitros}
+          liga={liga}
           fechas={fechas}
           closeModalAsignarArbitros={handleCloseAsignarArbitros}
           setShowAlert={setShowAlert}

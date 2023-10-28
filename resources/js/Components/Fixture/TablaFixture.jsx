@@ -219,6 +219,7 @@ const closeModalCargarResultado = () => {
                 users={users} 
                 setShowAlert={setShowAlert} 
                 setTituloAlert={setTituloAlert}
+                patch={true}
                 />
         )}
         { isModalCargarResultadoOpen &&( 

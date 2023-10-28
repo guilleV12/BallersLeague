@@ -16,7 +16,7 @@ const ModalCrearArbitro = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       liga={liga}
-      leftPosition={'left-[44%]'}
+      leftPosition={'left-[40%]'}
       formData = {formDataArbitro}
       accion={'agregar'}
     />
