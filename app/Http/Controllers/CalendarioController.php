@@ -12,15 +12,6 @@ use Illuminate\Validation\Rules\Exists;
 
 class CalendarioController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request)
     {
@@ -50,14 +41,9 @@ class CalendarioController extends Controller
         $calendario[0]->save();
 
         for ($i=0; $i < $validated['cantidad_vueltas']; $i++) { 
-            $this->generarFechasPartido($calendario[0]);
+            $this->generarFechasPartido($calendario[0], $validated['cantidad_vueltas']);
         }
         
-    }
-
-    public function update(Request $request, Calendario $calendario)
-    {
-        //
     }
 
     public function destroyFixture(Calendario $calendario)
@@ -75,8 +61,36 @@ class CalendarioController extends Controller
         FechaPartido::where('calendario_id', $calendario->id)->delete();
     }
 
-    public function generarFechasPartido(Calendario $calendario)
-        {
+    public function generarFechasHorarios($numDias, $vueltas) 
+    {
+        $fechasHorarios = [];
+    
+        // Obtener la fecha actual
+        $fechaActual = now(); // O utiliza Carbon::now() si estás utilizando Carbon.
+    
+        for ($i = 0; $i < ($numDias*$vueltas); $i++) {
+            // Clonar la fecha actual para evitar modificar la original
+            $fecha = $fechaActual->copy();
+    
+            // Agregar fechas y horarios para dos partidos por día
+                // Agregar el horario a las 21:00
+                $fecha->setTime(21, 0, 0);
+                $fechasHorarios[] = ['fecha' => $fecha->format('Y-m-d'), 'hora' => $fecha->format('H:i:s')];
+    
+                // Agregar el horario a las 22:30
+                $fecha->setTime(22, 30, 0);
+                $fechasHorarios[] = ['fecha' => $fecha->format('Y-m-d'), 'hora' => $fecha->format('H:i:s')];
+    
+            // Avanzar al siguiente día
+            $fechaActual->addDay();
+
+        }
+        return $fechasHorarios;
+    }
+
+    public function generarFechasPartido(Calendario $calendario, $vueltas)
+        {//dd($this->generarFechasHorarios(3));
+
             // Obtén los equipos de la misma liga que el calendario
             $equipos = Equipo::where('liga_id', $calendario->liga_id)->get()->toArray();
 
@@ -118,7 +132,7 @@ class CalendarioController extends Controller
                             'fecha' => null,
                             'horario' => null,
                         ]);
-
+                        //asignar fecha y hora
                         $fechaPartido->save();
 
                         // Agrega este partido al arreglo de partidos jugados
@@ -162,6 +176,19 @@ class CalendarioController extends Controller
                 $ultimoEquipo = array_pop($equipos);
                 array_unshift($equipos, $ultimoEquipo);
             }
+            //Asignar fechas y horas
+            $this->asignarFechasHoras($totalFechas, $calendario->id, $vueltas);
         }
 
+        public function asignarFechasHoras($numDias, $calendarioId, $vueltas)
+        {
+            $arrayFechasHorarios = $this->generarFechasHorarios($numDias, $vueltas);
+            $fechaPartidos = FechaPartido::where('calendario_id', $calendarioId)->get();
+        
+            for ($i = 0;$i < count($fechaPartidos); $i++) {
+                $fechaPartidos[$i]->fecha = $arrayFechasHorarios[$i]['fecha'];
+                $fechaPartidos[$i]->horario = $arrayFechasHorarios[$i]['hora'];
+                $fechaPartidos[$i]->save();
+            }
+        }
 }

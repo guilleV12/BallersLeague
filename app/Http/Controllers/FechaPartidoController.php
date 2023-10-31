@@ -10,45 +10,6 @@ use Illuminate\Http\Request;
 
 class FechaPartidoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(FechaPartido $fechaPartido)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FechaPartido $fechaPartido)
-    {
-        //
-    }
 
     public function update(Request $request, FechaPartido $fechapartido)
     {//dd($request);
@@ -70,6 +31,34 @@ class FechaPartidoController extends Controller
             ], $customMessages);
         }
         
+        //buscar si la fecha ingresada se repite en alguna existente, si se repite validar que tenga al menos 1:30 hs de diferencia con las demas
+        $fechasRepetidas = $this->buscarFechasRepetidas($fechapartido->calendario_id, $request->fecha, $fechapartido);
+
+        if (count($fechasRepetidas) > 0 && $request->horario){
+            $diferenciaMinima = 90; // Diferencia mínima de 1:30 horas en minutos
+            $horaActual = strtotime($request->horario);
+            // Recorre las fechas repetidas para verificar la diferencia de horario
+            foreach ($fechasRepetidas as $repetida) {
+                $horaRepetida = strtotime($repetida->horario);
+                
+                $diferenciaHoraria = abs($horaActual - $horaRepetida) / 60; // Diferencia en minutos
+                
+                if ($diferenciaHoraria < $diferenciaMinima) {
+                    $customMessages2 = [
+                        'horario' => 'La hora y fecha se esta pisando con otro partido.'
+                    ];
+                    $request->validate([
+                        'horario' => [
+                            'date',
+                            'different:' . $repetida->horario,
+                            'after:' . date('H:i', strtotime($repetida->horario . " + $diferenciaMinima minutes")),
+                            'before:' . date('H:i', strtotime($repetida->horario . " - $diferenciaMinima minutes")),
+                        ],
+                    ], $customMessages2);
+                }
+            }
+        }
+
         $fechapartido->fecha = $request->fecha;
         $fechapartido->horario = $request->horario;
         $fechapartido->arbitro_1 = $request->arbitro_1;
@@ -101,8 +90,18 @@ class FechaPartidoController extends Controller
         
     }
 
-    public function destroy(Calendario $calendario)
-    {
-    }
+    public function buscarFechasRepetidas($calendarioId, $fecha, $fechaPartidoEditando){
+        $fechaPartidos = FechaPartido::where('calendario_id', $calendarioId)->get();
+        $fechasRepetidas = [];
 
+        foreach ($fechaPartidos as $fechapartido) {
+            if ($fechapartido->fecha == $fecha){
+                if ($fechaPartidoEditando->id != $fechapartido->id) {
+                    $fechasRepetidas[] = $fechapartido;
+                }
+            }
+        }
+
+        return $fechasRepetidas;
+    }
 }

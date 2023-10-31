@@ -10,7 +10,7 @@ class FechaPartido extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hora',
+        'horario',
         'fecha',
         'calendario_id',
         'equipo_1',
