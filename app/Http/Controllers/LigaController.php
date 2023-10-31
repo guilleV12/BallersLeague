@@ -31,7 +31,7 @@ class LigaController extends Controller
     public function create()
     {
         $user = User::find(Auth::user()->id);
-        
+        //dd($user->roles);
         return Inertia::render('Ligas/Create', [
             'user'=>$user,
             'liga'=>Liga::where('user_id',$user->id)->get(),
@@ -66,12 +66,16 @@ class LigaController extends Controller
 
     public function show(Request $request, $user)
     {
+        $userRol = User::find(Auth::user()->id);
         $liga = Liga::where('user_id',$user)->get();
+        $rol = $userRol->roles->first();
+        //dd($rol ? $rol->name : null);
 
         if (count($liga)>0){
             $calendario = Calendario::where('liga_id',$liga[0]->id)->first();
             $equipos = Equipo::where('liga_id',$liga[0]->id)->get();
             return Inertia::render('Ligas/Show', [
+                'rol'=> $rol ? $rol->name : $rol,
                 'user'=>Auth::user(),
                 'liga'=>$liga,
                 'equipos'=>$equipos,

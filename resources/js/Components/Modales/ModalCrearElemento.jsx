@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { router, useForm } from '@inertiajs/react';
 import FormsCrearEditar from '../Form/FormsCrearEditar';
+import ModalInformarErrores from './ModalInformarErrores';
 
 const ModalCrearElemento = ({
   elementoName,
@@ -32,6 +33,7 @@ const ModalCrearElemento = ({
   classNameForm,
   setDataObj,
   patch,
+  rol,
   topPosition,
   users,
   arbitros,
@@ -42,7 +44,7 @@ const ModalCrearElemento = ({
 }) => {
 
   const { data, setData, post, reset, setError, errors } = useForm(formData);
-
+  //console.log(data);
   const enviar = () => {
     post(route('calendario.store'), {
         onSuccess: () => {
@@ -76,6 +78,13 @@ const ModalCrearElemento = ({
     });
   }
 
+  const [isModalConfirmarPartidoOpen, setModalConfirmarPartidoOpen] = useState(false);
+  const [confirmado, setConfirmado] = useState(false);
+
+  const openModalConfirmacionPartido = () => {
+    setModalConfirmarPartidoOpen(true);
+  };
+
   const submit = (e) => {
     e.preventDefault();
     if (accion === 'agregar') {
@@ -99,16 +108,19 @@ const ModalCrearElemento = ({
             }
         }else{
             if (actionRoute === 'partido.store'){
-                if (verificarPuntosPartido(formData)){
-                    setData(formData);
-                    post(route(actionRoute), {
-                        onSuccess: () => {
-                        setShowAlert(true);
-                        setTituloAlert(`${elementoName} creado con éxito`);
-                        reset();
-                        onAdd();
-                        },
-                    });
+                if (verificarPuntosPartido(data)){
+                    if (confirmado === true){
+                        post(route(actionRoute), {
+                            onSuccess: () => {
+                            setShowAlert(true);
+                            setTituloAlert(`${elementoName} creado con éxito`);
+                            reset();
+                            onAdd();
+                            },
+                        });
+                    }else{
+                        setModalConfirmarPartidoOpen(true);
+                    }
                 }
             }else{
                 post(route(actionRoute), {
@@ -122,12 +134,13 @@ const ModalCrearElemento = ({
             }
         }
     } else if (accion === 'editar') {
+        
         if (elementoName === 'Fechas'){
             asignarArbitros();
         }else{
             router.post(route(actionRoute,elemento.id), {
                 ...requestData,
-                _method: patch&&(patch===true?'patch':'put'),
+                _method: (patch && patch===true?'patch':'put'),
                 forceFormData: true,
             }, {
             onSuccess: () => {
@@ -188,6 +201,7 @@ const ModalCrearElemento = ({
                     handleSelect2Change={handleSelect2Change}
                     users={users}
                     arbitros={arbitros}
+                    rol={rol}
                     arbitrosSelecto1={arbitrosSelecto1}
                     arbitrosSelecto2={arbitrosSelecto2}
                     setArbitrosSelecto1={setArbitrosSelecto1}
@@ -196,6 +210,15 @@ const ModalCrearElemento = ({
             </div>
         </form>
       </div>
+      {isModalConfirmarPartidoOpen&&(
+        <ModalInformarErrores
+            titulo={'Confirmar datos de partido'}
+            cuerpo={'Una vez cargado el resultado no podra editar ni eliminar, revise bien antes de agregar.'}
+            accion={'confirmar'}
+            closeModal={() => {setModalConfirmarPartidoOpen(false);}}
+            confirmar={() => {setConfirmado(true);setModalConfirmarPartidoOpen(false);}}
+            />
+      )}
     </>
   );
 };

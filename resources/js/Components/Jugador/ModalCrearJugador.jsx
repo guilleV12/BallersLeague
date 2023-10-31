@@ -12,7 +12,7 @@ const ModalCrearJugador = ({ jugador, liga, equipo, onCancel, onAdd, onEdit, acc
         equipo_id:equipo.id,
         liga_id:equipo.liga_id,
     };
-
+    
   return (
     <>
         <ModalCrearElemento

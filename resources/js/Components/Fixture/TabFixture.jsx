@@ -4,9 +4,25 @@ import ModalAsignarArbitros from './ModalAsignarArbitros';
 import TablaPaginadaFixture from './TablaPaginadaFixture';
 import ModalCrearFixture from './ModalCrearFixture';
 import ModalEliminarFixture from './ModalEliminarFixture';
+import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
-const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario, fechas, equipos, liga, users, user, setShowAlert, setTituloAlert }) => {
+const TabFixture = ({ 
+  jugadorPartido, 
+  partidos, 
+  jugadores, 
+  arbitros, 
+  calendario, 
+  fechas, 
+  equipos, 
+  liga, 
+  users, 
+  user, 
+  setShowAlert, 
+  setTituloAlert,
+  rol 
+}) => {
   const [isModalAsignarArbitroOpen, setIsModalAsignarArbitroOpen] = useState(false);
+  const [isModalInformarErrorFixtureOpen, setIsModalInformarErrorFixtureOpen] = useState(false);
   const [isGenerarFixtureOpen, setGenerarFixtureOpen] = useState(false);
   const [isDeleteFixtureOpen, setDeleteFixtureOpen] = useState(false);
 
@@ -34,31 +50,47 @@ const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario,
     setDeleteFixtureOpen(false);
   };
 
+  const openModalInformarErrorFixture = () => {
+    setIsModalInformarErrorFixtureOpen(true);
+  }
+
+  const closeModalInformarErrorFixture = () => {
+    setIsModalInformarErrorFixtureOpen(false);
+  }
+
   return (
     <div className="tab-fixture">
       <div className="botones-accion grid md:flex w-full justify-center md:space-x-4 py-5 bg-black">
-        {(user.id === liga.user_id) && (
+        {(user.id === liga.user_id) ? (
                 fechas ? ( fechas.length > 0 ? (
                     <>
                         <BotonAsignarArbitros 
                           onClick={handleAsignarArbitros}
                           className={' mb-1 block justify-center'} 
                           />
+                        {partidos&&(partidos.length > 0 ? (
+                          ''
+                        ):(
                         <BotonRegenerarFixture 
                           onClick={handleGenerarFixture} 
                           regenerar={true}
                           className={' mb-1 block justify-center'}
                           />
+                        ))}
+                        
                         <BotonEliminarFixture 
-                          onClick={handleDeleteFixture}
+                          onClick={partidos&&(partidos.length > 0 ? openModalInformarErrorFixture : handleDeleteFixture)}
                           className={' mb-1 block justify-center'}
                           />
                     </>
                   ) : (
+                      <>
                         <BotonRegenerarFixture 
                           onClick={handleGenerarFixture} 
                           regenerar={false}
                           />
+                        
+                      </>
                   )
                 ) : (
                       <BotonRegenerarFixture 
@@ -66,7 +98,15 @@ const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario,
                         regenerar={false}
                         />
                 )
+              ):(
+                rol === 'admin' && (
+                  <BotonEliminarFixture 
+                    onClick={handleDeleteFixture}
+                    className={' mb-1 block justify-center'}
+                    />
+                )
               )}
+
       </div>
 
       <TablaPaginadaFixture
@@ -81,6 +121,7 @@ const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario,
         user={user}
         setShowAlert={setShowAlert}
         setTituloAlert={setTituloAlert}
+        rol={rol}
       />
 
       {isModalAsignarArbitroOpen && (
@@ -117,6 +158,16 @@ const TabFixture = ({ jugadorPartido, partidos, jugadores, arbitros, calendario,
           fechas={fechas}
           caledario={calendario}
           liga={liga}
+          rol={rol}
+          />
+      )}
+
+      {isModalInformarErrorFixtureOpen && (
+        <ModalInformarErrores
+          titulo={'Ya se jugo un partido!'}
+          cuerpo={'Debe contactarse con el administrador para borrar o regenerar este fixture.'} 
+          nombre={'Cerrar'}
+          closeModal={closeModalInformarErrorFixture}
           />
       )}
     </div>

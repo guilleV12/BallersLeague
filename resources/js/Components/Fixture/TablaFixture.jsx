@@ -5,7 +5,7 @@ import ModalCrearPartido from './ModalCrearPartido';
 import ModalVerEstadisticas from './ModalVerEstadisticas';
 import { BotonContenido, BotonEditar, BotonOpciones } from '../BotonesAcciones';
 
-export const TablaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores }) => {
+export const TablaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
 const [isModalEditarFechaOpen, setModalEditarFechaOpen] = useState(false);
 const [fechaEditar, setFechaEditar] = useState(false);
 const [isModalCargarResultadoOpen, setModalCargarResultadoOpen] = useState(false);
@@ -162,7 +162,7 @@ const closeModalCargarResultado = () => {
                        
                         </td>
                         <td scope="col" className='px-6 py-1 flex items-center justify-end'>
-                            {liga.user_id === user.id &&(
+                            {(liga.user_id === user.id || rol==='admin') &&(
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                             <BotonOpciones/>
@@ -220,11 +220,15 @@ const closeModalCargarResultado = () => {
                 setShowAlert={setShowAlert} 
                 setTituloAlert={setTituloAlert}
                 patch={true}
+                rol={rol}
+                partidos={partidos}
                 />
         )}
         { isModalCargarResultadoOpen &&( 
             <ModalCrearPartido 
                 eliminar={eliminar} 
+                rol={rol}
+                partidos={partidos}
                 jugadoresParticiparon={jugadoresPartidoCargar} 
                 partido={partidoJugado} 
                 jugadores={jugadores} 

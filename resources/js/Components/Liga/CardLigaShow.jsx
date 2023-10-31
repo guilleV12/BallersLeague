@@ -23,6 +23,7 @@ const CardLigaShow = ({
   users,
   calendario,
   fechas,
+  rol
 }) => {
   const [activeTab, setActiveTab] = useState('liga');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -173,6 +174,7 @@ const CardLigaShow = ({
               setShowAlert={setShowAlert} 
               setTituloAlert={setTituloAlert} 
               calendario={calendario}
+              partidos={partidos}
               />
         </div>
         <div className={`${activeTab === 'arbitros' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="arbitros" role="tabpanel" aria-labelledby="arbitros-tab">    
@@ -202,6 +204,7 @@ const CardLigaShow = ({
               users={users} 
               setShowAlert={setShowAlert} 
               setTituloAlert={setTituloAlert} 
+              rol={rol}
               />
         </div>
       </div>

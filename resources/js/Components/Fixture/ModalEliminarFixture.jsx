@@ -10,6 +10,7 @@ const ModalEliminarFixture = ({
   setTituloAlert,
   fechas,
   liga,
+  rol,
   variante,
 }) => {
   const message =`¿Está seguro que desea eliminar el fixture de la liga: `+liga.nombre+`?`;
@@ -28,6 +29,7 @@ const ModalEliminarFixture = ({
       message={message}
       tipoElemento={'fixture'}
       patch={true}
+      rol={rol}
     />
   );
 };

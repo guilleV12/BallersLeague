@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import TablaFixture from './TablaFixture';
 import Paginacion from '../Paginacion/Paginacion';
 
-const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores }) => {
+const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -33,6 +33,7 @@ const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos,
           user={user} 
           setShowAlert={setShowAlert} 
           setTituloAlert={setTituloAlert}
+          rol={rol}
           />
 
       <Paginacion 

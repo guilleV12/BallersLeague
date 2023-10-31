@@ -77,7 +77,9 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
         </tr>
       </thead>
       <tbody>
-        {jugadores.map((jugador) => (
+        {jugadores
+          .filter((jugador) => jugador.deshabilitado === 0)
+          .map((jugador) => (
           <tr key={jugador.id} className="bg-white border-b grid grid-cols-3 md:grid-cols-5 dark:bg-gray-900 dark:border-gray-700 text-sm">
             <td scope="row" className="items-center px-6 text-lg py-4">
                 <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-24 h-auto rounded-full'></img>
@@ -109,6 +111,14 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
                                 nombre={'Estadisticas'}
                                 className={' block w-full justify-center mt-1'}
                                 />
+                          </li>
+                          <li>
+                            <a href={route('getplayerinfo.index',(jugador.nombre+' '+jugador.apellido))}>
+                              <BotonContenido
+                                nombre={'Perfil jugador'}
+                                className={' block w-full justify-center mt-1'}
+                                />
+                            </a>
                           </li>
                       </ul>
                   </Dropdown.Content>

@@ -17,7 +17,8 @@ const FormFecha = ({
   setArbitrosSelecto1,
   setArbitrosSelecto2,
   arbitrosSelecto1,
-  arbitrosSelecto2
+  arbitrosSelecto2,
+  rol
 }) => {
 
   return (
@@ -74,13 +75,14 @@ const FormFecha = ({
                             <option value="">Selecciona una opción</option>
                             {arbitros && arbitros.length > 0 ? (
                                 arbitros
-                                    .filter(arbitro => arbitro.confirmado === 1)
+                                    .filter(arbitro => (arbitro.confirmado === 1) && (arbitro.deshabilitado === 0))
                                     .map(arbitro => (
                                         users.map(usuario => (
                                             ((usuario.id === arbitro.id_user) && (arbitro.id !== parseInt(arbitrosSelecto2))) &&(
                                                 <option key={arbitro.id} value={arbitro.id} >
                                                     {usuario.nombre + ' ' + usuario.apellido}
-                                                </option>)
+                                                </option>
+                                                )
                                         ))
                                     ))
                             ) : (
@@ -104,7 +106,7 @@ const FormFecha = ({
                             <option value="">Selecciona una opción</option>
                             {arbitros && arbitros.length > 0 ? (
                                 arbitros
-                                    .filter(arbitro => arbitro.confirmado === 1)
+                                    .filter(arbitro => (arbitro.confirmado === 1) && (arbitro.deshabilitado === 0))
                                     .map(arbitro => (
                                         users.map(usuario => (
                                             ((usuario.id === arbitro.id_user) && (arbitro.id !== parseInt(arbitrosSelecto1))) &&(

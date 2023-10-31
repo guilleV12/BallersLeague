@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { router } from '@inertiajs/react';
-import { BotonCancelar, BotonEliminar } from '../BotonesAcciones';
+import { BotonCancelar, BotonContenido, BotonEliminar } from '../BotonesAcciones';
 
 const ModalEliminarElemento = ({ 
     nombreElemento, 
@@ -15,10 +15,12 @@ const ModalEliminarElemento = ({
     message, 
     tipoElemento, 
     patch,
-    formData
+    formData,
+    partidos,
+    rol
 }) => {
   const [canDelete, setCanDelete] = useState(true);
-  const arrayNoFechas = ['partido','fixture','equipo','jugador'];
+  const arrayNoFechas = ['partido','fixture','jugador'];
 
   useEffect(() => {
     if (!arrayNoFechas.includes(tipoElemento)){
@@ -29,11 +31,12 @@ const ModalEliminarElemento = ({
             fecha.arbitro_1 === elemento.id || fecha.arbitro_2 === elemento.id
           );
           if (elementoEnFechas) {
-            setCanDelete(false);
+            setCanDelete(false);            
           }
         } else if (tipoElemento === 'equipo') {
-          // Personaliza la lógica para equipos, por ejemplo
-          // Puedes verificar si el elemento está asociado a fechas de otra manera
+          if (partidos && partidos.length > 0){
+              setCanDelete(false);
+          }
         }
       }
     }
@@ -54,6 +57,7 @@ const ModalEliminarElemento = ({
     }else{
       router.post(route(`${nombreRuta}`, elemento.id), {
         _method: patch?'patch':'delete',
+        canDelete,
       }, {
       onSuccess: () => {
         onDelete();
@@ -79,26 +83,58 @@ const ModalEliminarElemento = ({
             </div>
             <div className="p-6 space-y-6 bg-white">
               <p className="text-base leading-relaxed text-black dark:text-gray-400">
-                {canDelete
-                  ? message
-                  : `No puede eliminar a ${nombreElemento} porque está asociado a fechas.`}
+                {message}
               </p>
             </div>
             <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-              {canDelete ? (
-                tipoElemento === 'arbitro' ? (
-                    <BotonEliminar 
-                      onClick={handleDelete} 
-                      />
+              {tipoElemento === 'equipo' ? (
+                canDelete === true ? (
+                  <>
+                  <BotonEliminar 
+                    onClick={handleDelete} 
+                    />
+                    
+                  <BotonCancelar 
+                    onClick={onCancel} 
+                    />
+                  </>
                 ) : (
-                    <BotonEliminar 
-                      onClick={handleDelete} 
-                      />
+                  <BotonContenido
+                    nombre={'Cerrar'}
+                    onClick={onCancel}
+                    />
                 )
-              ) : null}
-              <BotonCancelar 
-                onClick={onCancel} 
-                />
+              ):(
+                tipoElemento === 'partido' ? (
+                  rol === 'admin' ? (
+                    <>
+                      <BotonEliminar 
+                        onClick={handleDelete} 
+                        />
+                      
+                      <BotonCancelar 
+                        onClick={onCancel} 
+                        />
+                    </>
+                  ):( 
+                    <BotonContenido
+                      nombre={'Cerrar'}
+                      onClick={onCancel}
+                      />
+                    )
+                ):(
+                  <>
+                  <BotonEliminar 
+                    onClick={handleDelete} 
+                    />
+                  
+                  <BotonCancelar 
+                    onClick={onCancel} 
+                    />
+                  </>
+                )
+              )}
+              
             </div>
           </div>
         </div>

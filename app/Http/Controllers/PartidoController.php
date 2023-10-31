@@ -89,9 +89,9 @@ class PartidoController extends Controller
         if (count($jugadoresEquipo1) < 5 || count($jugadoresEquipo2) < 5) {
             // Aquí puedes manejar la lógica para mostrar un mensaje de error o hacer cualquier otra acción
             $messages = [
-                'required' => 'Debe tener al menos 5 jugadores por equipo.',
+                'required' => 'Debe tener al menos 5 jugadores por equipo e ingresar sus puntos.',
             ];
-            $validateJugadores = $request->validate([
+            $request->validate([
                 'jugador_1_equipo_1' => 'required',
                 'jugador_2_equipo_1' => 'required',
                 'jugador_3_equipo_1' => 'required',

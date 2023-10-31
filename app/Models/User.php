@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(VotacionJMV::class);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

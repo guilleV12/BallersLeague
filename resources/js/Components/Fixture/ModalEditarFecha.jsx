@@ -1,8 +1,9 @@
 import { router, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
+import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
-export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arbitros, users, setShowAlert, setTituloAlert, patch }) => {
+export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arbitros, users, setShowAlert, setTituloAlert, patch, rol, partidos }) => {
     
     const formData = {
         fecha: fechaEditar.fecha ? fechaEditar.fecha : '',
@@ -15,34 +16,81 @@ export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arb
 
     const [arbitrosSelecto1, setArbitrosSelecto1] = useState(0);
     const [arbitrosSelecto2, setArbitrosSelecto2] = useState(0);
+    const [partidoJugado, setPartidoJugado] = useState(null);
 
+    useEffect(() => {
+        const partido = partidos.filter((partido) => partido.fecha_partido_id === fechaEditar.id);
+        setPartidoJugado(partido);
+    }, []);
+    console.log(partidoJugado);
     return (
         <>
-            <ModalCrearElemento
-                elementoName="Fecha"
-                actionRoute={'fechapartido.update'}
-                onCancel={closeModalEditarFecha}
-                onAdd={closeModalEditarFecha}
-                elemento={fechaEditar}
-                setShowAlert={setShowAlert}
-                setTituloAlert={setTituloAlert}
-                liga={liga}
-                fechas={''}
-                setDataObj={setData}
-                leftPosition={'left-[40%]'}
-                topPosition={'top-[8%]'}
-                classNameForm={'h-full overflow-y-auto'}
-                classNameModal={'inset-0 mb-[1%]'}
-                formData = {data}
-                users={users}
-                arbitros={arbitros}
-                arbitrosSelecto1={arbitrosSelecto1}
-                arbitrosSelecto2={arbitrosSelecto2}
-                setArbitrosSelecto1={setArbitrosSelecto1}
-                setArbitrosSelecto2={setArbitrosSelecto2}
-                accion={'editar'}
-                patch={patch}
-                />
+        {partidoJugado && partidoJugado.length > 0 ? (
+            rol === 'admin' ? (
+                <ModalCrearElemento
+                    elementoName="Fecha"
+                    actionRoute={'fechapartido.update'}
+                    onCancel={closeModalEditarFecha}
+                    onAdd={closeModalEditarFecha}
+                    elemento={fechaEditar}
+                    setShowAlert={setShowAlert}
+                    setTituloAlert={setTituloAlert}
+                    liga={liga}
+                    fechas={''}
+                    rol={rol}
+                    setDataObj={setData}
+                    leftPosition={'left-[40%]'}
+                    topPosition={'top-[8%]'}
+                    classNameForm={'h-full overflow-y-auto'}
+                    classNameModal={'inset-0 mb-[1%]'}
+                    formData = {data}
+                    users={users}
+                    arbitros={arbitros}
+                    arbitrosSelecto1={arbitrosSelecto1}
+                    arbitrosSelecto2={arbitrosSelecto2}
+                    setArbitrosSelecto1={setArbitrosSelecto1}
+                    setArbitrosSelecto2={setArbitrosSelecto2}
+                    accion={'editar'}
+                    patch={patch}
+                    />
+            ):(
+                <ModalInformarErrores
+                    titulo={'No puede editar los datos del partido ya jugado'}
+                    cuerpo={'Para editar esta fecha debe comunicarse con el administrador.'}
+                    nombre={'Cerrar'}
+                    closeModal={closeModalEditarFecha}
+                    />
+            )
+           
+        ):(
+                <ModalCrearElemento
+                    elementoName="Fecha"
+                    actionRoute={'fechapartido.update'}
+                    onCancel={closeModalEditarFecha}
+                    onAdd={closeModalEditarFecha}
+                    elemento={fechaEditar}
+                    setShowAlert={setShowAlert}
+                    setTituloAlert={setTituloAlert}
+                    liga={liga}
+                    fechas={''}
+                    rol={rol}
+                    setDataObj={setData}
+                    leftPosition={'left-[40%]'}
+                    topPosition={'top-[8%]'}
+                    classNameForm={'h-full overflow-y-auto'}
+                    classNameModal={'inset-0 mb-[1%]'}
+                    formData = {data}
+                    users={users}
+                    arbitros={arbitros}
+                    arbitrosSelecto1={arbitrosSelecto1}
+                    arbitrosSelecto2={arbitrosSelecto2}
+                    setArbitrosSelecto1={setArbitrosSelecto1}
+                    setArbitrosSelecto2={setArbitrosSelecto2}
+                    accion={'editar'}
+                    patch={patch}
+                    />
+        )}
+            
         </>
     )
 }

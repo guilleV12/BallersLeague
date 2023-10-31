@@ -4,10 +4,12 @@ import ModalInformarErrores from '../Modales/ModalInformarErrores';
 import ModalEliminarPartido from './ModalEliminarPartido';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
 
-export const ModalCrearPartido = ({ eliminar, jugadoresParticiparon, partido, closeModalCargarResultado, liga, setShowAlert, setTituloAlert, fecha_partido, equipos, equipos_puntajes, jugadores }) => {
+export const ModalCrearPartido = ({ eliminar, rol, jugadoresParticiparon, partido, partidos, closeModalCargarResultado, liga, setShowAlert, setTituloAlert, fecha_partido, equipos, equipos_puntajes, jugadores }) => {
     const [isModalErrorPuntosOpen, setIsModalErrorPuntosOpen] = useState(false);
     const [equipoErrorPuntos, setEquipoErrorPuntos] = useState('');
     const [esEmpate, setEsEmpate] = useState(false);
+    const [mensajeLeido, setMensajeLeido] = useState(false);
+
     const openModalErrorPuntos = (equipo, empate) => {
         setEquipoErrorPuntos(equipo);
         if (empate === true){
@@ -56,44 +58,72 @@ export const ModalCrearPartido = ({ eliminar, jugadoresParticiparon, partido, cl
         equipo_2: equipos_puntajes[1],
         fecha_partido_id: fecha_partido.id,
         calendario_id: fecha_partido.calendario_id,
+        jugador_1_equipo_1:'',
+        jugador_2_equipo_1:'',
+        jugador_3_equipo_1:'',
+        jugador_4_equipo_1:'',
+        jugador_5_equipo_1:'',
+        jugador_6_equipo_1:'',
+        jugador_7_equipo_1:'',
+        jugador_8_equipo_1:'',
+        jugador_9_equipo_1:'',
+        jugador_10_equipo_1:'',
+        jugador_11_equipo_1:'',
+        jugador_12_equipo_1:'',
+        jugador_1_equipo_2:'',
+        jugador_2_equipo_2:'',
+        jugador_3_equipo_2:'',
+        jugador_4_equipo_2:'',
+        jugador_5_equipo_2:'',
+        jugador_6_equipo_2:'',
+        jugador_7_equipo_2:'',
+        jugador_8_equipo_2:'',
+        jugador_9_equipo_2:'',
+        jugador_10_equipo_2:'',
+        jugador_11_equipo_2:'',
+        jugador_12_equipo_2:'',
+        puntos_equipos_1_jugador_1:0,
+        puntos_equipos_1_jugador_2:0,
+        puntos_equipos_1_jugador_3:0,
+        puntos_equipos_1_jugador_4:0,
+        puntos_equipos_1_jugador_5:0,
+        puntos_equipos_1_jugador_6:0,
+        puntos_equipos_1_jugador_7:0,
+        puntos_equipos_1_jugador_8:0,
+        puntos_equipos_1_jugador_9:0,
+        puntos_equipos_1_jugador_10:0,
+        puntos_equipos_1_jugador_11:0,
+        puntos_equipos_1_jugador_12:0,
+        puntos_equipos_2_jugador_1:0,
+        puntos_equipos_2_jugador_2:0,
+        puntos_equipos_2_jugador_3:0,
+        puntos_equipos_2_jugador_4:0,
+        puntos_equipos_2_jugador_5:0,
+        puntos_equipos_2_jugador_6:0,
+        puntos_equipos_2_jugador_7:0,
+        puntos_equipos_2_jugador_8:0,
+        puntos_equipos_2_jugador_9:0,
+        puntos_equipos_2_jugador_10:0,
+        puntos_equipos_2_jugador_11:0,
+        puntos_equipos_2_jugador_12:0,
     };
-    const { data, setData, post, reset, setError, errors } = useForm(formData);
 
-    useEffect(() => {
-        const initialData = {
-        };
-
-        // Crear el objeto de datos para jugadores del equipo 1
-        for (let index = 0; index < 12; index++) {
-            initialData[`jugador_${index + 1}_equipo_1`] = '';
-            initialData[`puntos_equipos_1_jugador_${index + 1}`] = 0;
-        }
-
-        // Crear el objeto de datos para jugadores del equipo 2
-        for (let index = 0; index < 12; index++) {
-            initialData[`jugador_${index + 1}_equipo_2`] = '';
-            initialData[`puntos_equipos_2_jugador_${index + 1}`] = 0;
-        }
- 
-        setData({ ...data, ...initialData });
-    }, []);
-//console.log(data);
-    const verificarPuntosPartido = (data) => {
-        const equipo1 = data.equipo_1;
-        const equipo2 = data.equipo_2;
-        const puntosEquipo1 = parseInt(data.puntaje_equipo_1);
-        const puntosEquipo2 = parseInt(data.puntaje_equipo_2);
+    const verificarPuntosPartido = (formData) => {
+        const equipo1 = formData.equipo_1;
+        const equipo2 = formData.equipo_2;
+        const puntosEquipo1 = parseInt(formData.puntaje_equipo_1);
+        const puntosEquipo2 = parseInt(formData.puntaje_equipo_2);
       
         // Calcular el total de puntos de los jugadores del equipo 1
         let totalPuntosEquipo1 = 0;
         for (let i = 1; i <= 12; i++) {
-          totalPuntosEquipo1 += parseInt(data[`puntos_equipos_1_jugador_${i}`]);
+          totalPuntosEquipo1 += parseInt(formData[`puntos_equipos_1_jugador_${i}`]);
         }
       
         // Calcular el total de puntos de los jugadores del equipo 2
         let totalPuntosEquipo2 = 0;
         for (let i = 1; i <= 12; i++) {
-          totalPuntosEquipo2 += parseInt(data[`puntos_equipos_2_jugador_${i}`]);
+          totalPuntosEquipo2 += parseInt(formData[`puntos_equipos_2_jugador_${i}`]);
         }
       
         // Verificar si los puntos del partido coinciden con los totales de los equipos
@@ -185,11 +215,13 @@ return (
                 partido={partido}
                 setShowAlert={setShowAlert}
                 setTituloAlert={setTituloAlert}
-                formData={data}
+                formData={formData}
+                rol={rol}
                 fechas={fecha_partido}
                 />
         ):(
-            <ModalCrearElemento
+            partidos.length > 0 ? (
+                <ModalCrearElemento
                     elementoName="Partido"
                     actionRoute={'partido.store'}
                     onCancel={closeModalCargarResultado}
@@ -199,12 +231,11 @@ return (
                     setTituloAlert={setTituloAlert}
                     liga={liga}
                     fechas={''}
-                    setDataObj={setData}
                     leftPosition={'left-[25%]'}
                     topPosition={'top-[8%]'}
                     classNameForm={'h-full overflow-y-auto'}
                     classNameModal={'inset-0 mb-[1%]'}
-                    formData = {data}
+                    formData = {formData}
                     accion={'agregar'}
                     verificarPuntosPartido={verificarPuntosPartido}
                     eliminar={eliminar}
@@ -217,6 +248,45 @@ return (
                     handleSelect2Change={handleSelect2Change}
                     handleSelectChange={handleSelectChange}
                     />
+            ):(
+                mensajeLeido === false ? (
+                    <ModalInformarErrores
+                        titulo={'Iniciar liga!'}
+                        cuerpo={'Al cargar un partido comienza la liga, ya no podra eliminar ni regenerar el fixture.'} 
+                        nombre={'Cerrar'}
+                        closeModal={() => {setMensajeLeido(true);}}
+                        />
+                ):(
+                    <ModalCrearElemento
+                        elementoName="Partido"
+                        actionRoute={'partido.store'}
+                        onCancel={closeModalCargarResultado}
+                        onAdd={closeModalCargarResultado}
+                        elemento={partido}
+                        setShowAlert={setShowAlert}
+                        setTituloAlert={setTituloAlert}
+                        liga={liga}
+                        fechas={''}
+                        leftPosition={'left-[25%]'}
+                        topPosition={'top-[8%]'}
+                        classNameForm={'h-full overflow-y-auto'}
+                        classNameModal={'inset-0 mb-[1%]'}
+                        formData = {formData}
+                        accion={'agregar'}
+                        verificarPuntosPartido={verificarPuntosPartido}
+                        eliminar={eliminar}
+                        equiposFiltrados={equiposFiltrados}
+                        selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
+                        selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
+                        jugadores={jugadores}
+                        jugadoresEquipo1={jugadoresEquipo1}
+                        jugadoresEquipo2={jugadoresEquipo2}
+                        handleSelect2Change={handleSelect2Change}
+                        handleSelectChange={handleSelectChange}
+                        />
+                )
+            )
+            
         )}
                 
     </>

@@ -8,8 +8,10 @@ use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
 use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SportsDBService;
 use App\Models\FechaPartido;
 use App\Models\Liga;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,8 @@ Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
 Route::group(['prefix' => 'equipos', 'middleware' => ['auth']], function () {
     Route::resource('equipos', EquipoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
+
+Route::get('getplayerinfo/{playerName}', [SportsDBService::class, 'getPlayerInfo'])->name('getplayerinfo.index');
 
 Route::group(['prefix' => 'jugadores', 'middleware' => ['auth']], function () {
     Route::get('jugadores/{equipo}', [JugadorController::class, 'index'])->name('jugadores.index');

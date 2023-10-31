@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/react';
 import React from 'react'
-import { BotonAsignarArbitros, BotonCancelar } from '../BotonesAcciones';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
+import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
 export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalAsignarArbitros, setShowAlert, setTituloAlert, liga }) => {
 
@@ -32,23 +32,13 @@ export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalA
                                 />
                         </>
                     ) : (
-                        <>
-                        <div className="flex items-center justify-center p-5 border-b rounded-t bg-orange-500 dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-white dark:text-white">
-                                    No tiene arbitros suficientes!
-                                </h3>
-                        </div>
-                        <div className="p-6 space-y-6 bg-white">
-                                <p className="text-lg leading-relaxed text-black dark:text-gray-400">
-                                    Necesita al menos dos arbitros confirmados para asignar arbitros a todas las fechas.
-                                </p>
-                        </div>
-                        <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <BotonCancelar
-                                    onClick={handleCancel}
-                                    />
-                        </div>
-                        </>
+                        <ModalInformarErrores
+                            titulo={'No tiene arbitros suficientes'}
+                            cuerpo={'Necesita al menos dos arbitros confirmados para asignar arbitros a todas las fechas'}
+                            nombre={'Cerrar'}
+                            closeModal={closeModalAsignarArbitros}
+                            />
+                        
                     ))}
     </>
   )

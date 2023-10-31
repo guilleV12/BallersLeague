@@ -21,6 +21,9 @@ const FormPartido = ({
   handleSelect2Change
 }) => {
 
+    const jugadoresFiltradosEquipo1 = jugadoresEquipo1.filter(jugador => jugador.deshabilitado === 0);
+    const jugadoresFiltradosEquipo2 = jugadoresEquipo2.filter(jugador => jugador.deshabilitado === 0);
+
   return (
     <>
         <div className='border border-black rounded-lg mx-3 p-3 bg-white'>
@@ -113,7 +116,7 @@ const FormPartido = ({
                                     className="mt-1 block text-sm w-full border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm"
                                 >
                                     <option value='0'>Selecciona un jugador</option>
-                                    {jugadoresEquipo1
+                                    {jugadoresFiltradosEquipo1
                                         .filter((jugador) => jugador.id === data[`jugador_${index+1}_equipo_1`] || !selectsEquipo1Seleccionado.includes(jugador.id))
                                         .map((jugador) => (
                                             <option key={jugador.id} value={jugador.id}>
@@ -171,7 +174,7 @@ const FormPartido = ({
                                     className="mt-1 text-sm block w-full border-gray-300 focus:border-orange-500 focus:ring-orange-500 rounded-md shadow-sm"
                                 >
                                     <option value='0'>Selecciona un jugador</option>
-                                    {jugadoresEquipo2
+                                    {jugadoresFiltradosEquipo2
                                         .filter((jugador) => jugador.id === data[`jugador_${index+1}_equipo_2`] || !selectsEquipo2Seleccionado.includes(jugador.id))
                                         .map((jugador) => (
                                             <option key={jugador.id} value={jugador.id}>

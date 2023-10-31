@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
 import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
-const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert, accion, equipo, fechasPartido, actionRoute }) => {
+const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert, accion, equipo, fechasPartido, actionRoute, partidos }) => {
     const formDataEquipo = {
         nombre: (accion === 'agregar' ? '' : equipo.nombre),
         descripcion: (accion === 'agregar' ? '' : equipo.descripcion),
@@ -31,11 +31,11 @@ const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert,
   return (
     isEliminarFechasPartidoOpen ?(
         <ModalInformarErrores
-            titulo={'Se eliminara el fixture!'}
-            cuerpo={'Si agrega un equipo ahora se eliminara el fixture actual.'}
+            titulo={partidos && partidos.length > 0 ? 'No puede agregar nuevos equipos' : 'Se eliminara el fixture!'}
+            cuerpo={partidos && partidos.length > 0 ? 'La liga ya comenzo, no puede agregar equipos hasta que termine.' : 'Si agrega un equipo ahora se eliminara el fixture actual.'}
             nombre={'Cerrar'}
-            closeModal={() => {closeModalEliminarFixture();}}
-            left={'left-[57%]'}
+            closeModal={() => {partidos && partidos.length > 0 ? onCancel() : closeModalEliminarFixture();}}
+            left={'left-[50%]'}
             />
     ):(
         <ModalCrearElemento
@@ -47,7 +47,7 @@ const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert,
             setShowAlert={setShowAlert}
             setTituloAlert={setTituloAlert}
             liga={liga}
-            leftPosition={'left-[40%]'}
+            leftPosition={'left-[35%]'}
             formData = {formDataEquipo}
             accion={accion}
             />

@@ -28,7 +28,8 @@ const TablaArbitros = ({  openDeleteModal, arbitros, users, openConfirmarModal, 
             </thead>
             <tbody>
                 {arbitros.map((arbitro) => (
-                    users.map((usuario) => (usuario.id === arbitro.id_user) ? (
+                    users.map((usuario) => ( (usuario.id === arbitro.id_user) ) ? (
+                      (arbitro.deshabilitado === 0) ? (
                         <tr key={arbitro.id} className="bg-white border-b grid grid-cols-2 md:grid-cols-4 dark:bg-gray-900 dark:border-gray-700 text-sm rounded-b-lg">
                             <td className="px-6 py-4 font-medium flex items-center text-gray-900">{usuario.nombre} {usuario.apellido}</td>
                             <td className="flex px-6 py-4 items-center text-black">{usuario.dni}</td>
@@ -52,6 +53,7 @@ const TablaArbitros = ({  openDeleteModal, arbitros, users, openConfirmarModal, 
                                   }
                             </td>
                         </tr>
+                      ):('')
                     ):(
                       ''
                     )) 

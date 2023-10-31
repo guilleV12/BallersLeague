@@ -59,12 +59,14 @@ class FechaPartidoController extends Controller
                 'required' => 'El partido ya se ha jugado, debe tener fecha y arbitros.',
                 'date' => 'El campo :attribute debe ser una fecha válida.',
                 'before_or_equal' => 'El partido ya se ha jugado, debe ser una fecha anterior o igual a hoy.',
+                'arbitro_2.different' => 'El arbitro 2 debe ser diferente del arbitro 1.',
+                'arbitro_1.different' => 'El arbitro 1 debe ser diferente del arbitro 2.',
             ];
             // Si hay partido jugado, no permitir fechas superiores a hoy.
             $request->validate([
                 'fecha' => 'required|date|before_or_equal:today',
-                'arbitro_1' => 'required',
-                'arbitro_2' => 'required',
+                'arbitro_1' => 'required|different:arbitro_2',
+                'arbitro_2' => 'required|different:arbitro_1',
             ], $customMessages);
         }
         

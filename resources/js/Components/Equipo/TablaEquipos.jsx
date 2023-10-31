@@ -4,7 +4,7 @@ import ModalEliminarEquipo from './ModalEliminarEquipo';
 import Dropdown from '../Dropdown';
 import { BotonEditar, BotonEliminar, BotonJugadores, BotonOpciones } from '../BotonesAcciones';
 
-const TablaEquipos = ({ fechas, liga, user, equipos, calendario, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
+const TablaEquipos = ({ partidos, fechas, liga, user, equipos, calendario, openEditarEquipoModal, openDeleteModal, equipoEditar, equipoEliminar, isEditarModalOpen, isDeleteModalOpen, closeEditarEquipoModal, closeDeleteModal, setShowAlert, setTituloAlert }) => {
   return (
     <>
     <table className="text-gray-500 dark:text-gray-400 w-full">
@@ -79,6 +79,7 @@ const TablaEquipos = ({ fechas, liga, user, equipos, calendario, openEditarEquip
           onCancel={closeDeleteModal} 
           onDelete={closeDeleteModal} 
           setShowAlert={setShowAlert} 
+          partidos={partidos}
           setTituloAlert={setTituloAlert}
           />
       )}
@@ -86,6 +87,7 @@ const TablaEquipos = ({ fechas, liga, user, equipos, calendario, openEditarEquip
         <ModalCrearEquipo 
           equipo={equipoEditar} 
           liga={liga} 
+          partidos={partidos}
           actionRoute={'equipos.update'}
           onCancel={closeEditarEquipoModal} 
           onAdd={closeEditarEquipoModal} 

@@ -3,7 +3,7 @@ import ModalCrearEquipo from './ModalCrearEquipo';
 import TablaPaginadaEquipos from './TablaPaginadaEquipos';
 import { BotonAnadirEquipos } from '../BotonesAcciones';
 
-const TabEquipos = ({  fechas, user, liga, equipos, setShowAlert, setTituloAlert, calendario }) => {
+const TabEquipos = ({  fechas, user, liga, equipos, setShowAlert, setTituloAlert, calendario, partidos }) => {
   const [isAnadirModalOpen, setIsAnadirModalOpen] = useState(false);
   const [equipoEditar, setEquipoEditar] = useState(null);
   const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
@@ -49,6 +49,7 @@ const TabEquipos = ({  fechas, user, liga, equipos, setShowAlert, setTituloAlert
               <ModalCrearEquipo 
                 equipo={''} 
                 fechasPartido={fechas} 
+                partidos={partidos}
                 liga={liga} 
                 onCancel={closeAnadirEquipoModal} 
                 onAdd={closeAnadirEquipoModal} 
@@ -77,6 +78,7 @@ const TabEquipos = ({  fechas, user, liga, equipos, setShowAlert, setTituloAlert
               closeDeleteModal={closeDeleteModal} 
               setShowAlert={setShowAlert} 
               setTituloAlert={setTituloAlert}
+              partidos={partidos}
               />
     </div>
   );

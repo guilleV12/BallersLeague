@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arbitros', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users','id')->cascadeOnDelete();
-            $table->foreignId('id_liga')->constrained('ligas','id')->cascadeOnDelete();
-            $table->string('email')->unique();
-            $table->boolean('deshabilitado');
-            $table->boolean('confirmado');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('arbitros');
+        Schema::dropIfExists('roles');
     }
 };

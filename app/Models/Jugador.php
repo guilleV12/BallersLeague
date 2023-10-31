@@ -15,6 +15,7 @@ class Jugador extends Model
         'dni',
         'fecha_nacimiento',
         'foto_perfil',
+        'deshabilitado',
         'equipo_id',
         'liga_id',
     ];

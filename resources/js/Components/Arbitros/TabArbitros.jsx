@@ -40,6 +40,8 @@ const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert,
     setIsAnadirArbitroModalOpen(false);
   };
 
+  const arbitrosFiltrados = arbitros.filter(arbitro => arbitro.deshabilitado === 0);
+
   return (
     <div className='grid grid-cols-1 justify-center'>
       {isConfirmarModalOpen && (
@@ -81,7 +83,7 @@ const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert,
       )}
         
         <TablaPaginadaArbitros
-          arbitros={arbitros}
+          arbitros={arbitrosFiltrados}
           users={users}
           userAdmin={userAdmin}
           userAuth={userAuth}

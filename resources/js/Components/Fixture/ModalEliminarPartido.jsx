@@ -10,8 +10,9 @@ const ModalEliminarPartido = ({
   setTituloAlert,
   fechas,
   formData,
+  rol
 }) => {
-  const message = `¿Está seguro que desea eliminar el partido?`;
+  const message = rol==='admin'?`¿Está seguro que desea eliminar el partido?`:'Debe comunicarse con el administrador para eliminar este resultado.';
   return (
     <ModalEliminarElemento
       nombreElemento={'Partido'}
@@ -23,10 +24,11 @@ const ModalEliminarPartido = ({
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       fechas={fechas}
-      leftPosition={'left-[45%]'}
+      leftPosition={rol&&rol==='admin'?'left-[40%]':'left-[35%]'}
       message={message}
       formData={formData}
       tipoElemento={'partido'}
+      rol={rol}
     />
   );
 };

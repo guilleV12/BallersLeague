@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('apellido');
             $table->date('fecha_nacimiento');
             $table->binary('foto_perfil');
+            $table->boolean('deshabilitado');
             $table->integer('liga_id')->constrained('ligas','id')->onDelete('cascade');
             $table->foreignId('equipo_id')->constrained('equipos','id')->onDelete('cascade');
             $table->timestamps();

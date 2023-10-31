@@ -11,7 +11,7 @@ const ModalEliminarArbitro = ({
   setTituloAlert,
   fechas,
 }) => {
-  const message = `¿Está seguro que desea eliminar al árbitro ${user.nombre}?`;
+  const message = `¿Está seguro que desea eliminar al árbitro ${user.nombre} ${user.apellido}?`;
   return (
     <ModalEliminarElemento
       nombreElemento={user.nombre+' '+user.apellido}

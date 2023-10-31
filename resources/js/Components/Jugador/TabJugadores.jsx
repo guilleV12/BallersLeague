@@ -35,6 +35,9 @@ const TabJugadores = ({ user, liga, equipo, jugadores }) => {
   const closeAlert = () => {
     setShowAlert(false);
   };
+
+  const jugadoresFiltrados = jugadores.filter(jugador => jugador.deshabilitado === 0);
+
   return (
     <div className="w-[90%] xl:w-full bg-white border border-black rounded-lg shadow-lg shadow-gray-500">
         <div className={`flex w-full ${user.id === liga.user_id ? `justify-between `: `justify-center space-x-5 `} items-center bg-black py-3 px-1 border border-gray-50 rounded-lg`}>
@@ -70,7 +73,7 @@ const TabJugadores = ({ user, liga, equipo, jugadores }) => {
           liga={liga} 
           user={user} 
           equipo={equipo} 
-          jugadores={jugadores} 
+          jugadores={jugadoresFiltrados} 
           isAnadirJugadorOpen={isAnadirJugadorOpen} 
           openAnadirJugadorModal={openAnadirJugadorModal} 
           closeAnadirJugadorModal={closeAnadirJugadorModal} 

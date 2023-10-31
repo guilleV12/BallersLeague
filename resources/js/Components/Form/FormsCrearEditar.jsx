@@ -29,13 +29,14 @@ const FormsCrearEditar = ({
   handleSelect2Change,
   arbitros,
   users,
+  rol,
   arbitrosSelecto1,
   arbitrosSelecto2,
   setArbitrosSelecto1,
   setArbitrosSelecto2
 }) => {
 
-  return (
+    return (
     <>
     {elementoName === 'Arbitro' ? (
         <>
@@ -74,9 +75,9 @@ const FormsCrearEditar = ({
                     <FormPartido
                         elementoName={elementoName}
                         onCancel={onCancel}
-                        data={dataObj}
+                        data={data}
                         errors={errors}
-                        setData={setDataObj}
+                        setData={setData}
                         equiposFiltrados={equiposFiltrados}
                         selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
                         selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
@@ -104,6 +105,7 @@ const FormsCrearEditar = ({
                                 data={dataObj}
                                 errors={errors}
                                 setData={setDataObj}
+                                rol={rol}
                                 arbitros={arbitros}
                                 users={users}
                                 arbitrosSelecto1={arbitrosSelecto1}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BotonContenido } from '../BotonesAcciones';
 
-const ModalInformarErrores = ({ titulo, cuerpo, accion, nombre, esEmpate, equipos, equipoError, closeModal, left, errorPuntos }) => {
+const ModalInformarErrores = ({ titulo, cuerpo, accion, nombre, esEmpate, equipos, equipoError, closeModal, left, errorPuntos, confirmar }) => {
   return (
     <>
     <div className="fixed top-0 left-0 right-0 bottom-0 z-[75] bg-black opacity-50"></div>
@@ -28,10 +28,24 @@ const ModalInformarErrores = ({ titulo, cuerpo, accion, nombre, esEmpate, equipo
             </p>
           </div>
           <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <BotonContenido
+            {accion && accion === 'confirmar' ? (
+              <>
+              <BotonContenido
+                onClick={confirmar}
+                nombre={'Entendido'}
+                />
+              <BotonContenido
+                onClick={closeModal}
+                nombre={'Cancelar'}
+                />
+              </>
+            ):(
+              <BotonContenido
                 onClick={closeModal}
                 nombre={nombre}
                 />
+            )}
+            
           </div>
         </div>
       </div>
