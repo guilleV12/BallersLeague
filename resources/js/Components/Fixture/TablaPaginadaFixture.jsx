@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import TablaFixture from './TablaFixture';
 import Paginacion from '../Paginacion/Paginacion';
 
-const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
+const TablaPaginadaFixture = ({ filtro, jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -11,8 +11,24 @@ const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos,
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  // Datos a mostrar en la página actual
-  const currentData = fechas.slice(startIndex, endIndex);
+  // Datos a mostrar en la página actual con filtro
+  const fechaFiltrada = () => {
+    const fechaPartidoIds = partidos.map((partido) => partido.fecha_partido_id);
+    const fechasJugadas = fechas.filter((fecha) => fechaPartidoIds.includes(fecha.id));
+    const fechasNoJugadas = fechas.filter((fecha) => !fechaPartidoIds.includes(fecha.id));
+
+    if (filtro === 'jugados'){
+      return fechasJugadas;
+    } else if (filtro === 'nojugados'){
+      return fechasNoJugadas;
+    } else {
+      return fechas;
+    }
+  };
+
+  const fechasFiltradas = fechaFiltrada();
+  
+  const currentData = fechasFiltradas.slice(startIndex, endIndex);
 
   // Manejar el cambio de página
   const handlePageChange = (selectedPage) => {
@@ -40,7 +56,7 @@ const TablaPaginadaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos,
         itemsPerPage={5}
         startIndex={startIndex} 
         endIndex={endIndex} 
-        elemento={fechas}
+        elemento={fechasFiltradas}
         elementoNombre={'Partidos'}
         handlePageChange={handlePageChange} 
         />

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { BotonAsignarArbitros, BotonRegenerarFixture, BotonEliminarFixture } from '../BotonesAcciones';
+import { BotonAsignarArbitros, BotonRegenerarFixture, BotonEliminarFixture, BotonContenido, BotonFiltros } from '../BotonesAcciones';
 import ModalAsignarArbitros from './ModalAsignarArbitros';
 import TablaPaginadaFixture from './TablaPaginadaFixture';
 import ModalCrearFixture from './ModalCrearFixture';
 import ModalEliminarFixture from './ModalEliminarFixture';
 import ModalInformarErrores from '../Modales/ModalInformarErrores';
+import Dropdown from '../Dropdown';
 
 const TabFixture = ({ 
   jugadorPartido, 
@@ -58,9 +59,52 @@ const TabFixture = ({
     setIsModalInformarErrorFixtureOpen(false);
   }
 
+  const [filtro, setFiltro] = useState('');
+
   return (
     <div className="tab-fixture">
       <div className="botones-accion grid md:flex w-full justify-center md:space-x-4 py-5 bg-black">
+        <div className='flex w-[35%] justify-start pl-2'>
+        {fechas&&(fechas.length > 0 ? (
+          <>
+          <Dropdown>
+          <Dropdown.Trigger>
+            <BotonFiltros
+              nombre={'Filtrar'}
+              className={''}
+              />
+          </Dropdown.Trigger>
+          <Dropdown.Content align='left'>
+              <ul className='p-1'>
+                  <li>
+                    <BotonContenido
+                      nombre={'Todas'}
+                      onClick={() => {setFiltro('todas')}}
+                      className={'w-full justify-center mb-1'}
+                      />
+                  </li>
+                  <li>
+                    <BotonContenido
+                      nombre={'Jugados'}
+                      onClick={() => {setFiltro('jugados')}}
+                      className={'w-full justify-center mb-1'}
+                      />
+                  </li>
+                  <li>
+                    <BotonContenido
+                      nombre={'No jugados'}
+                      onClick={() => {setFiltro('nojugados')}}
+                      className={'w-full justify-center'}
+                      />
+                  </li>
+              </ul>
+          </Dropdown.Content>
+          </Dropdown>
+          </>
+        ):(''))
+        }
+        </div>
+        <div className='flex w-[65%] justify-end md:space-x-4 pr-2'>
         {(user.id === liga.user_id) ? (
                 fechas ? ( fechas.length > 0 ? (
                     <>
@@ -106,6 +150,7 @@ const TabFixture = ({
                     />
                 )
               )}
+        </div>
 
       </div>
 
@@ -119,6 +164,7 @@ const TabFixture = ({
         liga={liga}
         users={users}
         user={user}
+        filtro={filtro}
         setShowAlert={setShowAlert}
         setTituloAlert={setTituloAlert}
         rol={rol}

@@ -100,6 +100,15 @@ const BotonContenido = ({ onClick, className, nombre }) => {
     );
   };
 
+const BotonFiltros = ({ onClick, className, nombre, icon }) => {
+    return (
+      <SecondaryButton onClick={onClick} className={`${className}`}>
+        {nombre}
+      </SecondaryButton>
+
+    );
+  };
+
 const BotonTab = ({ onClick, className, id, isActive, label }) => {
     return (
       <button
@@ -115,4 +124,4 @@ const BotonTab = ({ onClick, className, id, isActive, label }) => {
     </button>
     );
   };
-export { BotonAsignarArbitros, BotonContenido, BotonRegenerarFixture, BotonEliminarFixture, BotonEditar, BotonAnadirArbitros, BotonTab, BotonAnadirEquipos, BotonEliminar, BotonConfirmarArbitros, BotonCancelar, BotonOpciones, BotonJugadores };
+export { BotonFiltros, BotonAsignarArbitros, BotonContenido, BotonRegenerarFixture, BotonEliminarFixture, BotonEditar, BotonAnadirArbitros, BotonTab, BotonAnadirEquipos, BotonEliminar, BotonConfirmarArbitros, BotonCancelar, BotonOpciones, BotonJugadores };
