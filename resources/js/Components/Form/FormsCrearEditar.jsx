@@ -7,6 +7,7 @@ import FormFixture from './FormFixture';
 import FormJugador from './FormJugador';
 import FormFecha from './FormFecha';
 import FormArbitrosFechas from './FormArbitrosFechas';
+import FormNotificaciones from './FormNotificaciones';
 
 const FormsCrearEditar = ({
   elementoName,
@@ -117,7 +118,18 @@ const FormsCrearEditar = ({
                             elementoName === 'Fechas' ? (
                                 <FormArbitrosFechas
                                     />
-                            ):('')
+                            ):(
+                                elementoName === 'Notificaciones' ? (
+                                    <FormNotificaciones
+                                        data={data}
+                                        setData={setData}
+                                        accion={accion}
+                                        errors={errors}
+                                        elementoName={elementoName}
+                                        onCancel={onCancel}
+                                        />
+                                ):('')
+                            )
                         )
                         
                     )

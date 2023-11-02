@@ -5,9 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotifiacionUsuario extends Model
+class NotificacionUsuario extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'notificacion_partido',
+        'notificacion_resultado',
+        'user_id',
+        'liga_id',
+    ];
 
     public function notificacion_partidos()
     {

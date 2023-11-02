@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             EquipoSeeder::class,
             JugadorSeeder::class,
             GoleadoresSeeder::class,
+            NotificacionSeeder::class,
         ]);
 
         $adminRole = new Role();

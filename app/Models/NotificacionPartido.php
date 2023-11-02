@@ -9,6 +9,10 @@ class NotificacionPartido extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'fecha_partido_id',
+    ];
+
     public function fecha_partido()
     {
         return $this->hasOne(FechaPartido::class);

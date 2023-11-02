@@ -9,6 +9,7 @@ use App\Models\FechaPartido;
 use App\Models\Jugador;
 use App\Models\JugadorPartido;
 use App\Models\Liga;
+use App\Models\NotificacionUsuario;
 use App\Models\Partido;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -88,6 +89,7 @@ class LigaController extends Controller
                 'jugadores'=>Jugador::all(),
                 'partidos'=>$calendario ? Partido::where('calendario_id', $calendario->id)->get() : Partido::where('id', -1)->get(),
                 'jugadorPartido'=>$calendario ? JugadorPartido::all() : JugadorPartido::where('id',-1)->get(),
+                'notificacionesUsuario'=>NotificacionUsuario::where('user_id', $user)->first(),
             ]);
         }else{
             return Inertia::render('Ligas/Show', [

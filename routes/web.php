@@ -6,6 +6,9 @@ use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\FechaPartidoController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
+use App\Http\Controllers\NotificacionPartidoController;
+use App\Http\Controllers\NotificacionResultadoController;
+use App\Http\Controllers\NotificacionUsuarioController;
 use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
@@ -37,6 +40,10 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
     Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+});
+
+Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth']], function () {
+    Route::resource('notificaciones', NotificacionUsuarioController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::group(['prefix' => 'equipos', 'middleware' => ['auth']], function () {

@@ -9,6 +9,11 @@ class NotificacionResultado extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'fecha_partido_id',
+        'partido_id',
+    ];
+
     public function partido()
     {
         return $this->hasMany(Partido::class);

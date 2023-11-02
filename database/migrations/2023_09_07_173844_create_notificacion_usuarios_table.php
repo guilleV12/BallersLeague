@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifiacion_usuarios', function (Blueprint $table) {
+        Schema::create('notificacion_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('notificacion_partido_id')->nullable()->constrained('notificacion_partidos','id');
-            $table->foreignId('notificacion_resultados_id')->nullable()->constrained('notificacion_resultados','id');
+            $table->boolean('notificacion_partido')->nullable();
+            $table->boolean('notificacion_resultado')->nullable();
             $table->foreignId('user_id')->constrained('users','id')->cascadeOnDelete();
+            $table->foreignId('liga_id')->constrained('ligas','id')->cascadeOnDelete();
             $table->timestamps();
         });
     }
