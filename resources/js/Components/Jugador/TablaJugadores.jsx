@@ -4,7 +4,7 @@ import ModalCrearJugador from './ModalCrearJugador';
 import ModalEliminarJugador from './ModalEliminarJugador';
 import { BotonContenido, BotonEditar, BotonEliminar, BotonOpciones } from '../BotonesAcciones';
 
-const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, closeAnadirJugadorModal, openEditarJugadorModal, closeEditarJugadorModal, isEditarJugadorOpen, jugadorEditar, openEliminarJugadorModal, closeEliminarJugadorModal, isEliminarJugadorOpen, jugadorEliminar, setShowAlert, setTituloAlert }) => {
+const TablaJugadores = ({jugadores, liga, user, equipo, isAnadirJugadorOpen, closeAnadirJugadorModal, openEditarJugadorModal, closeEditarJugadorModal, isEditarJugadorOpen, jugadorEditar, openEliminarJugadorModal, closeEliminarJugadorModal, isEliminarJugadorOpen, jugadorEliminar, setShowAlert, setTituloAlert }) => {
   
   const edad = (jugadorCalcularEdad) => {
     const fechaNacimiento = new Date(jugadorCalcularEdad.fecha_nacimiento);
@@ -81,8 +81,12 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
           .filter((jugador) => jugador.deshabilitado === 0)
           .map((jugador) => (
           <tr key={jugador.id} className="bg-white border-b grid grid-cols-3 md:grid-cols-5 dark:bg-gray-900 dark:border-gray-700 text-sm">
-            <td scope="row" className="items-center px-6 text-lg py-4">
-                <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-24 h-auto rounded-full'></img>
+            <td scope="row" className="items-center px-6 text-lg">
+              <div className='w-full flex justify-center items-center '>
+                <div className='w-40 h-40 rounded-full bg-white flex justify-center items-center'>
+                <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-auto h-20 rounded-full'></img>
+                </div>
+              </div>
             </td>
             <td className="px-6 py-1 flex items-center justify-start">{jugador.nombre} {jugador.apellido}</td>
             <td className="px-6 py-1 hidden md:flex items-center justify-start">{jugador.dni}</td>
@@ -129,7 +133,6 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
         ))}
       </tbody>
     </table>
-    
     </>
   );
 };

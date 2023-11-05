@@ -7,6 +7,7 @@ use App\Http\Controllers\FechaPartidoController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
 use App\Http\Controllers\PartidoController;
+use App\Http\Controllers\PartidosApi;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
 use App\Models\FechaPartido;
@@ -33,6 +34,10 @@ Route::get('/', function () {
         'liga' => Liga::all(),
         'miLiga' => $miLiga,
     ]);
+});
+
+Route::group(['prefix' => 'partidosApi', 'middleware' => ['auth']], function () {
+    Route::resource('partidosApi', PartidosApi::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {

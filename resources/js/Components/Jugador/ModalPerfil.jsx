@@ -1,28 +1,13 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
 import React from 'react'
 
-export const getplayerinfo = ({ 
-  playerData,
-  user, 
-  miLiga, 
-  urlFlag
+export const ModalPerfil = ({
+    playerData,
+    userApi
 }) => {
-    
   return (
-    <>
-    <Head 
-      title={playerData.strPlayer+' perfil'}
-      />
-    <AuthenticatedLayout 
-      user={user} 
-      miLiga={miLiga} 
-      >      
-
-        <div className='flex justify-center lg:items-center w-full lg:w-[78%] h-fit  lg:ml-[15.5rem] xl:ml-[16rem]'>
+     <div className='flex justify-center lg:items-center w-full lg:w-[78%] h-fit  lg:ml-[15.5rem] xl:ml-[16rem]'>
     
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <div className="relative top-[16%] left-[78%] h-20 w-20"><img src={`${urlFlag}`}></img></div>
                 <a href="#">
                     <img className="rounded-t-lg" src={playerData.strCutout} alt="" />
                 </a>
@@ -41,8 +26,6 @@ export const getplayerinfo = ({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
-    </>
   )
 }
-export default getplayerinfo;
+export default ModalPerfil;
