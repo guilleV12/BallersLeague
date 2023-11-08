@@ -11,6 +11,9 @@ class NotificacionPartido extends Model
 
     protected $fillable = [
         'fecha_partido_id',
+        'liga_id',
+        'jugado',
+        'fecha',
     ];
 
     public function fecha_partido()

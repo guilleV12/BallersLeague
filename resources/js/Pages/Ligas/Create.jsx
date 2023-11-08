@@ -12,7 +12,7 @@ import Alert from '@/Components/Alerts/Alert'
 import AlertRedireccion from '@/Components/Alerts/AlertRedireccion'
 import { BotonContenido } from '@/Components/BotonesAcciones'
 
-const Create = ({ user, liga }) => {
+const Create = ({ user, liga, notificaciones, cantNotiUser }) => {
     
     const { data, setData, post, processing, reset, errors } = useForm({
         nombre: '',
@@ -33,7 +33,9 @@ const Create = ({ user, liga }) => {
     <AuthenticatedLayout 
         user={user} 
         liga={liga} 
-        miLiga={liga}> 
+        miLiga={liga}
+        notificaciones={notificaciones}
+        cantNotiUser={cantNotiUser}> 
 
         <main className='flex justify-center w-full h-fit lg:pl-[13rem]'>
         {(liga[0]) ? ( 

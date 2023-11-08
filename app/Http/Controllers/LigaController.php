@@ -21,21 +21,26 @@ class LigaController extends Controller
 {
     public function index()
     {
+        $notificacionUsuarioController = new NotificacionUsuarioController;
+
         return Inertia::render('Ligas/Index', [
             'user'=>Auth::user(),
             'ligas'=>Liga::all(),
             'users'=>User::all(),
             'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+            'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
         ]);
     }
 
     public function create()
     {
         $user = User::find(Auth::user()->id);
+        $notificacionUsuarioController = new NotificacionUsuarioController;
         //dd($user->roles);
         return Inertia::render('Ligas/Create', [
             'user'=>$user,
             'liga'=>Liga::where('user_id',$user->id)->get(),
+            'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
         ]);
     }
 
@@ -53,6 +58,7 @@ class LigaController extends Controller
             $validated['logo']->move(public_path('images'),$filename);
             $validated['logo'] = $filename;
             $request->user()->ligas()->create($validated);
+            $notificacionUsuarioController = new NotificacionUsuarioController;
 
             return Inertia::render('Ligas/Index', [
                 'user'=>Auth::user(),
@@ -61,6 +67,7 @@ class LigaController extends Controller
                 'tituloAlert'=>'Liga creada con exito!',
                 'activarAlert'=>true,
                 'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+                'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
             ]);
     }
     
@@ -70,6 +77,7 @@ class LigaController extends Controller
         $userRol = User::find(Auth::user()->id);
         $liga = Liga::where('user_id',$user)->get();
         $rol = $userRol->roles->first();
+        $notificacionUsuarioController = new NotificacionUsuarioController;
         //dd($rol ? $rol->name : null);
 
         if (count($liga)>0){
@@ -89,13 +97,15 @@ class LigaController extends Controller
                 'jugadores'=>Jugador::all(),
                 'partidos'=>$calendario ? Partido::where('calendario_id', $calendario->id)->get() : Partido::where('id', -1)->get(),
                 'jugadorPartido'=>$calendario ? JugadorPartido::all() : JugadorPartido::where('id',-1)->get(),
-                'notificacionesUsuario'=>NotificacionUsuario::where('user_id', $user)->first(),
+                'notificacionesUsuario'=>NotificacionUsuario::where('user_id', Auth::user()->id)->where('liga_id', $liga[0]->id)->first(),
+                'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
             ]);
         }else{
             return Inertia::render('Ligas/Show', [
                 'user'=>Auth::user(),
                 'liga'=>$liga,
                 'miLiga'=>$liga,
+                'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
             ]);
         }
         
@@ -130,6 +140,7 @@ class LigaController extends Controller
     public function destroy(Liga $liga)
     {
         $liga->delete();
+        $notificacionUsuarioController = new NotificacionUsuarioController;
 
         return Inertia::render('Ligas/Index', [
             'user'=>Auth::user(),
@@ -138,6 +149,7 @@ class LigaController extends Controller
             'tituloAlert'=>'Liga eliminada con exito!',
             'activarAlert'=>true,
             'miLiga'=>Liga::where('user_id',Auth::user()->id),
+            'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
         ]);    
     }
 }

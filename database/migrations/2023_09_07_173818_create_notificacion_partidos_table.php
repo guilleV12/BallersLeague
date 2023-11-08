@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('notificacion_partidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fecha_partido_id')->constrained('fecha_partidos','id')->cascadeOnDelete();
+            $table->foreignId('liga_id')->constrained('ligas','id')->cascadeOnDelete();
+            $table->boolean('jugado');
+            $table->date('fecha')->nullable();
             $table->timestamps();
         });
     }

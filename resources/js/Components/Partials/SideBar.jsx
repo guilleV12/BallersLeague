@@ -6,7 +6,7 @@ import Dropdown from '../Dropdown';
 import PrimaryButton from '../PrimaryButton';
 
 export const SideBar = ({ auth, miLiga, isSidebarOpen, toggleSidebar }) => {
-console.log(isSidebarOpen);
+
     return (
         <>
         {isSidebarOpen &&(

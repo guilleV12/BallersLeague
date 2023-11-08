@@ -162,7 +162,7 @@ const ModalCrearElemento = ({
       <div className="fixed top-0 left-0 right-0 bottom-0 z-[65] bg-black opacity-50 pointer-events-none"></div>
 
       {/* Modal */}
-      <div className={`fixed z-[70] ${topPosition?topPosition:`top-[24%]`} ${leftPosition && leftPosition} w-fit h-fit border border-black rounded-lg pointer-events-auto ${classNameModal}`}>
+      <div className={`fixed z-[70] ${topPosition?topPosition:`top-[24%]`} ${leftPosition && leftPosition} w-fit border border-black rounded-lg pointer-events-auto ${classNameModal}`}>
         <form onSubmit={submit} className={`bg-gray-100 pb-5 rounded-lg ${classNameForm}`} encType='multipart/form-data'>
           {elementoName === 'Partido' ? (
             <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>

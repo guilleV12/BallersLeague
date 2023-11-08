@@ -9,6 +9,7 @@ use App\Models\Goleadores;
 use App\Models\Jugador;
 use App\Models\JugadorPartido;
 use App\Models\Liga;
+use App\Models\NotificacionPartido;
 use App\Models\Partido;
 use App\Models\TablaPosiciones;
 use Illuminate\Http\Request;
@@ -123,6 +124,10 @@ class PartidoController extends Controller
             'calendario_id' => $request->calendario_id,
         ]);
         $partido->save();
+        //actualizar notificaciones
+        $notificacionPartido = NotificacionPartido::where('fecha_partido_id',$partido->fecha_partido_id)->first();
+        $notificacionPartido->jugado = true;
+        $notificacionPartido->save();
 
         //tabla jugadorpartido por cada jugador actualizar sus puntos en la tabla goleadores
         for ($index = 1; $index <= count($jugadoresEquipo1); $index++) {

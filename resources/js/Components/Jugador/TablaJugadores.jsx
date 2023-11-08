@@ -112,14 +112,7 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
                                 className={' block w-full justify-center mt-1'}
                                 />
                           </li>
-                          <li>
-                            <a href={route('getplayerinfo.index',(jugador.nombre+' '+jugador.apellido))}>
-                              <BotonContenido
-                                nombre={'Perfil jugador'}
-                                className={' block w-full justify-center mt-1'}
-                                />
-                            </a>
-                          </li>
+                        
                       </ul>
                   </Dropdown.Content>
               </Dropdown>              

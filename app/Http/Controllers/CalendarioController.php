@@ -6,6 +6,7 @@ use App\Models\Calendario;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
 use App\Models\Goleadores;
+use App\Models\NotificacionPartido;
 use App\Models\TablaPosiciones;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Exists;
@@ -89,7 +90,7 @@ class CalendarioController extends Controller
     }
 
     public function generarFechasPartido(Calendario $calendario, $vueltas)
-        {//dd($this->generarFechasHorarios(3));
+    {//dd($this->generarFechasHorarios(3));
 
             // Obtén los equipos de la misma liga que el calendario
             $equipos = Equipo::where('liga_id', $calendario->liga_id)->get()->toArray();
@@ -135,6 +136,15 @@ class CalendarioController extends Controller
                         //asignar fecha y hora
                         $fechaPartido->save();
 
+                        //crear registro notificaciones
+                        $notificacionPartidos = new NotificacionPartido([
+                            'fecha_partido_id' => $fechaPartido->id,
+                            'liga_id' => $calendario->liga_id,
+                            'jugado' => false,
+                            'fecha' => $fechaPartido->fecha,
+                        ]);
+                        $notificacionPartidos->save();
+
                         // Agrega este partido al arreglo de partidos jugados
                         $partidosJugados[] = $partido;
                         $partidosJugados[] = $partidoInverso;
@@ -160,6 +170,15 @@ class CalendarioController extends Controller
                                     ]);
                         
                                     $fechaPartidoSiguiente->save();
+
+                                    //crear registro notificaciones
+                                    $notificacionPartidos = new NotificacionPartido([
+                                        'fecha_partido_id' => $fechaPartidoSiguiente->id,
+                                        'liga_id' => $calendario->liga_id,
+                                        'jugado' => false,
+                                        'fecha' => $fechaPartidoSiguiente->fecha,
+                                    ]);
+                                    $notificacionPartidos->save();
                         
                                     // Agrega este partido al arreglo de partidos jugados
                                     $partidosJugados[] = $posiblePartido;
@@ -178,10 +197,10 @@ class CalendarioController extends Controller
             }
             //Asignar fechas y horas
             $this->asignarFechasHoras($totalFechas, $calendario->id, $vueltas);
-        }
+    }
 
-        public function asignarFechasHoras($numDias, $calendarioId, $vueltas)
-        {
+    public function asignarFechasHoras($numDias, $calendarioId, $vueltas)
+    {
             $arrayFechasHorarios = $this->generarFechasHorarios($numDias, $vueltas);
             $fechaPartidos = FechaPartido::where('calendario_id', $calendarioId)->get();
         
@@ -189,6 +208,10 @@ class CalendarioController extends Controller
                 $fechaPartidos[$i]->fecha = $arrayFechasHorarios[$i]['fecha'];
                 $fechaPartidos[$i]->horario = $arrayFechasHorarios[$i]['hora'];
                 $fechaPartidos[$i]->save();
+                $notificacionPartidos = NotificacionPartido::where('fecha_partido_id', $fechaPartidos[$i]->id)->first();
+                $notificacionPartidos->fecha = $fechaPartidos[$i]->fecha;
+                $notificacionPartidos->save();
             }
-        }
+
+    }
 }

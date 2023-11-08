@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Models\Liga;
+use App\Models\NotificacionUsuario;
 use Illuminate\Support\Facades\Http;
 
 class JugadorController extends Controller
@@ -21,6 +22,7 @@ class JugadorController extends Controller
         $jugadores = Jugador::where('equipo_id', $equipo->id)
         ->get();
         $liga = Liga::where('id',$equipo->liga_id)->get();
+        $notificacionUsuarioController = new NotificacionUsuarioController;
 
             return Inertia::render('Jugadores/Index', [
                 'user'=>Auth::user(),
@@ -28,6 +30,7 @@ class JugadorController extends Controller
                 'jugadores'=>$jugadores,
                 'equipo'=>$equipo,
                 'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+                'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
             ]);
     }
 

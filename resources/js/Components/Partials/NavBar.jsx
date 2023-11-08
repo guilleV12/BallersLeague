@@ -1,11 +1,11 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApplicationLogo from "../ApplicationLogo";
 import Dropdown from '@/Components/Dropdown';
 import PrimaryButton from "../PrimaryButton";
 import BreadCrumb from "../BreadCrumb";
 
-const NavBar = ({auth, toggleSidebar}) => {
+const NavBar = ({auth, toggleSidebar, notificaciones}) => {
 
     return (
        
@@ -41,11 +41,76 @@ const NavBar = ({auth, toggleSidebar}) => {
                     {auth ? (
                         <div className="ml-auto flex items-center gap-x-3">
                             <span className="text-sm font-semibold hidden sm:flex">{auth.nombre+' '+auth.apellido}</span>
-                            <button type="button" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
-                                <span className="flex justify-center items-center text-3xl ">
-                                    <ion-icon name="notifications-circle-outline"/>
-                                </span>
-                            </button>
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button type="button" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
+                                        <span className="flex justify-center items-center text-3xl ">
+                                            <ion-icon name="notifications-circle-outline"/>
+                                        </span>
+                                        
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content width="w-96">
+                                    {notificaciones&&(
+                                        <ul className="grid">
+                                        {
+                                            notificaciones.map((notificacion, index)=> (//mapea los tres tipos de notificaciones
+                                            <li key={index} className=" justify-center border-b border-gray">
+                                                {//PROXIMOS PARTIDOS
+                                                (index === 0 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Proximos partidos</PrimaryButton>)}
+                                                <ul className="text-xs mb-2">{
+                                                    
+                                                    notificacion.map((objNotificacion)=>(//mapea dentro de cada una de las tres tipos de notificacion
+                                                        (index === 0)&&(
+                                                            <li key={objNotificacion.fecha.id} className="">
+                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>
+                                                                    {objNotificacion.liga.nombre}
+                                                                </a>
+                                                                {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' vs '+objNotificacion.equipo_2}
+                                                            </li>
+                                                        )
+                                                    ))
+                                                }   
+                                                </ul>
+
+                                                {//RESULTADOS
+                                                (index === 1 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Resultados Recientes</PrimaryButton>)}
+                                                <ul className="text-xs">{
+                                                    notificacion.map((objNotificacion)=>(
+                                                        (index === 1 )&&(
+                                                            <li key={objNotificacion.partido.id}>
+                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>
+                                                                    {objNotificacion.liga.nombre}
+                                                                </a>
+                                                                {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' '+objNotificacion.partido.puntaje_equipo_1+' vs '+objNotificacion.partido.puntaje_equipo_2+' '+objNotificacion.equipo_2}
+
+                                                            </li>
+                                                        )
+                                                    ))
+                                                }
+                                                </ul>
+
+                                                {//INVITACION ARBITRO
+                                                (index === 2 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Invitacion de arbitraje</PrimaryButton>)}
+                                                <ul className="text-xs" key={index+1}>{
+                                                    notificacion.map((objNotificacion)=>(
+                                                        (index === 2)&&(
+                                                            <li key={objNotificacion.invitacion.id}>
+                                                                Has sido invitado a arbitrar en la liga: <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>{objNotificacion.liga.nombre}</a>!
+
+                                                            </li>
+                                                        )
+                                                    ))
+                                                }
+                                                </ul>
+                                            </li>
+                                            ))
+                                        }
+                                        </ul>
+                                    )}
+                                </Dropdown.Content>
+                            </Dropdown>
+                            
                 
                             <div className="ml-auto flex items-center gap-x-3">
                                 <Dropdown>

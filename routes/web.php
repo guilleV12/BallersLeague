@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
 use App\Models\FechaPartido;
 use App\Models\Liga;
+use App\Models\NotificacionUsuario;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,8 @@ Route::get('/', function () {
     } else {
         $miLiga = null;
     }
+    $notificacionUsuarioController = new NotificacionUsuarioController();
+
 
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
@@ -35,6 +38,7 @@ Route::get('/', function () {
         'auth' => Auth::user(),
         'liga' => Liga::all(),
         'miLiga' => $miLiga,
+        'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
     ]);
 });
 
@@ -49,8 +53,6 @@ Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth']], function 
 Route::group(['prefix' => 'equipos', 'middleware' => ['auth']], function () {
     Route::resource('equipos', EquipoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
-
-Route::get('getplayerinfo/{playerName}', [SportsDBService::class, 'getPlayerInfo'])->name('getplayerinfo.index');
 
 Route::group(['prefix' => 'jugadores', 'middleware' => ['auth']], function () {
     Route::get('jugadores/{equipo}', [JugadorController::class, 'index'])->name('jugadores.index');

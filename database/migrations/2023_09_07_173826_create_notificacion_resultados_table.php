@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('partido_id')->constrained('partidos','id')->cascadeOnDelete();
             $table->foreignId('fecha_partido_id')->constrained('fecha_partidos','id')->cascadeOnDelete();
+            $table->foreignId('liga_id')->constrained('ligas','id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

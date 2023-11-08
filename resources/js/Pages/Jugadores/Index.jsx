@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/react'
 import TabJugadores from '@/Components/Jugador/TabJugadores';
 import AlertRedireccion from '@/Components/Alerts/AlertRedireccion';
 
-const Index = ({ user, liga, jugadores, equipo, miLiga }) => {
+const Index = ({ user, liga, jugadores, equipo, miLiga, notificaciones, cantNotiUser }) => {
   return (
     <>
     <Head 
@@ -14,6 +14,8 @@ const Index = ({ user, liga, jugadores, equipo, miLiga }) => {
       user={user} 
       liga={liga} 
       miLiga={miLiga} 
+      notificaciones={notificaciones}
+      cantNotiUser={cantNotiUser}
       classMain={(liga.length == 0) ? `bg-black` : ``}
       >
         <div className='flex justify-center lg:items-center w-full lg:w-[78%] h-fit  lg:ml-[15.5rem] xl:ml-[16rem]'>       

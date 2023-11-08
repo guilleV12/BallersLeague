@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Liga;
+use App\Models\NotificacionUsuario;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,10 +20,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $notificacionUsuarioController = new NotificacionUsuarioController;
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'miLiga' => Liga::where('user_id',Auth::user()->id)->get(),
+            'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
+            'cantNotiUser' => Auth::check() ? count(NotificacionUsuario::where('user_id',Auth::user()->id)->get()) : 0,
         ]);
     }
 

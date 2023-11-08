@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user')->constrained('users','id')->cascadeOnDelete();
             $table->foreignId('id_liga')->constrained('ligas','id')->cascadeOnDelete();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->boolean('deshabilitado');
             $table->boolean('confirmado');
             $table->timestamps();

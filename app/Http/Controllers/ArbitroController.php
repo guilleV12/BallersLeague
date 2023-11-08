@@ -15,8 +15,8 @@ use Inertia\Inertia;
 class ArbitroController extends Controller
 {
     public function store(Request $request)
-    {//dd($request->email);
-        $arbitroExiste = Arbitro::where('email', $request->email)->first();
+    {//dd($request);
+        $arbitroExiste = Arbitro::where('email', $request->email)->where('id_liga',$request->id_liga)->first();
         if ($arbitroExiste){
             if ($arbitroExiste->deshabilitado == true){
                 $usuario = User::where('email',$request->email)->get();
@@ -43,13 +43,12 @@ class ArbitroController extends Controller
             $messages = [
                 'email.required' => 'El campo email es obligatorio.',
                 'email.exists' => 'El correo electrónico no esta registrado en Baller League.',
-                'email.unique' => 'Este correo electrónico ya está en uso por un árbitro.',
                 'id_liga.required' => 'El campo id_liga es obligatorio.',
                 'id_liga.exists' => 'La liga seleccionada no existe en la tabla de ligas.',
             ];
     
             $validated = $request->validate([
-                'email' => 'required|exists:users,email|unique:arbitros,email',
+                'email' => 'required|exists:users,email',
                 'id_liga' => 'required|exists:ligas,id',
             ], $messages);
     

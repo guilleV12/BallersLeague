@@ -19,17 +19,17 @@ class NotificacionPartidosMail extends Mailable
 
     public $usuario;
     public $liga;
-    public $fechasPartido;
-    public $partidos;
+    public $fechaPartidos;
+    public $equipos;
     /**
      * Create a new message instance.
      */
-    public function __construct(User $usuario, Liga $liga, $fechasPartido, $partidos)
+    public function __construct(User $usuario, Liga $liga, $fechaPartidos, $equipos)
     {
         $this->usuario = $usuario;
         $this->liga = $liga;
-        $this->fechasPartido = $fechasPartido;
-        $this->partidos = $partidos;
+        $this->fechaPartidos = $fechaPartidos;
+        $this->equipos = $equipos;
     }
 
     /**
