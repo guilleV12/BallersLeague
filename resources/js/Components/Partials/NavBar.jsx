@@ -63,7 +63,7 @@ const NavBar = ({auth, toggleSidebar, notificaciones}) => {
                                                     notificacion.map((objNotificacion)=>(//mapea dentro de cada una de las tres tipos de notificacion
                                                         (index === 0)&&(
                                                             <li key={objNotificacion.fecha.id} className="">
-                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>
+                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.user_id)}>
                                                                     {objNotificacion.liga.nombre}
                                                                 </a>
                                                                 {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' vs '+objNotificacion.equipo_2}

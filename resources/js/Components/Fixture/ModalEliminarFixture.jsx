@@ -12,12 +12,14 @@ const ModalEliminarFixture = ({
   liga,
   rol,
   variante,
+  esPlayoff,
 }) => {
-  const message =`¿Está seguro que desea eliminar el fixture de la liga: `+liga.nombre+`?`;
+  
+  const message =esPlayoff ? `¿Está seguro que desea eliminar los playoffs de la liga: `+liga.nombre+`?` : `¿Está seguro que desea eliminar el fixture de la liga: `+liga.nombre+`?`;
   return (
     <ModalEliminarElemento
-      nombreElemento={'Fixture'}
-      nombreRuta={'calendario.destroyfixture'}
+      nombreElemento={esPlayoff? 'Playoffs' : 'Fixture'}
+      nombreRuta={esPlayoff ? 'playoffs.destroyPlayoffsFechas' : 'calendario.destroyfixture'}
       elemento={caledario}
       onDelete={onDelete}
       onCancel={onCancel}
@@ -27,7 +29,7 @@ const ModalEliminarFixture = ({
       fechas={fechas}
       leftPosition={'left-[35%]'}
       message={message}
-      tipoElemento={'fixture'}
+      tipoElemento={'playoffs'}
       patch={true}
       rol={rol}
     />

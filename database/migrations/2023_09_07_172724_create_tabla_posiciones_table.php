@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('posicion')->nullable();
             $table->integer('ganados')->nullable();
             $table->integer('perdidos')->nullable();
+            $table->integer('puntos_favor')->nullable();
+            $table->integer('puntos_contra')->nullable();
             $table->timestamps();
         });
     }

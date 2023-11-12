@@ -8,6 +8,8 @@ import FormJugador from './FormJugador';
 import FormFecha from './FormFecha';
 import FormArbitrosFechas from './FormArbitrosFechas';
 import FormNotificaciones from './FormNotificaciones';
+import FormPlayoffs from './FormPlayoffs';
+import FormFinalizarLiga from './FormFinalizarLiga';
 
 const FormsCrearEditar = ({
   elementoName,
@@ -128,7 +130,25 @@ const FormsCrearEditar = ({
                                         elementoName={elementoName}
                                         onCancel={onCancel}
                                         />
-                                ):('')
+                                ):(
+                                    elementoName === 'Playoffs' ? (
+                                        <FormPlayoffs
+                                            elementoName={elementoName}
+                                            onCancel={onCancel}
+                                            data={data}
+                                            errors={errors}
+                                            setData={setData}
+                                            equipos={equipos}
+                                            accion={accion}
+                                            />
+                                    ):(
+                                        elementoName === 'Liga' ? (
+                                            <FormFinalizarLiga
+                                                data={data}
+                                                />
+                                        ):('')
+                                    )
+                                )
                             )
                         )
                         

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
 import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
-export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arbitros, users, setShowAlert, setTituloAlert, patch, rol, partidos }) => {
+export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arbitros, users, setShowAlert, setTituloAlert, patch, rol, partidos, esPlayoff }) => {
     
     const formData = {
         fecha: fechaEditar.fecha ? fechaEditar.fecha : '',
@@ -19,17 +19,17 @@ export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arb
     const [partidoJugado, setPartidoJugado] = useState(null);
 
     useEffect(() => {
-        const partido = partidos.filter((partido) => partido.fecha_partido_id === fechaEditar.id);
+        const partido = esPlayoff ? partidos.filter((partido) => partido.fecha_partido_playoffs_id === fechaEditar.id) : partidos.filter((partido) => partido.fecha_partido_id === fechaEditar.id);
         setPartidoJugado(partido);
     }, []);
-    console.log(partidoJugado);
+   
     return (
         <>
         {partidoJugado && partidoJugado.length > 0 ? (
             rol === 'admin' ? (
                 <ModalCrearElemento
                     elementoName="Fecha"
-                    actionRoute={'fechapartido.update'}
+                    actionRoute={esPlayoff ? 'fechapartidoplayoffs.update' : 'fechapartido.update'}
                     onCancel={closeModalEditarFecha}
                     onAdd={closeModalEditarFecha}
                     elemento={fechaEditar}
@@ -65,7 +65,7 @@ export const ModalEditarFecha = ({ liga, closeModalEditarFecha, fechaEditar, arb
         ):(
                 <ModalCrearElemento
                     elementoName="Fecha"
-                    actionRoute={'fechapartido.update'}
+                    actionRoute={esPlayoff ? 'fechapartidoplayoffs.update' : 'fechapartido.update'}
                     onCancel={closeModalEditarFecha}
                     onAdd={closeModalEditarFecha}
                     elemento={fechaEditar}

@@ -192,17 +192,42 @@ class PartidoController extends Controller
         if ($partido->puntaje_equipo_1 > $partido->puntaje_equipo_2){
             $tablaPosicionesGanador = TablaPosiciones::where('equipo_id', $equipo1)->first();
             $tablaPosicionesGanador->ganados = $tablaPosicionesGanador->ganados + 1;
+            $tablaPosicionesGanador->puntos_favor = $tablaPosicionesGanador->puntos_favor + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
 
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $equipo2)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos + 1;
+            $tablaPosicionesPerdedor->puntos_contra = $tablaPosicionesPerdedor->puntos_contra + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
         } else {
             $tablaPosicionesGanador = TablaPosiciones::where('equipo_id', $equipo2)->first();
             $tablaPosicionesGanador->ganados = $tablaPosicionesGanador->ganados + 1;
+            $tablaPosicionesGanador->puntos_favor = $tablaPosicionesGanador->puntos_favor + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
 
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $equipo1)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos + 1;
+            $tablaPosicionesPerdedor->puntos_contra = $tablaPosicionesPerdedor->puntos_contra + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
         }
         $tablaPosicionesGanador->save();
         $tablaPosicionesPerdedor->save();
+
+        //actualizar posiciones
+        $equipoParaObtLiga = Equipo::where('id',$equipo1)->first();
+        $this->actualizarPosiciones($equipoParaObtLiga->liga_id);
+    }
+
+    public function actualizarPosiciones($ligaId)
+    {
+        // Obtener y ordenar la tabla de posiciones
+        $tablaPosiciones = TablaPosiciones::where('liga_id', $ligaId)
+            ->orderByDesc('ganados')
+            ->orderByDesc('puntos_favor')
+            ->orderBy('puntos_contra')
+            ->get();
+
+        // Asignar posiciones a los equipos
+        $posicion = 1;
+        foreach ($tablaPosiciones as $posicionEquipo) {
+            $posicionEquipo->posicion = $posicion++;
+            $posicionEquipo->save();
+        }
     }
 }

@@ -18,7 +18,7 @@ const ModalEliminarElemento = ({
     formData,
     partidos,
     rol
-}) => {
+}) => {console.log(elemento);
   const [canDelete, setCanDelete] = useState(true);
   const arrayNoFechas = ['partido','fixture','jugador'];
 

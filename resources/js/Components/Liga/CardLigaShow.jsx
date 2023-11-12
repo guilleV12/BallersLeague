@@ -10,6 +10,8 @@ import Alert from '../Alerts/Alert';
 import TabFixture from '../Fixture/TabFixture';
 import { BotonContenido, BotonEditar, BotonEliminar, BotonOpciones, BotonTab } from '../BotonesAcciones';
 import ModalCrearNotificaciones from '../Notificaciones/ModalCrearNotificaciones';
+import TabPlayoffs from '../Playoffs/TabPlayoffs';
+import TabCampeon from '../Campeon/TabCampeon';
 
 // Componente principal
 const CardLigaShow = ({
@@ -25,7 +27,11 @@ const CardLigaShow = ({
   calendario,
   fechas,
   rol,
-  notificacionesUsuario
+  notificacionesUsuario,
+  playoffs,
+  fechasPlayoffs,
+  partidosPlayoffs,
+  campeon
 }) => {
   const [activeTab, setActiveTab] = useState('liga');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -52,7 +58,7 @@ const CardLigaShow = ({
   const closeAlert = () => {
     setShowAlert(false);
   };
-
+  
   return (
     <div className={`w-[90%] xl:w-full bg-white border border-black rounded-lg shadow-lg shadow-gray-500 dark:bg-gray-800 dark:border-gray-700 ${isDeleteModalOpen ? `pointer-events-none` : ''}`}>
       <ul className="flex flex-wrap justify-between text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
@@ -127,6 +133,29 @@ const CardLigaShow = ({
               className={' w-full md:w-auto'}
               />
           </li>
+          <li className="w-full md:w-auto md:ml-1">
+            <BotonTab
+              id="playoffs-tab"
+              label="Playoffs"
+              onClick={() => handleTabClick('playoffs')}
+              isActive={activeTab === 'playoffs'}
+              className={' w-full md:w-auto'}
+              />
+          </li>
+          {campeon ? (
+            <li className='w-auto ml-1'>
+              <BotonTab
+                id="campeon-tab"
+                label="Campeon"
+                onClick={() => handleTabClick('campeon')}
+                isActive={activeTab === 'campeon'}
+                className={' w-full md:w-auto'}
+                />
+            </li>
+          ):(
+            ''
+          )}
+          
         </div>
         <div className='hidden md:flex'>
           <li className='flex justify-center items-center'>
@@ -209,6 +238,7 @@ const CardLigaShow = ({
               calendario={calendario} 
               fechas={fechas} 
               equipos={equipos} 
+              fechasPlayoffs={fechasPlayoffs}
               arbitros={arbitros} 
               liga={liga} 
               users={users} 
@@ -217,6 +247,36 @@ const CardLigaShow = ({
               rol={rol}
               />
         </div>
+        <div className={`${activeTab === 'playoffs' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="playoffs" role="tabpanel" aria-labelledby="playoffs-tab">
+            <TabPlayoffs
+              playoffs={playoffs}
+              liga={liga}
+              fechas={fechas}
+              partidos={partidos}
+              jugadorPartido={jugadorPartido}
+              equipos={equipos}
+              setShowAlert={setShowAlert} 
+              setTituloAlert={setTituloAlert} 
+              fechasPlayoffs={fechasPlayoffs}
+              user={user}
+              partidosPlayoffs={partidosPlayoffs}
+              arbitros={arbitros}
+              rol={rol}
+              jugadores={jugadores}
+              users={users}
+            />
+        </div>
+        {campeon ? (
+          <div className={`${activeTab === 'campeon' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="campeon" role="tabpanel" aria-labelledby="campeon-tab">
+            <TabCampeon
+              equipos={equipos}
+              campeon={campeon}
+              userAdmin={userAdmin}
+              liga={liga}
+            />
+          </div>
+        ):('')}
+        
       </div>
 
       {isDeleteModalOpen && (

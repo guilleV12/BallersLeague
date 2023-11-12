@@ -9,6 +9,7 @@ const ModalEliminarPartido = ({
   setShowAlert,
   setTituloAlert,
   fechas,
+  esPlayoff,
   formData,
   rol
 }) => {
@@ -16,7 +17,7 @@ const ModalEliminarPartido = ({
   return (
     <ModalEliminarElemento
       nombreElemento={'Partido'}
-      nombreRuta={'partido.destroy'}
+      nombreRuta={esPlayoff ? 'partidoplayoffs.destroy' : 'partido.destroy'}
       elemento={partido}
       onDelete={onDelete}
       onCancel={onCancel}

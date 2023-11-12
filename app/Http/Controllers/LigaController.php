@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Arbitro;
 use App\Models\Calendario;
+use App\Models\CampeonLiga;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
+use App\Models\FechaPartidoPlayoff;
 use App\Models\Jugador;
 use App\Models\JugadorPartido;
 use App\Models\Liga;
 use App\Models\NotificacionUsuario;
 use App\Models\Partido;
+use App\Models\PartidosPlayoff;
+use App\Models\Playoff;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,11 +82,13 @@ class LigaController extends Controller
         $liga = Liga::where('user_id',$user)->get();
         $rol = $userRol->roles->first();
         $notificacionUsuarioController = new NotificacionUsuarioController;
-        //dd($rol ? $rol->name : null);
+        //dd(FechaPartidoPlayoff::where('playoffs_id',Playoff::where('liga_id',1)->first()->id));
 
         if (count($liga)>0){
             $calendario = Calendario::where('liga_id',$liga[0]->id)->first();
             $equipos = Equipo::where('liga_id',$liga[0]->id)->get();
+            $playoffs = $calendario ? Playoff::where('liga_id',$calendario->liga_id)->first() : null;
+
             return Inertia::render('Ligas/Show', [
                 'rol'=> $rol ? $rol->name : $rol,
                 'user'=>Auth::user(),
@@ -99,6 +105,10 @@ class LigaController extends Controller
                 'jugadorPartido'=>$calendario ? JugadorPartido::all() : JugadorPartido::where('id',-1)->get(),
                 'notificacionesUsuario'=>NotificacionUsuario::where('user_id', Auth::user()->id)->where('liga_id', $liga[0]->id)->first(),
                 'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
+                'playoffs' => $calendario ? $playoffs : null,
+                'fechasPlayoffs' => $playoffs ? FechaPartidoPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
+                'partidosPlayoffs' => $playoffs ? PartidosPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
+                'campeon' => CampeonLiga::where('liga_id',$liga[0]->id)->first(),
             ]);
         }else{
             return Inertia::render('Ligas/Show', [

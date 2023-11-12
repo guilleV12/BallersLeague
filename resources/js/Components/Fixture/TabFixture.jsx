@@ -6,6 +6,7 @@ import ModalCrearFixture from './ModalCrearFixture';
 import ModalEliminarFixture from './ModalEliminarFixture';
 import ModalInformarErrores from '../Modales/ModalInformarErrores';
 import Dropdown from '../Dropdown';
+import ModalFinalizarLiga from './ModalFinalizarLiga';
 
 const TabFixture = ({ 
   jugadorPartido, 
@@ -20,12 +21,14 @@ const TabFixture = ({
   user, 
   setShowAlert, 
   setTituloAlert,
+  fechasPlayoffs,
   rol 
 }) => {
   const [isModalAsignarArbitroOpen, setIsModalAsignarArbitroOpen] = useState(false);
   const [isModalInformarErrorFixtureOpen, setIsModalInformarErrorFixtureOpen] = useState(false);
   const [isGenerarFixtureOpen, setGenerarFixtureOpen] = useState(false);
   const [isDeleteFixtureOpen, setDeleteFixtureOpen] = useState(false);
+  const [isFinalizarLigaOpen, setFinalizarLigaOpen] = useState(false);
 
   const handleAsignarArbitros = () => {
     setIsModalAsignarArbitroOpen(true);
@@ -57,6 +60,14 @@ const TabFixture = ({
 
   const closeModalInformarErrorFixture = () => {
     setIsModalInformarErrorFixtureOpen(false);
+  }
+
+  const openModalFinalizarLiga = () => {
+    setFinalizarLigaOpen(true);
+  }
+
+  const closeModalFinalizarLiga = () => {
+    setFinalizarLigaOpen(false);
   }
 
   const [filtro, setFiltro] = useState('');
@@ -126,6 +137,23 @@ const TabFixture = ({
                           onClick={partidos&&(partidos.length > 0 ? openModalInformarErrorFixture : handleDeleteFixture)}
                           className={' mb-1 block justify-center'}
                           />
+                    
+                    {fechas.length === partidos.length &&(
+                      (!fechasPlayoffs)?(
+                          <BotonContenido
+                            nombre={'Finalizar s/playoffs'}
+                            onClick={openModalFinalizarLiga}
+                            />
+                      ):(
+                        fechasPlayoffs.length === 0&&(
+                          <BotonContenido
+                            nombre={'Finalizar s/playoffs'}
+                            onClick={openModalFinalizarLiga}
+                            />
+                        )
+                      )
+                        
+                    )}
                     </>
                   ) : (
                       <>
@@ -177,6 +205,16 @@ const TabFixture = ({
           liga={liga}
           fechas={fechas}
           closeModalAsignarArbitros={handleCloseAsignarArbitros}
+          setShowAlert={setShowAlert}
+          setTituloAlert={setTituloAlert}
+        />
+      )}
+
+      {isFinalizarLigaOpen && (
+        <ModalFinalizarLiga
+          liga={liga}
+          onCancel={closeModalFinalizarLiga}
+          onAdd={closeModalFinalizarLiga}
           setShowAlert={setShowAlert}
           setTituloAlert={setTituloAlert}
         />

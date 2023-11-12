@@ -26,7 +26,7 @@ class JugadorSeeder extends Seeder
                     'nombre' => $faker->firstName(),
                     'apellido' => $faker->lastName(),
                     'fecha_nacimiento' => '2000-10-10',
-                    'foto_perfil' => 'Jugador' . $i . '.png',
+                    'foto_perfil' => 'foto_jugador_' . '012345' . $equipoID . $i . '_equipo_'. $equipoID .'.png',
                     'deshabilitado' => false,
                     'equipo_id' => $equipoID,
                     'liga_id' => 1,

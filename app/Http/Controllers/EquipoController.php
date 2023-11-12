@@ -30,7 +30,7 @@ class EquipoController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {//dd($request);
         $validated = $request->validate([
             'nombre' => 'required|string|max:100|unique:equipos,nombre,NULL,id,liga_id,' . $request->liga_id,
             'descripcion' => 'required|string|max:255',
@@ -102,22 +102,16 @@ class EquipoController extends Controller
 
     public function destroy(Equipo $equipo, Request $request)
     {
-        if ($request->destruirEstructuraActual === "1" || true){
-            $liga = Liga::where('id', $equipo->liga_id)->first();
-            $calendario = Calendario::where('liga_id', $liga->id)->first();
-            $fechasFixture = FechaPartido::where('calendario_id', $calendario->id)->get();
-            $fechasFixture->each->delete();
-            $tablaPosiciones = TablaPosiciones::where('liga_id', $request->liga_id)->get();
-            $tablaPosiciones->each->delete();
-            $goleadores = Goleadores::where('liga_id', $request->liga_id)->get();
-            foreach ($goleadores as $goleador) {
-                $goleador->puntos = 0;
-                $goleador->cantidad_partidos = 0;
-                $goleador->promedio = 0;
-                $goleador->save();
+        $liga = Liga::where('id', $equipo->liga_id)->first();
+        $calendario = Calendario::where('liga_id', $liga->id)->first();
+        $fechasFixture = $calendario ? FechaPartido::where('calendario_id', $calendario->id)->get() : null;
+
+        if ($fechasFixture){
+            if (count($fechasFixture)>0){
+                $fechasFixture->each->delete();
             }
-        
         }
+
         $equipo->delete();
 
     }

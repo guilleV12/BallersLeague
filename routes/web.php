@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\ArbitroController;
 use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\CampeonLigaController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\FechaPartidoController;
+use App\Http\Controllers\FechaPartidoPlayoffController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
 use App\Http\Controllers\NotificacionPartidoController;
 use App\Http\Controllers\NotificacionResultadoController;
 use App\Http\Controllers\NotificacionUsuarioController;
 use App\Http\Controllers\PartidoController;
+use App\Http\Controllers\PartidosPlayoffController;
+use App\Http\Controllers\PlayoffController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
 use App\Models\FechaPartido;
@@ -46,6 +50,21 @@ Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
     Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
+Route::group(['prefix' => 'campeon', 'middleware' => ['auth']], function () {
+    Route::resource('campeon', CampeonLigaController::class)->only(['store']);
+});
+
+Route::group(['prefix' => 'playoffs', 'middleware' => ['auth']], function () {
+    Route::resource('playoffs', PlayoffController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+    Route::patch('playoffs/{playoff}', [PlayoffController::class, 'destroyPlayoffsFechas'])->name('playoffs.destroyPlayoffsFechas');
+});
+
+Route::group(['prefix' => 'fechapartidoplayoffs', 'middleware' => ['auth']], function () {
+    Route::resource('fechapartidoplayoffs', FechaPartidoPlayoffController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+    Route::patch('fechapartidoplayoffs/{fechapartidoplayoff}', [FechaPartidoPlayoffController::class, 'update'])->name('fechapartidoplayoffs.update');
+    Route::put('fechapartidoplayoffs/{fechapartidoplayoff}', [FechaPartidoPlayoffController::class, 'asignarArbitrosTodos'])->name('fechapartidoplayoffs.asignarArbitros');
+});
+
 Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth']], function () {
     Route::resource('notificaciones', NotificacionUsuarioController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
@@ -77,6 +96,10 @@ Route::group(['prefix' => 'fechapartido', 'middleware' => ['auth']], function ()
 
 Route::group(['prefix' => 'partido', 'middleware' => ['auth']], function () {
     Route::resource('partido', PartidoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+});
+
+Route::group(['prefix' => 'partidoplayoffs', 'middleware' => ['auth']], function () {
+    Route::resource('partidoplayoffs', PartidosPlayoffController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::get('/dashboard', function () {

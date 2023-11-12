@@ -3,7 +3,7 @@ import React from 'react'
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
 import ModalInformarErrores from '../Modales/ModalInformarErrores';
 
-export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalAsignarArbitros, setShowAlert, setTituloAlert, liga }) => {
+export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalAsignarArbitros, setShowAlert, setTituloAlert, liga, esPlayoff }) => {
 
     const arbitrosConfirmados = arbitros.filter(arbitro => arbitro.confirmado === 1);
 
@@ -13,7 +13,7 @@ export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalA
                         <>
                             <ModalCrearElemento
                                 elementoName="Fechas"
-                                actionRoute={'fechapartido.asignarArbitros'}
+                                actionRoute={esPlayoff ? 'fechapartidoplayoffs.asignarArbitros' : 'fechapartido.asignarArbitros'}
                                 onCancel={closeModalAsignarArbitros}
                                 onAdd={closeModalAsignarArbitros}
                                 elemento={calendario}

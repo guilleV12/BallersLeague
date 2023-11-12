@@ -17,6 +17,7 @@ const ModalCrearElemento = ({
   fechas,
   accion,
   openModalConfirmacionFixture,
+  openModalConfirmacionPlayoff,
   regenerar,
   equipos,
   verificarPuntosPartido,
@@ -41,11 +42,12 @@ const ModalCrearElemento = ({
   arbitrosSelecto2,
   setArbitrosSelecto1,
   setArbitrosSelecto2,
-  user
+  user,
+  fechasPlayoffs
 }) => {
 
   const { data, setData, post, reset, setError, errors } = useForm(formData);
-  //console.log(data);
+  console.log(actionRoute);
   const enviar = () => {
     post(route('calendario.store'), {
         onSuccess: () => {
@@ -85,7 +87,7 @@ const ModalCrearElemento = ({
   const openModalConfirmacionPartido = () => {
     setModalConfirmarPartidoOpen(true);
   };
-
+  
   const submit = (e) => {
     e.preventDefault();
     if (accion === 'agregar') {
@@ -108,7 +110,7 @@ const ModalCrearElemento = ({
                 enviar();
             }
         }else{
-            if (actionRoute === 'partido.store'){
+            if (actionRoute === 'partido.store' || actionRoute === 'partidoplayoffs.store'){
                 if (verificarPuntosPartido(data)){
                     if (confirmado === true){
                         post(route(actionRoute), {
@@ -124,14 +126,55 @@ const ModalCrearElemento = ({
                     }
                 }
             }else{
-                post(route(actionRoute), {
-                    onSuccess: () => {
-                    setShowAlert(true);
-                    setTituloAlert(`${elementoName} creado con éxito`);
-                    reset();
-                    onAdd();
-                    },
-                });
+                if (actionRoute === 'playoffs.store'){
+                    if (fechasPlayoffs){
+                        if (fechasPlayoffs.length > 0){
+                            if (!regenerar){
+                                openModalConfirmacionPlayoff();
+                                setData({
+                                    ...data,
+                                    regenerarPlayoffs: true
+                                });
+                            }else{
+                                post(route(actionRoute), {
+                                    onSuccess: () => {
+                                    setShowAlert(true);
+                                    setTituloAlert(`${elementoName} creado con éxito`);
+                                    reset();
+                                    onAdd();
+                                    },
+                                });
+                            }
+                        }else{
+                            post(route(actionRoute), {
+                                onSuccess: () => {
+                                setShowAlert(true);
+                                setTituloAlert(`${elementoName} creado con éxito`);
+                                reset();
+                                onAdd();
+                                },
+                            });
+                        }
+                    }else{
+                        post(route(actionRoute), {
+                            onSuccess: () => {
+                            setShowAlert(true);
+                            setTituloAlert(`${elementoName} creado con éxito`);
+                            reset();
+                            onAdd();
+                            },
+                        });
+                    }
+                }else{
+                    post(route(actionRoute), {
+                        onSuccess: () => {
+                        setShowAlert(true);
+                        setTituloAlert(`${elementoName} creado con éxito`);
+                        reset();
+                        onAdd();
+                        },
+                    });
+                }
             }
         }
     } else if (accion === 'editar') {
@@ -173,7 +216,11 @@ const ModalCrearElemento = ({
                 <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
                     Asignar arbitros
                 </div>
-            ) : ('')
+            ) : (elementoName === 'Campeon' ? (
+                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
+                    Finalizar liga
+                </div>
+            ):(''))
           )}
             <div className='px-20'>
                 <div className='w-full flex justify-center items-center mt-5'>
@@ -186,6 +233,7 @@ const ModalCrearElemento = ({
                     elementoName={elementoName}
                     onCancel={onCancel}
                     data={data}
+                    equipos={equipos}
                     dataObj={formData}
                     setDataObj={setDataObj}
                     errors={errors}

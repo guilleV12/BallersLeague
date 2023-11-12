@@ -7,8 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\InvitacionArbitro;
 use App\Models\FechaPartido;
+use App\Models\FechaPartidoPlayoff;
 use App\Models\Liga;
 use App\Models\Partido;
+use App\Models\PartidosPlayoff;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
@@ -84,6 +86,8 @@ class ArbitroController extends Controller
             //buscar en las fechas que esta el arbitro, si alguna ya se jugo, sea como arbitro 1 o 2, si hay partido jugado no se desacocia, si no hay si
             $fechaPartido = FechaPartido::where('arbitro_1',$arbitro->id)->get();
             $fechaPartido2 = FechaPartido::where('arbitro_2', $arbitro->id)->get();
+            $fechaPartidoPO = FechaPartidoPlayoff::where('arbitro_1',$arbitro->id)->get();
+            $fechaPartidoPO2 = FechaPartidoPlayoff::where('arbitro_2', $arbitro->id)->get();
 
             if ($fechaPartido){
                 for ($i=0; $i < count($fechaPartido); $i++) { 
@@ -115,6 +119,40 @@ class ArbitroController extends Controller
                     if ($seJugo == false){
                         $fechaPartido2[$i]->arbitro_2 = null;
                         $fechaPartido2[$i]->save();
+                    }
+                }
+            }
+
+            if ($fechaPartidoPO){
+                for ($i=0; $i < count($fechaPartidoPO); $i++) { 
+                    $seJugo = false;
+
+                    $partidoPO = PartidosPlayoff::where('fecha_partido_playoffs_id', $fechaPartidoPO[$i]->id)->first();
+
+                    if ($partidoPO){
+                        $seJugo = true;
+                    }
+
+                    if ($seJugo == false){
+                        $fechaPartidoPO[$i]->arbitro_1 = null;
+                        $fechaPartidoPO[$i]->save();
+                    }
+                }
+            }
+            
+            if ($fechaPartidoPO2){
+                for ($i=0; $i < count($fechaPartidoPO2); $i++) { 
+                    $seJugo = false;
+
+                    $partidoPO = PartidosPlayoff::where('fecha_partido_playoffs_id', $fechaPartidoPO2[$i]->id)->first();
+
+                    if ($partidoPO){
+                        $seJugo = true;
+                    }
+
+                    if ($seJugo == false){
+                        $fechaPartidoPO2[$i]->arbitro_2 = null;
+                        $fechaPartidoPO2[$i]->save();
                     }
                 }
             }

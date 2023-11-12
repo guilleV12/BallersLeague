@@ -3,7 +3,7 @@ import PrimaryButton from '../PrimaryButton';
 import vsLogo from '../Images/vs.png';
 import { BotonContenido } from '../BotonesAcciones';
 
-export const ModalVerEstadisticas = ({ users, partidos, fechaPartidoVer, setShowAlert, setTituloAlert, closeModalVerEstadisticas, equipos, jugadores, jugadorPartido, arbitros }) => {
+export const ModalVerEstadisticas = ({ partidosPlayoffs, esPlayoff, users, partidos, fechaPartidoVer, setShowAlert, setTituloAlert, closeModalVerEstadisticas, equipos, jugadores, jugadorPartido, arbitros }) => {
   const [partidoActual, setPartidoActual] = useState('');
   const [equipo1, setEquipo1] = useState('');
   const [equipo2, setEquipo2] = useState('');
@@ -15,7 +15,7 @@ export const ModalVerEstadisticas = ({ users, partidos, fechaPartidoVer, setShow
   useEffect(() => {
     if (fechaPartidoVer && partidos) {
       // Buscar el partido en la lista de partidos
-      const partidoEncontrado = partidos.find((partido) => partido.fecha_partido_id === fechaPartidoVer.id);
+      const partidoEncontrado = esPlayoff ? partidosPlayoffs.find((partido) => partido.fecha_partido_playoffs_id === fechaPartidoVer.id) : partidos.find((partido) => partido.fecha_partido_id === fechaPartidoVer.id);
       const equipoEncontrado1 = equipos.find((equipo) => equipo.id === fechaPartidoVer.equipo_1);
       const equipoEncontrado2 = equipos.find((equipo) => equipo.id === fechaPartidoVer.equipo_2);
       const arbitroEncontrado1 = arbitros.find((arbitro) => arbitro.id === fechaPartidoVer.arbitro_1);
@@ -45,7 +45,7 @@ export const ModalVerEstadisticas = ({ users, partidos, fechaPartidoVer, setShow
         setUserArbitro2(userEncontrado2);
       }
     }
-  }, [fechaPartidoVer, partidos, equipos, arbitros]);  
+  }, [fechaPartidoVer, partidos, equipos, arbitros]);  console.log(partidoActual);
   return (
        <>
   <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
@@ -118,7 +118,7 @@ export const ModalVerEstadisticas = ({ users, partidos, fechaPartidoVer, setShow
             <tr>
               <td className="w-1/2">
                 {jugadorPartido
-                  .filter((jugador) => jugador.partido_id === partidoActual.id)
+                  .filter((jugador) => esPlayoff ? (jugador.partido_playoff_id === partidoActual.id) : (jugador.partido_id === partidoActual.id))
                   .map((jugador) => (
                     jugadores.map((jugadorObj) =>
                       jugadorObj.id === jugador.jugador_id && jugadorObj.equipo_id === equipo1.id ? (
@@ -137,7 +137,7 @@ export const ModalVerEstadisticas = ({ users, partidos, fechaPartidoVer, setShow
               </td>
               <td className="w-1/2">
                 {jugadorPartido
-                  .filter((jugador) => jugador.partido_id === partidoActual.id)
+                  .filter((jugador) => esPlayoff ? (jugador.partido_playoff_id === partidoActual.id) : (jugador.partido_id === partidoActual.id))
                   .map((jugador) => (
                     jugadores.map((jugadorObj) =>
                       jugadorObj.id === jugador.jugador_id && jugadorObj.equipo_id === equipo2.id ? (

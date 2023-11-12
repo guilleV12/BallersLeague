@@ -4,7 +4,7 @@ import ModalInformarErrores from '../Modales/ModalInformarErrores';
 import ModalEliminarPartido from './ModalEliminarPartido';
 import ModalCrearElemento from '../Modales/ModalCrearElemento';
 
-export const ModalCrearPartido = ({ eliminar, rol, jugadoresParticiparon, partido, partidos, closeModalCargarResultado, liga, setShowAlert, setTituloAlert, fecha_partido, equipos, equipos_puntajes, jugadores }) => {
+export const ModalCrearPartido = ({ esPlayoff, eliminar, rol, jugadoresParticiparon, partido, partidos, closeModalCargarResultado, liga, setShowAlert, setTituloAlert, fecha_partido, equipos, equipos_puntajes, jugadores }) => {
     const [isModalErrorPuntosOpen, setIsModalErrorPuntosOpen] = useState(false);
     const [equipoErrorPuntos, setEquipoErrorPuntos] = useState('');
     const [esEmpate, setEsEmpate] = useState(false);
@@ -57,7 +57,7 @@ export const ModalCrearPartido = ({ eliminar, rol, jugadoresParticiparon, partid
         equipo_1: equipos_puntajes[0],
         equipo_2: equipos_puntajes[1],
         fecha_partido_id: fecha_partido.id,
-        calendario_id: fecha_partido.calendario_id,
+        calendario_id: esPlayoff ? fecha_partido.playoffs_id : fecha_partido.calendario_id,
         jugador_1_equipo_1:'',
         jugador_2_equipo_1:'',
         jugador_3_equipo_1:'',
@@ -108,7 +108,7 @@ export const ModalCrearPartido = ({ eliminar, rol, jugadoresParticiparon, partid
         puntos_equipos_2_jugador_12:0,
     };
 
-    const verificarPuntosPartido = (formData) => {
+    const verificarPuntosPartido = (formData) => {console.log('a');
         const equipo1 = formData.equipo_1;
         const equipo2 = formData.equipo_2;
         const puntosEquipo1 = parseInt(formData.puntaje_equipo_1);
@@ -146,7 +146,7 @@ export const ModalCrearPartido = ({ eliminar, rol, jugadoresParticiparon, partid
 
     const fechaPartido = new Date(fecha_partido.fecha);
     const hoy = new Date();
-  
+  //console.log(eliminar);
 return (
     <>
         {(fechaPartido >= hoy)?(
@@ -217,13 +217,14 @@ return (
                 setTituloAlert={setTituloAlert}
                 formData={formData}
                 rol={rol}
+                esPlayoff={esPlayoff}
                 fechas={fecha_partido}
                 />
         ):(
             partidos.length > 0 ? (
                 <ModalCrearElemento
                     elementoName="Partido"
-                    actionRoute={'partido.store'}
+                    actionRoute={esPlayoff ? 'partidoplayoffs.store' : 'partido.store'}
                     onCancel={closeModalCargarResultado}
                     onAdd={closeModalCargarResultado}
                     elemento={partido}
@@ -259,7 +260,7 @@ return (
                 ):(
                     <ModalCrearElemento
                         elementoName="Partido"
-                        actionRoute={'partido.store'}
+                        actionRoute={esPlayoff ? 'partidoplayoffs.store' : 'partido.store'}
                         onCancel={closeModalCargarResultado}
                         onAdd={closeModalCargarResultado}
                         elemento={partido}

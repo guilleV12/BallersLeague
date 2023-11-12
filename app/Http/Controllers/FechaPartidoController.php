@@ -90,7 +90,8 @@ class FechaPartidoController extends Controller
         
     }
 
-    public function buscarFechasRepetidas($calendarioId, $fecha, $fechaPartidoEditando){
+    public function buscarFechasRepetidas($calendarioId, $fecha, $fechaPartidoEditando)
+    {
         $fechaPartidos = FechaPartido::where('calendario_id', $calendarioId)->get();
         $fechasRepetidas = [];
 

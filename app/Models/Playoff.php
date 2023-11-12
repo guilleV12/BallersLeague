@@ -11,7 +11,8 @@ class Playoff extends Model
 
     protected $fillable = [
         'cantidad_equipos',
-        'cantidad_partidos'
+        'cantidad_partidos',
+        'liga_id',
     ];
 
     public function liga()
