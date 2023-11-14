@@ -10,6 +10,7 @@ import FormArbitrosFechas from './FormArbitrosFechas';
 import FormNotificaciones from './FormNotificaciones';
 import FormPlayoffs from './FormPlayoffs';
 import FormFinalizarLiga from './FormFinalizarLiga';
+import FormPatrocinador from './FormPatrocinador';
 
 const FormsCrearEditar = ({
   elementoName,
@@ -146,7 +147,18 @@ const FormsCrearEditar = ({
                                             <FormFinalizarLiga
                                                 data={data}
                                                 />
-                                        ):('')
+                                        ):(
+                                            elementoName === 'Patrocinador' ? (
+                                                <FormPatrocinador
+                                                    elementoName={elementoName}
+                                                    onCancel={onCancel}
+                                                    data={data}
+                                                    errors={errors}
+                                                    setData={setData}
+                                                    accion={accion}
+                                                    />
+                                            ):('')
+                                        )
                                     )
                                 )
                             )

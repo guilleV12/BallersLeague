@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificacionResultadoController;
 use App\Http\Controllers\NotificacionUsuarioController;
 use App\Http\Controllers\PartidoController;
 use App\Http\Controllers\PartidosPlayoffController;
+use App\Http\Controllers\PatrocinadorController;
 use App\Http\Controllers\PlayoffController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
@@ -48,6 +49,10 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
     Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+});
+
+Route::group(['prefix' => 'patrocinadores', 'middleware' => ['auth']], function () {
+    Route::resource('patrocinadores', PatrocinadorController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::group(['prefix' => 'campeon', 'middleware' => ['auth']], function () {

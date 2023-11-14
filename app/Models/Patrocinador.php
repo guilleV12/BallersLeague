@@ -12,7 +12,8 @@ class Patrocinador extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'logo'
+        'logo',
+        'liga_patrocinada',
     ];
 
     public function liga()

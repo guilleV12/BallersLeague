@@ -20,7 +20,7 @@ const ModalEliminarElemento = ({
     rol
 }) => {console.log(elemento);
   const [canDelete, setCanDelete] = useState(true);
-  const arrayNoFechas = ['partido','fixture','jugador'];
+  const arrayNoFechas = ['partido','fixture','jugador','patrocinador'];
 
   useEffect(() => {
     if (!arrayNoFechas.includes(tipoElemento)){

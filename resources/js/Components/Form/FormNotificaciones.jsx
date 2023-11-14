@@ -12,7 +12,7 @@ export const FormNotificaciones = ({
     setData,
     accion
 }) => {
-   console.log(data);
+   
 
   return (
     <>

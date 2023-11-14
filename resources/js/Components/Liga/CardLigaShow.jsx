@@ -7,11 +7,11 @@ import { TabInfoLiga } from './TabInfoLiga';
 import Dropdown from '../Dropdown';
 import TabArbitros from '../Arbitros/TabArbitros';
 import Alert from '../Alerts/Alert';
-import TabFixture from '../Fixture/TabFixture';
 import { BotonContenido, BotonEditar, BotonEliminar, BotonOpciones, BotonTab } from '../BotonesAcciones';
 import ModalCrearNotificaciones from '../Notificaciones/ModalCrearNotificaciones';
-import TabPlayoffs from '../Playoffs/TabPlayoffs';
-import TabCampeon from '../Campeon/TabCampeon';
+import TabFixturePlayoffs from '../FixtureGeneral/TabFixturePlayoffs';
+import ModalCrearPatrocinador from '../Patrocinador/ModalCrearPatrocinador';
+import TabPatrocinadores from '../Patrocinador/TabPatrocinadores';
 
 // Componente principal
 const CardLigaShow = ({
@@ -31,7 +31,8 @@ const CardLigaShow = ({
   playoffs,
   fechasPlayoffs,
   partidosPlayoffs,
-  campeon
+  campeon,
+  patrocinadores
 }) => {
   const [activeTab, setActiveTab] = useState('liga');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -39,7 +40,14 @@ const CardLigaShow = ({
   const [showAlert, setShowAlert] = useState(false);
   const [tituloAlert, setTituloAlert] = useState('');
   const [isModalNotificacionesOpen, setModalNotificacionesOpen] = useState(false);
+  const [isModalPatrocinadorOpen, setModalPatrocinadorOpen] = useState(false);
 
+  const openModalPatrocinador = () => {
+    setModalPatrocinadorOpen(true);
+  };
+  const closeModalPatrocinador = () => {
+    setModalPatrocinadorOpen(false);
+  };
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
   };
@@ -82,6 +90,13 @@ const CardLigaShow = ({
                                 onClick={openDeleteModal}
                                 className={'mt-1 block w-full justify-center'}
                                 />
+                          </li>
+                          <li>
+                              <BotonContenido
+                                className={'mt-1 block w-full justify-center'}
+                                nombre={'Patrocinador'}
+                                />
+
                           </li>
                         </ul>
                     </Dropdown.Content>
@@ -133,29 +148,19 @@ const CardLigaShow = ({
               className={' w-full md:w-auto'}
               />
           </li>
-          <li className="w-full md:w-auto md:ml-1">
-            <BotonTab
-              id="playoffs-tab"
-              label="Playoffs"
-              onClick={() => handleTabClick('playoffs')}
-              isActive={activeTab === 'playoffs'}
-              className={' w-full md:w-auto'}
-              />
-          </li>
-          {campeon ? (
-            <li className='w-auto ml-1'>
+        {patrocinadores &&(
+          patrocinadores.length>0&&(  
+            <li className="w-full md:w-auto md:ml-1">
               <BotonTab
-                id="campeon-tab"
-                label="Campeon"
-                onClick={() => handleTabClick('campeon')}
-                isActive={activeTab === 'campeon'}
+                id="partocinadores-tab"
+                label="Patrocinadores"
+                onClick={() => handleTabClick('patrocinadores')}
+                isActive={activeTab === 'patrocinadores'}
                 className={' w-full md:w-auto'}
-                />
+              />
             </li>
-          ):(
-            ''
-          )}
-          
+          )
+        )}
         </div>
         <div className='hidden md:flex'>
           <li className='flex justify-center items-center'>
@@ -184,6 +189,14 @@ const CardLigaShow = ({
                               className={'mt-1 block w-full justify-center'}
                               />
                         </li>
+                        <li>
+                              <BotonContenido
+                                className={'mt-1 block w-full justify-center'}
+                                onClick={openModalPatrocinador}
+                                nombre={'Patrocinador'}
+                                />
+
+                          </li>
                       </ul>
                   </Dropdown.Content>
               </Dropdown>
@@ -230,53 +243,41 @@ const CardLigaShow = ({
               />
         </div>
         <div className={`${activeTab === 'fixture' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="fixture" role="tabpanel" aria-labelledby="fixture-tab">
-            <TabFixture 
-              jugadorPartido={jugadorPartido} 
-              partidos={partidos} 
-              jugadores={jugadores} 
-              user={user} 
-              calendario={calendario} 
-              fechas={fechas} 
-              equipos={equipos} 
-              fechasPlayoffs={fechasPlayoffs}
-              arbitros={arbitros} 
-              liga={liga} 
-              users={users} 
-              setShowAlert={setShowAlert} 
-              setTituloAlert={setTituloAlert} 
-              rol={rol}
+            <TabFixturePlayoffs 
+               liga={liga} 
+               user={user} 
+               jugadorPartido={jugadorPartido} 
+               partidos={partidos} 
+               jugadores={jugadores} 
+               calendario={calendario} 
+               fechas={fechas} 
+               equipos={equipos} 
+               playoffs={playoffs}
+               userAdmin={userAdmin}
+               fechasPlayoffs={fechasPlayoffs}
+               partidosPlayoffs={partidosPlayoffs}
+               arbitros={arbitros} 
+               users={users} 
+               campeon={campeon}
+               setShowAlert={setShowAlert} 
+               setTituloAlert={setTituloAlert} 
+               rol={rol}
               />
         </div>
-        <div className={`${activeTab === 'playoffs' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="playoffs" role="tabpanel" aria-labelledby="playoffs-tab">
-            <TabPlayoffs
-              playoffs={playoffs}
-              liga={liga}
-              fechas={fechas}
-              partidos={partidos}
-              jugadorPartido={jugadorPartido}
-              equipos={equipos}
-              setShowAlert={setShowAlert} 
-              setTituloAlert={setTituloAlert} 
-              fechasPlayoffs={fechasPlayoffs}
-              user={user}
-              partidosPlayoffs={partidosPlayoffs}
-              arbitros={arbitros}
-              rol={rol}
-              jugadores={jugadores}
-              users={users}
-            />
-        </div>
-        {campeon ? (
-          <div className={`${activeTab === 'campeon' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="campeon" role="tabpanel" aria-labelledby="campeon-tab">
-            <TabCampeon
-              equipos={equipos}
-              campeon={campeon}
-              userAdmin={userAdmin}
-              liga={liga}
-            />
-          </div>
-        ):('')}
-        
+        {patrocinadores&&(
+          patrocinadores.length>0&&(  
+            <div className={`${activeTab === 'patrocinadores' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="patrocinadores" role="tabpanel" aria-labelledby="patrocinadores-tab">
+              <TabPatrocinadores
+                patrocinadores={patrocinadores}
+                userAdmin={userAdmin}
+                user={user}
+                setShowAlert={setShowAlert}
+                setTituloAlert={setTituloAlert}
+                liga={liga}
+              />
+            </div>
+          )
+        )}
       </div>
 
       {isDeleteModalOpen && (
@@ -285,6 +286,17 @@ const CardLigaShow = ({
           onCancel={closeDeleteModal} 
           liga={liga} 
           />
+      )}
+      {isModalPatrocinadorOpen && (
+        <ModalCrearPatrocinador
+          liga={liga} 
+          onCancel={closeModalPatrocinador} 
+          onAdd={closeModalPatrocinador} 
+          setShowAlert={setShowAlert} 
+          setTituloAlert={setTituloAlert} 
+          accion={'agregar'} 
+          actionRoute={'patrocinadores.store'}
+        />
       )}
       {isEditModalOpen && (
         <ModalEditarLiga 

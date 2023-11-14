@@ -11,7 +11,8 @@ setShowAlert,
 setTituloAlert,
 accion,
 notificacionesUsuario
-}) => {console.log(notificacionesUsuario);
+}) => {
+  
   const formData = {
     notificacion_partido: notificacionesUsuario ? (notificacionesUsuario.notificacion_partido === 0 ? false : true) : false,
     notificacion_resultado: notificacionesUsuario ? (notificacionesUsuario.notificacion_resultado === 0 ? false : true) : false,

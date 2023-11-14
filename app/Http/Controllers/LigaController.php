@@ -14,6 +14,7 @@ use App\Models\Liga;
 use App\Models\NotificacionUsuario;
 use App\Models\Partido;
 use App\Models\PartidosPlayoff;
+use App\Models\Patrocinador;
 use App\Models\Playoff;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -109,6 +110,7 @@ class LigaController extends Controller
                 'fechasPlayoffs' => $playoffs ? FechaPartidoPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
                 'partidosPlayoffs' => $playoffs ? PartidosPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
                 'campeon' => CampeonLiga::where('liga_id',$liga[0]->id)->first(),
+                'patrocinadores'=>Patrocinador::where('liga_patrocinada',$liga[0]->id)->get(),
             ]);
         }else{
             return Inertia::render('Ligas/Show', [

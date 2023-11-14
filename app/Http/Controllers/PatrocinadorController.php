@@ -4,62 +4,64 @@ namespace App\Http\Controllers;
 
 use App\Models\Patrocinador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PatrocinadorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+       // dd($request);
+
+        $request->validate([
+            'nombre' => 'required|string',
+            'descripcion' => 'required|string|max:255',
+            'logo' => 'required|file|mimes:png',
+            'liga_patrocinada' => 'required|exists:ligas,id',
+        ]);
+
+        $filename = 'logo_patrocinador_'.$request->nombre.'_liga_'.$request->liga_patrocinada.'.png';
+        $request->logo->move(public_path('images'),$filename);
+        $logo_patrocinador = $filename;
+
+        $patrocinador = new Patrocinador([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'logo' => $logo_patrocinador,
+            'liga_patrocinada' => $request->liga_patrocinada,
+        ]);
+
+        $patrocinador->save();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Patrocinador $patrocinador)
+    public function update(Request $request, Patrocinador $patrocinadore)
     {
-        //
-    }
+        //dd($patrocinadore);
+        $request->validate([
+            'nombre' => 'required|string',
+            'descripcion' => 'required|string|max:255',
+            'logo' => 'file|mimes:png',
+            'liga_patrocinada' => 'required|exists:ligas,id',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Patrocinador $patrocinador)
-    {
-        //
-    }
+        if ($request->logo){
+            Storage::disk('local')->delete('public/images/'.$patrocinadore->logo);
+            $filename = 'logo_patrocinador_'.$request->nombre.'_liga_'.$request->liga_patrocinada.'.png';
+            $request->logo->move(public_path('images'),$filename);
+            $patrocinadore->logo = $filename;
+        };
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Patrocinador $patrocinador)
-    {
-        //
+        $patrocinadore->nombre = $request->nombre;
+        $patrocinadore->descripcion = $request->descripcion;
+
+        $patrocinadore->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Patrocinador $patrocinador)
+    public function destroy(Patrocinador $patrocinadore)
     {
-        //
+        //dd($patrocinadore);
+        $patrocinadore->delete();
     }
 }
