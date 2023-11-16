@@ -5,7 +5,7 @@ import ModalCrearPartido from '../Fixture/ModalCrearPartido';
 import ModalVerEstadisticas from '../Fixture/ModalVerEstadisticas';
 import { BotonContenido, BotonEditar, BotonOpciones } from '../BotonesAcciones';
 
-export const TablaPlayoffs = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
+export const TablaPlayoffs = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol, patrocinadorConPrioridad }) => {
 const [isModalEditarFechaOpen, setModalEditarFechaOpen] = useState(false);
 const [fechaEditar, setFechaEditar] = useState(false);
 const [isModalCargarResultadoOpen, setModalCargarResultadoOpen] = useState(false);
@@ -261,6 +261,7 @@ const closeModalCargarResultado = () => {
                 jugadorPartido={jugadorPartido} 
                 jugadores={jugadores} 
                 equipos={equipos} 
+                patrocinadorConPrioridad={patrocinadorConPrioridad}
                 partidos={partidos} 
                 partidosPlayoffs={partidos}
                 fechaPartidoVer={fechaPartidoVer} 

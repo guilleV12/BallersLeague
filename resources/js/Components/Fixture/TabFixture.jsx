@@ -18,6 +18,7 @@ const TabFixture = ({
   equipos, 
   liga, 
   users, 
+  patrocinadorConPrioridad,
   user, 
   setShowAlert, 
   setTituloAlert,
@@ -192,6 +193,7 @@ const TabFixture = ({
         liga={liga}
         users={users}
         user={user}
+        patrocinadorConPrioridad={patrocinadorConPrioridad}
         filtro={filtro}
         setShowAlert={setShowAlert}
         setTituloAlert={setTituloAlert}

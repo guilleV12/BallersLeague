@@ -42,6 +42,8 @@ const CardLigaShow = ({
   const [isModalNotificacionesOpen, setModalNotificacionesOpen] = useState(false);
   const [isModalPatrocinadorOpen, setModalPatrocinadorOpen] = useState(false);
 
+  const patrocinadorConPrioridad = patrocinadores ? ( patrocinadores.length > 0 ? patrocinadores.filter(patrocinador => patrocinador.prioridad) : null) : null;
+
   const openModalPatrocinador = () => {
     setModalPatrocinadorOpen(true);
   };
@@ -209,18 +211,21 @@ const CardLigaShow = ({
               liga={liga} 
               user={user} 
               userAdmin={userAdmin} 
+              patrocinadorConPrioridad={patrocinadorConPrioridad}
               />
         </div>
         <div className={`${activeTab === 'estadisticas' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="estadisticas" role="tabpanel" aria-labelledby="estadisticas-tab">
             <TabEstadisticasLiga 
               liga={liga} 
               user={user} 
+              patrocinadorConPrioridad={patrocinadorConPrioridad}
               />
         </div>
         <div className={`${activeTab === 'equipos' ? 'block' : 'hidden'} bg-white rounded-lg dark.bg-gray-800`} id="equipos" role="tabpanel" aria-labelledby="equipos-tab">
             <TabEquipos 
               fechas={fechas} 
               user={user} 
+              patrocinadorConPrioridad={patrocinadorConPrioridad}
               liga={liga} 
               equipos={equipos} 
               setShowAlert={setShowAlert} 
@@ -235,6 +240,7 @@ const CardLigaShow = ({
               fechas={fechas} 
               arbitros={arbitros} 
               liga={liga} 
+              patrocinadorConPrioridad={patrocinadorConPrioridad}
               users={users} 
               userAdmin={userAdmin} 
               userAuth={user} 
@@ -250,6 +256,7 @@ const CardLigaShow = ({
                partidos={partidos} 
                jugadores={jugadores} 
                calendario={calendario} 
+               patrocinadorConPrioridad={patrocinadorConPrioridad}
                fechas={fechas} 
                equipos={equipos} 
                playoffs={playoffs}

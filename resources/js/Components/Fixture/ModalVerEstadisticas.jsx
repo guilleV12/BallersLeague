@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import PrimaryButton from '../PrimaryButton';
 import vsLogo from '../Images/vs.png';
 import { BotonContenido } from '../BotonesAcciones';
 
-export const ModalVerEstadisticas = ({ partidosPlayoffs, esPlayoff, users, partidos, fechaPartidoVer, setShowAlert, setTituloAlert, closeModalVerEstadisticas, equipos, jugadores, jugadorPartido, arbitros }) => {
+export const ModalVerEstadisticas = ({ patrocinadorConPrioridad, partidosPlayoffs, esPlayoff, users, partidos, fechaPartidoVer, setShowAlert, setTituloAlert, closeModalVerEstadisticas, equipos, jugadores, jugadorPartido, arbitros }) => {
   const [partidoActual, setPartidoActual] = useState('');
   const [equipo1, setEquipo1] = useState('');
   const [equipo2, setEquipo2] = useState('');
@@ -11,7 +10,7 @@ export const ModalVerEstadisticas = ({ partidosPlayoffs, esPlayoff, users, parti
   const [equipoPerdedor, setEquipoPerdedor] = useState('');
   const [userArbitro1, setUserArbitro1] = useState('');
   const [userArbitro2,setUserArbitro2] = useState('');
-
+console.log(patrocinadorConPrioridad);
   useEffect(() => {
     if (fechaPartidoVer && partidos) {
       // Buscar el partido en la lista de partidos
@@ -45,14 +44,25 @@ export const ModalVerEstadisticas = ({ partidosPlayoffs, esPlayoff, users, parti
         setUserArbitro2(userEncontrado2);
       }
     }
-  }, [fechaPartidoVer, partidos, equipos, arbitros]);  console.log(partidoActual);
+  }, [fechaPartidoVer, partidos, equipos, arbitros]); 
   return (
        <>
   <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
   <div className={`fixed inset-0 flex items-center justify-center z-50 mt-[5%] mb-[1%] pl-[8%]`}>
     <div className="bg-gray-100 w-full max-w-3xl max-h-full rounded-l-lg overflow-y-auto">
-      <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-lg font-bold text-white'>
-        Estadisticas
+      <div className='flex w-full space-x-4 py-5 px-5 bg-black'>
+        <div className='w-[50%] flex justify-left items-center text-white text-xl font-bold'>
+          Estadisticas
+        </div>
+        <div className='w-[50%] flex justify-end items-center'>
+          {patrocinadorConPrioridad &&(
+            patrocinadorConPrioridad.length > 0 &&(
+              <div className='w-20 h-20 rounded-full bg-white flex justify-center items-center border '>
+                <img src={`/images/${patrocinadorConPrioridad[0].logo}?${new Date().getTime()}`} alt={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} title={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} className="rounded-full" />
+              </div>
+            )
+          )}
+        </div>
       </div>
       <div className={`border rounded-lg shadow-xl p-5`}>
       <table className="w-full border border-separate border-black rounded-lg p-5 bg-white">

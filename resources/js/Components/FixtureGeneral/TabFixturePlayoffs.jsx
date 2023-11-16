@@ -14,6 +14,7 @@ export const TabFixturePlayoffs = ({
   fechasPlayoffs,
   arbitros,
   users,
+  patrocinadorConPrioridad,
   setShowAlert,
   userAdmin,
   setTituloAlert,
@@ -49,6 +50,15 @@ export const TabFixturePlayoffs = ({
                 </button>
             </li>
           ):('')}
+          <li className='p-2 ml-auto'>
+              {patrocinadorConPrioridad &&(
+                patrocinadorConPrioridad.length > 0 &&(
+                  <div className='w-20 h-20 rounded-full bg-white flex justify-center items-center border '>
+                    <img src={`/images/${patrocinadorConPrioridad[0].logo}?${new Date().getTime()}`} alt={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} title={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} className="rounded-full" />
+                  </div>
+                )
+              )}
+            </li>
         </ul>
         <div id="defaultTabContent">
             <div className={`${activeTab === 'regular' ? 'block' : 'hidden'} bg-white rounded-lg dark:bg-gray-800`} id="regular" role="tabpanel" aria-labelledby="regular-tab">
@@ -66,6 +76,7 @@ export const TabFixturePlayoffs = ({
                     liga={liga} 
                     users={users} 
                     setShowAlert={setShowAlert} 
+                    patrocinadorConPrioridad={patrocinadorConPrioridad}
                     setTituloAlert={setTituloAlert} 
                     rol={rol}
                     />
@@ -80,6 +91,7 @@ export const TabFixturePlayoffs = ({
                   partidos={partidos}
                   jugadorPartido={jugadorPartido}
                   equipos={equipos}
+                  patrocinadorConPrioridad={patrocinadorConPrioridad}
                   setShowAlert={setShowAlert} 
                   setTituloAlert={setTituloAlert} 
                   fechasPlayoffs={fechasPlayoffs}

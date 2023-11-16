@@ -14,6 +14,7 @@ class Patrocinador extends Model
         'descripcion',
         'logo',
         'liga_patrocinada',
+        'prioridad',
     ];
 
     public function liga()

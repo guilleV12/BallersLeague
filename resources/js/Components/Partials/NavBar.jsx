@@ -6,7 +6,7 @@ import PrimaryButton from "../PrimaryButton";
 import BreadCrumb from "../BreadCrumb";
 
 const NavBar = ({auth, toggleSidebar, notificaciones}) => {
-
+console.log(notificaciones);
     return (
        
         <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full 
@@ -47,7 +47,10 @@ const NavBar = ({auth, toggleSidebar, notificaciones}) => {
                                         <span className="flex justify-center items-center text-3xl ">
                                             <ion-icon name="notifications-circle-outline"/>
                                         </span>
-                                        
+                                        {notificaciones&&(
+                                            notificaciones[3] === 0 && (
+                                            <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2">!</span>
+                                        ))}
                                     </button>
                                 </Dropdown.Trigger>
                                 <Dropdown.Content width="w-96">
@@ -55,55 +58,57 @@ const NavBar = ({auth, toggleSidebar, notificaciones}) => {
                                         <ul className="grid">
                                         {
                                             notificaciones.map((notificacion, index)=> (//mapea los tres tipos de notificaciones
-                                            <li key={index} className=" justify-center border-b border-gray">
-                                                {//PROXIMOS PARTIDOS
-                                                (index === 0 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Proximos partidos</PrimaryButton>)}
-                                                <ul className="text-xs mb-2">{
-                                                    
-                                                    notificacion.map((objNotificacion)=>(//mapea dentro de cada una de las tres tipos de notificacion
-                                                        (index === 0)&&(
-                                                            <li key={objNotificacion.fecha.id} className="">
-                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.user_id)}>
-                                                                    {objNotificacion.liga.nombre}
-                                                                </a>
-                                                                {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' vs '+objNotificacion.equipo_2}
-                                                            </li>
-                                                        )
-                                                    ))
-                                                }   
-                                                </ul>
+                                            (index !== 3)&&(
+                                                <li key={index} className=" justify-center border-b border-gray">
+                                                    {//PROXIMOS PARTIDOS
+                                                    (index === 0 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Proximos partidos</PrimaryButton>)}
+                                                    <ul className="text-xs mb-2">{
+                                                        
+                                                        notificacion.map((objNotificacion)=>(//mapea dentro de cada una de las tres tipos de notificacion
+                                                            (index === 0)&&(
+                                                                <li key={objNotificacion.fecha.id} className="">
+                                                                    <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.user_id)}>
+                                                                        {objNotificacion.liga.nombre}
+                                                                    </a>
+                                                                    {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' vs '+objNotificacion.equipo_2}
+                                                                </li>
+                                                            )
+                                                        ))
+                                                    }   
+                                                    </ul>
 
-                                                {//RESULTADOS
-                                                (index === 1 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Resultados Recientes</PrimaryButton>)}
-                                                <ul className="text-xs">{
-                                                    notificacion.map((objNotificacion)=>(
-                                                        (index === 1 )&&(
-                                                            <li key={objNotificacion.partido.id}>
-                                                                <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>
-                                                                    {objNotificacion.liga.nombre}
-                                                                </a>
-                                                                {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' '+objNotificacion.partido.puntaje_equipo_1+' vs '+objNotificacion.partido.puntaje_equipo_2+' '+objNotificacion.equipo_2}
+                                                    {//RESULTADOS
+                                                    (index === 1 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Resultados Recientes</PrimaryButton>)}
+                                                    <ul className="text-xs">{
+                                                        notificacion.map((objNotificacion)=>(
+                                                            (index === 1 )&&(
+                                                                <li key={objNotificacion.partido.id}>
+                                                                    <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>
+                                                                        {objNotificacion.liga.nombre}
+                                                                    </a>
+                                                                    {' | '+objNotificacion.fecha.fecha+' '+objNotificacion.fecha.horario+' | '+objNotificacion.equipo_1+' '+objNotificacion.partido.puntaje_equipo_1+' vs '+objNotificacion.partido.puntaje_equipo_2+' '+objNotificacion.equipo_2}
 
-                                                            </li>
-                                                        )
-                                                    ))
-                                                }
-                                                </ul>
+                                                                </li>
+                                                            )
+                                                        ))
+                                                    }
+                                                    </ul>
 
-                                                {//INVITACION ARBITRO
-                                                (index === 2 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Invitacion de arbitraje</PrimaryButton>)}
-                                                <ul className="text-xs" key={index+1}>{
-                                                    notificacion.map((objNotificacion)=>(
-                                                        (index === 2)&&(
-                                                            <li key={objNotificacion.invitacion.id}>
-                                                                Has sido invitado a arbitrar en la liga: <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>{objNotificacion.liga.nombre}</a>!
+                                                    {//INVITACION ARBITRO
+                                                    (index === 2 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Invitacion de arbitraje</PrimaryButton>)}
+                                                    <ul className="text-xs" key={index+1}>{
+                                                        notificacion.map((objNotificacion)=>(
+                                                            (index === 2)&&(
+                                                                <li key={objNotificacion.invitacion.id}>
+                                                                    Has sido invitado a arbitrar en la liga: <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>{objNotificacion.liga.nombre}</a>!
 
-                                                            </li>
-                                                        )
-                                                    ))
-                                                }
-                                                </ul>
-                                            </li>
+                                                                </li>
+                                                            )
+                                                        ))
+                                                    }
+                                                    </ul>
+                                                </li>
+                                            )
                                             ))
                                         }
                                         </ul>

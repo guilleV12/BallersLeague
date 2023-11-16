@@ -3,6 +3,7 @@ import InputError from '../InputError';
 import InputLabel from '../InputLabel';
 import TextInput from '../TextInput';
 import FileInput from '../FileInput';
+import Checkbox from '../Checkbox';
 
 const FormPatrocinador = ({
   elementoName,
@@ -94,6 +95,26 @@ const FormPatrocinador = ({
                     />
                 <InputError 
                     message={errors.logo} 
+                    className='mt-2'
+                    />
+            </div>
+            <div className='mt-4 flex'>
+                <Checkbox
+                        id="prioridad" 
+                        type="text" 
+                        name="prioridad"
+                        autoComplete='prioridad' 
+                        checked={data.prioridad}
+                        onChange={e => setData('prioridad', e.target.checked)}
+                        className='mr-1'
+                        />
+                <InputLabel 
+                    htmlFor='prioridad' 
+                    value='Es patrocinador prioritario? Aparecera en pantallas de la liga.'
+                    className={' text-sm'}
+                    />
+                <InputError 
+                    message={errors.prioridad} 
                     className='mt-2'
                     />
             </div>

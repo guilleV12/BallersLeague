@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import TablaPlayoffs from './TablaPlayoffs';
 import Paginacion from '../Paginacion/Paginacion';
 
-const TablaPaginadaPlayoffs = ({ partidosPlayoffs, filtro, jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
+const TablaPaginadaPlayoffs = ({ patrocinadorConPrioridad, partidosPlayoffs, filtro, jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -44,6 +44,7 @@ const TablaPaginadaPlayoffs = ({ partidosPlayoffs, filtro, jugadorPartido, parti
           fechas={currentData} 
           equipos={equipos} 
           arbitros={arbitros} 
+          patrocinadorConPrioridad={patrocinadorConPrioridad}
           liga={liga} 
           users={users} 
           user={user} 

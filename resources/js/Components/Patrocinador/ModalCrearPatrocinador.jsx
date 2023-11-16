@@ -7,6 +7,7 @@ const ModalCrearPatrocinador = ({ liga, onCancel, onAdd, setShowAlert, patrocina
         descripcion: (accion === 'agregar' ? '' : patrocinador.descripcion),
         logo: undefined,
         liga_patrocinada:liga.id,
+        prioridad:patrocinador ? (patrocinador.prioridad === 0 ? false : true) : false,
     };
 
   return (

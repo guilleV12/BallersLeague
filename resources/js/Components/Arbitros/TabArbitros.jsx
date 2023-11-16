@@ -5,7 +5,7 @@ import ModalCrearArbitro from './ModalCrearArbitro';
 import { BotonAnadirArbitros } from '../BotonesAcciones';
 import TablaPaginadaArbitros from './TablaPaginadaArbitros';
 
-const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos }) => {
+const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos, patrocinadorConPrioridad }) => {
   const [arbitroEliminar, setArbitroEliminar] = useState(null);
   const [arbitroConfirmar, setArbitroConfirmar] = useState(null);
   const [user, setUser] = useState(null);
@@ -74,13 +74,24 @@ const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert,
           setTituloAlert={setTituloAlert}
         />
       )}
-      {userAdmin.id === userAuth.id && (
-        <div className="flex w-full justify-center space-x-4 py-5 bg-black">
-          <BotonAnadirArbitros 
-            onClick={openAnadirArbitroModal} 
-            />
+      <div className='flex w-full space-x-4 py-5 px-2 bg-black'>
+        <div className='w-[50%] flex justify-left items-center'>
+          {userAdmin.id === userAuth.id && (
+              <BotonAnadirArbitros 
+                onClick={openAnadirArbitroModal} 
+                />
+          )}
         </div>
-      )}
+        <div className='w-[50%] flex justify-end items-center'>
+             {patrocinadorConPrioridad &&(
+              patrocinadorConPrioridad.length > 0 &&(
+                <div className='w-20 h-20 rounded-full bg-white flex justify-center items-center border '>
+                  <img src={`/images/${patrocinadorConPrioridad[0].logo}?${new Date().getTime()}`} alt={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} title={`Patrocinador: ${patrocinadorConPrioridad[0].nombre}`} className="rounded-full" />
+                </div>
+              )
+            )}
+          </div>
+      </div>
         
         <TablaPaginadaArbitros
           arbitros={arbitrosFiltrados}

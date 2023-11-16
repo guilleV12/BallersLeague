@@ -10,7 +10,7 @@ function LeagueInfoCard({ liga, userAdmin, className }) {
   return (
                 <div className="w-full flex justify-center overflow-x-auto shadow-lg shadow-gray-500 rounded-lg border border-gray-400">
                         <table className="w-full flex-col text-left text-black dark:text-gray-400">
-                                <caption className='bg-orange-500 text-white text-xl font-semibold py-5'>Informacion</caption>
+                                <caption className='bg-orange-500 text-white text-xl font-semibold py-5'>Datos de liga</caption>
                                 <tbody>
                                     <tr className="grid md:flex bg-gray-50 border-b dark:bg-gray-900 dark:border-gray-700">
                                             <th scope="row" className="text-base md:w-[50%] px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

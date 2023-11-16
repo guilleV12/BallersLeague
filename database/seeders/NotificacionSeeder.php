@@ -23,7 +23,8 @@ class NotificacionSeeder extends Seeder
                 'notificacion_partido'=>false,
                 'notificacion_resultado'=>false,
                 'user_id'=>$i+1,
-                'liga_id'=>1
+                'liga_id'=>1,
+                'visto'=>true,
             ];
             NotificacionUsuario::create($notificacion);
         }

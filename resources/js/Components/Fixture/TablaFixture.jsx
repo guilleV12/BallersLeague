@@ -5,7 +5,7 @@ import ModalCrearPartido from './ModalCrearPartido';
 import ModalVerEstadisticas from './ModalVerEstadisticas';
 import { BotonContenido, BotonEditar, BotonOpciones } from '../BotonesAcciones';
 
-export const TablaFixture = ({ jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
+export const TablaFixture = ({ patrocinadorConPrioridad, jugadorPartido, partidos, liga, fechas, equipos, arbitros, users, user, setShowAlert, setTituloAlert, jugadores, rol }) => {
 const [isModalEditarFechaOpen, setModalEditarFechaOpen] = useState(false);
 const [fechaEditar, setFechaEditar] = useState(false);
 const [isModalCargarResultadoOpen, setModalCargarResultadoOpen] = useState(false);
@@ -250,6 +250,7 @@ const closeModalCargarResultado = () => {
                 equipos={equipos} 
                 partidos={partidos} 
                 fechaPartidoVer={fechaPartidoVer} 
+                patrocinadorConPrioridad={patrocinadorConPrioridad}
                 setShowAlert={setShowAlert} 
                 setTituloAlert={setTituloAlert} 
                 closeModalVerEstadisticas={closeModalVerEstadisticas}

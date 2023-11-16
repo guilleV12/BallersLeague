@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->char('descripcion');
             $table->binary('logo');
+            $table->boolean('prioridad');
             $table->timestamps();
         });
     }

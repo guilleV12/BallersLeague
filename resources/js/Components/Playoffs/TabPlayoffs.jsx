@@ -18,6 +18,7 @@ export const TabPlayoffs = ({
     fechas, 
     equipos, 
     liga, 
+    patrocinadorConPrioridad,
     users, 
     user, 
     setShowAlert, 
@@ -148,6 +149,7 @@ export const TabPlayoffs = ({
                 equipos={equipos}
                 arbitros={arbitros}
                 rol={rol}
+                patrocinadorConPrioridad={patrocinadorConPrioridad}
                 filtro={filtro}
                 liga={liga}
                 users={users}

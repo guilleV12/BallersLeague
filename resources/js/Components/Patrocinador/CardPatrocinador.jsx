@@ -37,7 +37,7 @@ const CardPatrocinador = ({
     
   return (
     <div className={`grid ${user.id === userAdmin.id ? `grid-cols-3` : `grid-cols-2`} border rounded-lg shadow-md m-4`}>
-        <div className='w-full h-auto'>
+        <div className='w-full h-auto p-5'>
             <img src={`/images/${patrocinador.logo}?${new Date().getTime()}`} alt={`logo liga: ${patrocinador.nombre}`} className="w-auto h-auto object-cover" />
         </div>
         <div className="w-full flex justify-center items-end p-4">

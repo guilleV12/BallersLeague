@@ -19,19 +19,24 @@ class NotificacionResultadosMail extends Mailable
 
     public $usuario;
     public $liga;
-    public $fechasPartido;
+    public $fechasPartidoRegular;
+    public $fechasPartidoPlayoffs;
     public $equipos;
     public $partidos;
+    public $partidosPlayoffs;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(User $usuario, Liga $liga, $fechasPartido, $equipos, $partidos)
+    public function __construct(User $usuario, Liga $liga, $fechasPartidoRegular, $fechasPartidoPlayoffs, $equipos, $partidos, $partidosPlayoffs)
     {
         $this->usuario = $usuario;
         $this->liga = $liga;
-        $this->fechasPartido = $fechasPartido;
+        $this->fechasPartidoRegular = $fechasPartidoRegular;
+        $this->fechasPartidoPlayoffs = $fechasPartidoPlayoffs;
         $this->equipos = $equipos;
         $this->partidos = $partidos;
+        $this->partidosPlayoffs = $partidosPlayoffs;
     }
 
     /**

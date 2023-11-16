@@ -14,6 +14,7 @@ class NotificacionUsuario extends Model
         'notificacion_resultado',
         'user_id',
         'liga_id',
+        'visto',
     ];
 
     public function notificacion_partidos()
