@@ -9,41 +9,43 @@ const TablaEquipos = ({ partidos, fechas, liga, user, equipos, calendario, openE
     <>
     <table className="text-gray-500 dark:text-gray-400 w-full">
           <thead className="text-base text-left font-semibold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
-              <tr className='grid grid-cols-3 md:grid-cols-5'>
-                <th scope="col" className="flex justify-center py-1">
-                  <p className='md:hidden'>Equipo</p>
+              <tr className={`grid ${((user && user.id === liga.user_id)) ? `grid-cols-5` : `grid-cols-4`}`}>
+                <th scope="col" className="flex justify-center">
+                  Equipo
                 </th>
-                <th scope="col" className="hidden md:flex px-6 py-1">
+                <th scope="col" className="hidden md:flex justify-center">
                   Nombre
                 </th>
-                <th scope="col" className="hidden md:flex px-6 py-1">
+                <th scope="col" className="hidden md:flex justify-center">
                   Descripcion
                 </th>
-                <th scope="col" className="md:px-6 py-1">
+                <th scope="col" className="md:flex justify-center">
                   Jugadores
                 </th>
-                <th scope="col" className='px-6 py-1 flex justify-end'>
-                  Accion
-                </th>
+                {((user && user.id === liga.user_id))&&(
+                  <th scope="col" className='flex justify-center'>
+                    Accion
+                  </th>)
+                }
               </tr>
           </thead>
           <tbody className='text-sm'>
               {equipos.map((equipo) => (
-                <tr key={equipo.id} className="bg-white border-b grid grid-cols-3 md:grid-cols-5 dark:bg-gray-900 dark:border-gray-700">
-                    <td className="px-6 py-4">
-                      <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto md:w-32 rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img>
+                <tr key={equipo.id} className={`bg-white border-b grid ${((user && user.id === liga.user_id)) ? `grid-cols-5` : `grid-cols-4`} dark:bg-gray-900 dark:border-gray-700`}>
+                    <td className="flex justify-center items-center">
+                      <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img>
                     </td>
-                    <td scope="row" className="hidden md:flex items-center px-6 py-4  text-gray-900 dark:text-white">
+                    <td scope="row" className="hidden md:flex justify-center items-center  text-gray-900 dark:text-white">
                       {equipo.nombre}
                     </td>
-                    <td className="hidden md:flex px-6 py-4 items-center text-gray-900 overflow-hidden">{equipo.descripcion}</td>
-                    <td className='pt-2 pr-5 flex items-center justify-center'>
+                    <td className="hidden md:flex justify-center items-center text-gray-900 overflow-hidden">{equipo.descripcion}</td>
+                    <td className='flex justify-center items-center'>
                         <a href={route('jugadores.index',equipo.id)}>
                             <BotonJugadores />
                         </a>       
                     </td>
-                    <td className='pt-2 pr-5 flex justify-end items-center'>
-                      {liga.user_id === user.id &&(
+                    <td className='flex justify-center items-center'>
+                      {(user && liga.user_id === user.id) &&(
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <BotonOpciones />

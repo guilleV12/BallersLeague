@@ -23,7 +23,8 @@ const TabFixture = ({
   setShowAlert, 
   setTituloAlert,
   fechasPlayoffs,
-  rol 
+  rol,
+  campeon 
 }) => {
   const [isModalAsignarArbitroOpen, setIsModalAsignarArbitroOpen] = useState(false);
   const [isModalInformarErrorFixtureOpen, setIsModalInformarErrorFixtureOpen] = useState(false);
@@ -81,10 +82,9 @@ const TabFixture = ({
           <>
           <Dropdown>
           <Dropdown.Trigger>
-            <BotonFiltros
-              nombre={'Filtrar'}
-              className={''}
-              />
+            <button className='mx-2 text-sm inline-flex text-white font-semibold bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
+              FILTRAR <span className='text-xl ml-1 font-semibold w-full flex'><ion-icon name="swap-vertical"></ion-icon></span>
+            </button> 
           </Dropdown.Trigger>
           <Dropdown.Content align='left'>
               <ul className='p-1'>
@@ -117,7 +117,7 @@ const TabFixture = ({
         }
         </div>
         <div className='flex w-[65%] justify-end md:space-x-4 pr-2'>
-        {(user.id === liga.user_id) ? (
+        {((user && user.id === liga.user_id)) ? (
                 fechas ? ( fechas.length > 0 ? (
                     <>
                         <BotonAsignarArbitros 
@@ -139,21 +139,23 @@ const TabFixture = ({
                           className={' mb-1 block justify-center'}
                           />
                     
-                    {fechas.length === partidos.length &&(
-                      (!fechasPlayoffs)?(
-                          <BotonContenido
-                            nombre={'Finalizar s/playoffs'}
-                            onClick={openModalFinalizarLiga}
-                            />
-                      ):(
-                        fechasPlayoffs.length === 0&&(
-                          <BotonContenido
-                            nombre={'Finalizar s/playoffs'}
-                            onClick={openModalFinalizarLiga}
-                            />
+                    {!campeon &&(
+                      fechas.length === partidos.length &&(
+                        (!fechasPlayoffs)?(
+                            <BotonContenido
+                              nombre={'Finalizar s/playoffs'}
+                              onClick={openModalFinalizarLiga}
+                              />
+                        ):(
+                          fechasPlayoffs.length === 0&&(
+                            <BotonContenido
+                              nombre={'Finalizar s/playoffs'}
+                              onClick={openModalFinalizarLiga}
+                              />
+                          )
                         )
+                          
                       )
-                        
                     )}
                     </>
                   ) : (

@@ -37,7 +37,7 @@ const Create = ({ user, liga, notificaciones, cantNotiUser }) => {
         notificaciones={notificaciones}
         cantNotiUser={cantNotiUser}> 
 
-        <main className='flex justify-center w-full h-fit lg:pl-[13rem]'>
+        <main className='flex justify-center w-full h-fit px-20'>
         {(liga[0]) ? ( 
                     <AlertRedireccion 
                         titulo={'Solo puede tener una liga activa a la vez! Sera redirigido a su liga'} 

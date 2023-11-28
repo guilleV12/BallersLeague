@@ -2,7 +2,7 @@ import React from 'react';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 
-const BotonAsignarArbitros = ({ onClick, className }) => {
+const BotonAsignarArbitros = ({ onClick, className, alt, title }) => {
   return (
     <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
       Asignar árbitros
@@ -29,7 +29,7 @@ const BotonEliminarFixture = ({ onClick, className }) => {
 const BotonAnadirArbitros = ({ onClick }) => {
     return (
       <PrimaryButton onClick={onClick} className="boton-accion bg-orange-500">
-        Añadir árbitro
+        Añadir árbitro <span className='flex justify-center text-xl'><ion-icon name="add-circle"></ion-icon></span>
       </PrimaryButton>
     );
   };
@@ -37,7 +37,7 @@ const BotonAnadirArbitros = ({ onClick }) => {
 const BotonAnadirEquipos = ({ onClick }) => {
     return (
       <PrimaryButton onClick={onClick} className="boton-accion bg-orange-500">
-        Añadir equipos
+        Añadir equipos <span className='flex justify-center text-xl'><ion-icon name="add-circle"></ion-icon></span>
       </PrimaryButton>
     );
   };
@@ -52,7 +52,7 @@ const BotonEliminar = ({ onClick, className }) => {
 
 const BotonEditar = ({ onClick, className }) => {
     return (
-      <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
+      <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`} >
         Editar
       </PrimaryButton>
     );
@@ -74,12 +74,11 @@ const BotonCancelar = ({ onClick, className }) => {
     );
   };
 
-const BotonOpciones = ({ onClick, className }) => {
+const BotonOpciones = ({ onClick, className, alt, title }) => {
     return (
-      <button onClick={onClick} className={`boton-accion border-2 border-orange-500 w-10 h-10 p-0 inline-flex justify-center items-center text-center hover:bg-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition ${className}`}>
+      <button alt={alt ? alt : 'Boton de opciones y configuracion'} title={title ? title : 'Boton de opciones y configuracion'} onClick={onClick} className={`boton-accion border-2 border-orange-500 w-10 h-10 p-0 inline-flex justify-center items-center text-center hover:bg-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition ${className}`}>
           <span className='text-2xl flex justify-center items-center w-full h-full text-orange-500 hover:text-white hover:text-3xl'>
-            <ion-icon name="options"></ion-icon>
-          </span>
+          <ion-icon name="settings"></ion-icon>          </span>
       </button>
     );
   };
@@ -87,7 +86,7 @@ const BotonOpciones = ({ onClick, className }) => {
 const BotonJugadores = ({ onClick, className }) => {
     return (
       <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
-        Jugadores
+        Jugadores <span className='flex justify-center text-xl'><ion-icon name="person"></ion-icon></span>
       </PrimaryButton>
     );
   };
@@ -109,16 +108,18 @@ const BotonFiltros = ({ onClick, className, nombre, icon }) => {
     );
   };
 
-const BotonTab = ({ onClick, className, id, isActive, label }) => {
+const BotonTab = ({ onClick, className, id, isActive, label, alt, title }) => {
     return (
       <button
       id={id}
       onClick={onClick}
       type="button"
-      role="tab"
-      aria-controls={id}
-      aria-selected={isActive}
-      className={`inline-block p-4 text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${isActive ? 'bg-gray-100 dark:bg-gray-800 text-orange-500' : ''} ${className}`}
+      //role="tab"
+      //aria-controls={id}
+      //aria-selected={isActive}
+      alt={alt}
+      title={title}
+      className={`inline-block p-4 text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${isActive ? 'bg-gray-100 dark:bg-gray-800 text-orange-500 text-xl p-2' : ''} ${className}`}
     >
       <p className='text-md font-semibold'>{label}</p>
     </button>

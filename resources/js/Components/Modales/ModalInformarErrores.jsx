@@ -8,8 +8,8 @@ const ModalInformarErrores = ({ titulo, cuerpo, accion, nombre, esEmpate, equipo
     <div className={`fixed top-1/2 ${left?left:`left-1/2`} transform -translate-x-1/2 -translate-y-1/2 max-h-full shadow-lg border-black border rounded-lg z-[80] `}>
       <div className="relative w-fit max-h-full rounded-lg">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <div className="flex items-center justify-center p-5 border-b rounded-t bg-orange-500 dark:border-gray-600">
-            <h3 className="text-lg font-semibold text-white dark:text-white">
+          <div className="flex items-center justify-center p-5 border-b rounded-t-lg bg-orange-500 dark:border-gray-600">
+            <h3 className="text-xl font-semibold text-white dark:text-white">
               {esEmpate === true ? ('Empate!') : (titulo)}
             </h3>
           </div>

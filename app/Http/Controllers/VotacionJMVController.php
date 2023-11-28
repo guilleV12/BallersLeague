@@ -7,49 +7,26 @@ use Illuminate\Http\Request;
 
 class VotacionJMVController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $request->validate([
+            'user_id' => 'required',
+            'liga_id' => 'required',
+            'jugador_id' => 'required|numeric',
+        ]);
+
+        $voto = new VotacionJMV([
+            'user_id' => $request->user_id,
+            'liga_id' => $request->liga_id,
+            'jugador_id' => $request->jugador_id,
+        ]);
+
+        $voto->save();
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(VotacionJMV $votacionJMV)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(VotacionJMV $votacionJMV)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, VotacionJMV $votacionJMV)
     {
         //
@@ -58,8 +35,9 @@ class VotacionJMVController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VotacionJMV $votacionJMV)
+    public function destroy(VotacionJMV $jmv)
     {
-        //
+        $votacion = VotacionJMV::where('liga_id',$jmv->liga_id)->get();
+        $votacion->each->delete();
     }
 }

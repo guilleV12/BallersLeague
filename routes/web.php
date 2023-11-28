@@ -17,6 +17,7 @@ use App\Http\Controllers\PatrocinadorController;
 use App\Http\Controllers\PlayoffController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SportsDBService;
+use App\Http\Controllers\VotacionJMVController;
 use App\Models\FechaPartido;
 use App\Models\Liga;
 use App\Models\NotificacionUsuario;
@@ -47,8 +48,13 @@ Route::get('/', function () {
     ]);
 });
 
-Route::group(['prefix' => 'ligas', 'middleware' => ['auth']], function () {
-    Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
+Route::group(['prefix' => 'ligas'], function () {
+    Route::resource('ligas', LigaController::class)->only(['index', 'store', 'update', 'destroy', 'show']);
+    Route::get('create', [LigaController::class, 'create'])->name('ligas.create')->middleware('auth');
+});
+
+Route::group(['prefix' => 'jmv', 'middleware' => ['auth']], function () {
+    Route::resource('jmv', VotacionJMVController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
 Route::group(['prefix' => 'patrocinadores', 'middleware' => ['auth']], function () {
@@ -78,7 +84,7 @@ Route::group(['prefix' => 'equipos', 'middleware' => ['auth']], function () {
     Route::resource('equipos', EquipoController::class)->only(['index', 'store', 'update', 'destroy', 'create', 'show']);
 });
 
-Route::group(['prefix' => 'jugadores', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'jugadores'], function () {
     Route::get('jugadores/{equipo}', [JugadorController::class, 'index'])->name('jugadores.index');
     Route::resource('jugadores', JugadorController::class)->only(['store', 'update', 'destroy']);
 });

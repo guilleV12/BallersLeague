@@ -3,7 +3,7 @@ import TablaPaginadaJugadores from './TablaPaginadaJugadores';
 import Alert from '../Alerts/Alert';
 import { BotonContenido } from '../BotonesAcciones';
 
-const TabJugadores = ({ user, liga, equipo, jugadores }) => {
+const TabJugadores = ({ user, liga, equipo, jugadores, patrocinadores }) => {
   const [isAnadirJugadorOpen, setAnadirJugadorOpen] = useState(false);
   const [isEditarJugadorOpen, setEditarJugadorOpen] = useState(false);
   const [isEliminarJugadorOpen, setEliminarJugadorOpen] = useState(false);
@@ -39,8 +39,8 @@ const TabJugadores = ({ user, liga, equipo, jugadores }) => {
   const jugadoresFiltrados = jugadores.filter(jugador => jugador.deshabilitado === 0);
 
   return (
-    <div className="w-[90%] xl:w-full bg-white border border-black rounded-lg shadow-lg shadow-gray-500">
-        <div className={`flex w-full ${user.id === liga.user_id ? `justify-between `: `justify-center space-x-5 `} items-center bg-black py-3 px-1 border border-gray-50 rounded-lg`}>
+    <div className="w-full bg-white border border-black rounded-t-lg shadow-lg shadow-gray-500">
+        <div className={`flex w-full ${(user && user.id === liga.user_id) ? `justify-between `: `justify-around `} items-center bg-black py-3 px-1 rounded-t-lg`}>
             
             <a href={route('ligas.show',liga.user_id)} className="w-16 md:h-40 md:w-40 flex justify-center items-center rounded-full bg-white">
                 <img className="h-auto w-full rounded-full" src={'/images/'+liga.logo}  alt={`Liga: `+liga.nombre} title={`Liga: `+liga.nombre}/>
@@ -50,7 +50,7 @@ const TabJugadores = ({ user, liga, equipo, jugadores }) => {
                 <img className="h-auto w-full rounded-full" src={'/images/'+equipo.logo}  alt={`Liga `+liga.nombre}/>
             </div>
             
-            {(user.id === liga.user_id) && (
+            {(user && user.id === liga.user_id) && (
               <>
               <div className="md:hidden h-16 w-16 flex justify-center items-center rounded-full p-1">
                 <BotonContenido 
@@ -62,7 +62,7 @@ const TabJugadores = ({ user, liga, equipo, jugadores }) => {
               <div className="hidden md:flex justify-center items-center rounded-full p-1">
               <BotonContenido 
                 onClick={openAnadirJugadorModal}
-                nombre={'Añadir jugador'}
+                nombre={<span className='flex justify-center text-xl'><span className='text-xs flex items-center'>Añadir jugador </span><ion-icon name="add-circle"></ion-icon></span>}
                 className={' flex justify-center items-center'}
                 />
               </div>

@@ -39,8 +39,8 @@ const TabEquipos = ({  fechas, user, liga, equipos, setShowAlert, setTituloAlert
   return (
     <div className="w-full shadow-md h-min-screen ">
         <div className='flex w-full space-x-4 py-5 px-2 bg-black'>
-          <div className='w-[50%] flex justify-left items-center'>
-            {(user.id === liga.user_id) && (
+          <div className='w-[50%] flex justify-left items-center px-3'>
+            {((user && user.id === liga.user_id)) && (
               <BotonAnadirEquipos 
                 onClick={openAnadirEquipoModal} 
                 />

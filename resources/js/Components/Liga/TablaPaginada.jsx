@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { CardLiga } from './CardLiga';
 
-function TablaPaginada({ data, user, className, users }) {
+function TablaPaginada({ data, user, className, users, patrocinadores }) {
   const itemsPerPage = 2;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -25,13 +25,13 @@ function TablaPaginada({ data, user, className, users }) {
             <tbody>
               {currentData.map((item) => (
                 <tr key={item.id}>
-                  <td className='flex justify-center'><CardLiga path={item.logo} liga={item} className={'bg-white rounded-lg w-full h-3/4 border border-black shadow-lg shadow-gray-500 px-10 py-5'}/></td>
+                  <td className='flex justify-center'><CardLiga patrocinadores={patrocinadores} path={item.logo} liga={item} className={'bg-white rounded-lg w-full h-2/4 border border-black shadow-lg shadow-gray-500 px-1 py-2 md:px-10 md:py-5'}/></td>
                 </tr>
               ))}
             </tbody>
         </table>
 
-        <div className="flex flex-col items-center my-10 ">
+        <div className="flex flex-col items-center mt-5 ">
             {/* Texto de ayuda */}
             <span className="text-lg text-gray-700 dark:text-gray-400">
               Mostrando{' '}

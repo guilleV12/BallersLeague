@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import Paginacion from '../Paginacion/Paginacion';
 import TablaArbitros from './TablaArbitros';
 
-const TablaPaginadaEquipos = ({ arbitros, openDeleteModal, openConfirmarModal, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos }) => {
+const TablaPaginadaEquipos = ({ arbitros, openDeleteModal, user, openConfirmarModal, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos }) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -24,6 +24,8 @@ const TablaPaginadaEquipos = ({ arbitros, openDeleteModal, openConfirmarModal, u
       <TablaArbitros
         openDeleteModal={openDeleteModal}
         arbitros={currentData}
+        user={user}
+        liga={liga}
         users={users}
         openConfirmarModal={openConfirmarModal} 
         userAdmin={userAdmin}

@@ -8,6 +8,7 @@ use App\Models\CampeonLiga;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
 use App\Models\FechaPartidoPlayoff;
+use App\Models\Goleadores;
 use App\Models\Jugador;
 use App\Models\JugadorPartido;
 use App\Models\Liga;
@@ -16,7 +17,9 @@ use App\Models\Partido;
 use App\Models\PartidosPlayoff;
 use App\Models\Patrocinador;
 use App\Models\Playoff;
+use App\Models\TablaPosiciones;
 use App\Models\User;
+use App\Models\VotacionJMV;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -32,8 +35,9 @@ class LigaController extends Controller
             'user'=>Auth::user(),
             'ligas'=>Liga::all(),
             'users'=>User::all(),
-            'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+            'miLiga'=>Auth::check() ? Liga::where('user_id',Auth::user()->id)->get() : null,
             'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
+            'patrocinadores'=>Patrocinador::all(),
         ]);
     }
 
@@ -79,9 +83,9 @@ class LigaController extends Controller
 
     public function show(Request $request, $user)
     {
-        $userRol = User::find(Auth::user()->id);
+        $userRol = Auth::check() ? User::find(Auth::user()->id) : null;
         $liga = Liga::where('user_id',$user)->get();
-        $rol = $userRol->roles->first();
+        $rol = $userRol ? $userRol->roles->first() : null;
         $notificacionUsuarioController = new NotificacionUsuarioController;
         //dd(FechaPartidoPlayoff::where('playoffs_id',Playoff::where('liga_id',1)->first()->id));
 
@@ -98,19 +102,22 @@ class LigaController extends Controller
                 'userAdmin'=>( count($liga)>0 )?( User::where('id',$liga[0]->user_id)->get() ):( null ),
                 'arbitros'=>Arbitro::where('id_liga',$liga[0]->id)->get(),
                 'users'=>User::all(),
-                'miLiga'=>Liga::where('user_id', Auth::user()->id)->get(),
+                'miLiga'=>Auth::check() ? Liga::where('user_id', Auth::user()->id)->get() : null,
                 'calendario'=>$calendario,
                 'fechas' =>$calendario ? FechaPartido::where('calendario_id', $calendario->id)->get() : FechaPartido::where('id', -1)->get(),
                 'jugadores'=>Jugador::all(),
                 'partidos'=>$calendario ? Partido::where('calendario_id', $calendario->id)->get() : Partido::where('id', -1)->get(),
                 'jugadorPartido'=>$calendario ? JugadorPartido::all() : JugadorPartido::where('id',-1)->get(),
-                'notificacionesUsuario'=>NotificacionUsuario::where('user_id', Auth::user()->id)->where('liga_id', $liga[0]->id)->first(),
+                'notificacionesUsuario'=>Auth::check() ? NotificacionUsuario::where('user_id', Auth::user()->id)->where('liga_id', $liga[0]->id)->first() : null,
                 'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
                 'playoffs' => $calendario ? $playoffs : null,
                 'fechasPlayoffs' => $playoffs ? FechaPartidoPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
                 'partidosPlayoffs' => $playoffs ? PartidosPlayoff::where('playoffs_id',$playoffs->id)->get() : null,
                 'campeon' => CampeonLiga::where('liga_id',$liga[0]->id)->first(),
                 'patrocinadores'=>Patrocinador::where('liga_patrocinada',$liga[0]->id)->get(),
+                'tablaPosiciones'=>$calendario ? TablaPosiciones::where('liga_id',$calendario->liga_id)->orderBy('posicion', 'asc')->get() : null,
+                'goleadores'=>$calendario ? Goleadores::where('liga_id',$calendario->liga_id)->orderBy('promedio', 'desc')->get() : null,
+                'votosJMV' => VotacionJMV::where('liga_id',$liga[0]->id)->get(),
             ]);
         }else{
             return Inertia::render('Ligas/Show', [

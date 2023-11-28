@@ -30,11 +30,11 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Iniciar sesion" />
-            <main className='flex justify-center w-full lg:pl-[13rem]'>
+            <main className='flex justify-center w-full h-fit '>
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit} className='bg-white w-[90%] md:w-fit border border-black px-10 py-5 rounded-lg shadow-lg shadow-gray-500'>
-                <div className='flex justify-center'>
+            <form onSubmit={submit} className='bg-white w-fit px-5 border border-black py-5 rounded-lg shadow-lg shadow-gray-500'>
+                <div className='flex w-full justify-center'>
                     <ApplicationLogo className='m-0 pl-2 w-60' texto={true}/>
                 </div>
                 

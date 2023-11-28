@@ -37,9 +37,11 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-            <main className='flex justify-center w-full h-fit lg:pl-[14rem]'>
-            <form onSubmit={submit} className='bg-white w-[90%] md:w-fit h-fit border border-black px-10 py-5 rounded-lg shadow-lg shadow-gray-500'>
-                <ApplicationLogo className='m-0 pl-2 w-60' texto={true}/>
+            <main className='flex justify-center w-full h-fit'>
+            <form onSubmit={submit} className='bg-white w-fit xl:w-[20%] h-fit border border-black px-5 py-5 rounded-lg shadow-lg shadow-gray-500'>
+                <div className='flex w-full justify-center'>
+                    <ApplicationLogo className='w-60' texto={true}/>
+                </div>
                 <div>
                     <InputLabel htmlFor="nombre" value="Nombre" className="text-xs"/>
 

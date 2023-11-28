@@ -33,19 +33,19 @@ export const TabFixturePlayoffs = ({
   return (
     <div className="w-full text-md shadow dark:bg-gray-800 dark:border-gray-700">
         <ul className="flex flex-wrap font-medium text-center text-gray-500  bg-black dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800" id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
-            <li className="mr-2">
-                <button id="regular-tab" onClick={() => handleTabClick('regular')} data-tabs-target="#regular" type="button" role="tab" aria-controls="regular" aria-selected={activeTab === 'regular'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 ${activeTab === 'regular' ? 'bg-gray-800 text-orange-500 dark:bg-gray-800' : 'text-white'}`}>
+            <li className="">
+                <button id="regular-tab" onClick={() => handleTabClick('regular')} data-tabs-target="#regular" type="button" role="tab" aria-controls="regular" aria-selected={activeTab === 'regular'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 ${activeTab === 'regular' ?  'bg-gray-800 text-lg text-white dark:bg-gray-800' : 'text-white'}`}>
                   <p className='font-semibold'>Fase regular</p>
                 </button>
             </li>
-            <li className="mr-2">
-                <button id="playoffs-tab" onClick={() => handleTabClick('playoffs')} data-tabs-target="#playoffs" type="button" role="tab" aria-controls="playoffs" aria-selected={activeTab === 'playoffs'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'playoffs' ? 'bg-gray-800 dark:bg-gray-800 text-orange-500' : 'text-white'}`}>
+            <li className="">
+                <button id="playoffs-tab" onClick={() => handleTabClick('playoffs')} data-tabs-target="#playoffs" type="button" role="tab" aria-controls="playoffs" aria-selected={activeTab === 'playoffs'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'playoffs' ?  'bg-gray-800 text-lg text-white dark:bg-gray-800' : 'text-white'}`}>
                   <p className='font-semibold'>Playoffs</p>
                 </button>
             </li>
           {campeon ? (
-            <li className="mr-2">
-                <button id="campeon-tab" onClick={() => handleTabClick('campeon')} data-tabs-target="#campeon" type="button" role="tab" aria-controls="campeon" aria-selected={activeTab === 'campeon'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'campeon' ? 'bg-gray-800 dark:bg-gray-800 text-orange-500' : 'text-white'}`}>
+            <li className="">
+                <button id="campeon-tab" onClick={() => handleTabClick('campeon')} data-tabs-target="#campeon" type="button" role="tab" aria-controls="campeon" aria-selected={activeTab === 'campeon'} className={`inline-block p-4 rounded-lg hover:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${ activeTab === 'campeon' ?  'bg-gray-800 text-lg text-white dark:bg-gray-800' : 'text-white'}`}>
                   <p className='font-semibold'>Campeon</p>
                 </button>
             </li>
@@ -79,6 +79,7 @@ export const TabFixturePlayoffs = ({
                     patrocinadorConPrioridad={patrocinadorConPrioridad}
                     setTituloAlert={setTituloAlert} 
                     rol={rol}
+                    campeon={campeon}
                     />
                 {/* Resto del contenido del tab 'goleadores' */}
             </div>
@@ -99,6 +100,7 @@ export const TabFixturePlayoffs = ({
                   partidosPlayoffs={partidosPlayoffs}
                   arbitros={arbitros}
                   rol={rol}
+                  campeon={campeon}
                   jugadores={jugadores}
                   users={users}
                 />
@@ -109,6 +111,7 @@ export const TabFixturePlayoffs = ({
                 <TabCampeon
                   equipos={equipos}
                   campeon={campeon}
+                  patrocinadorConPrioridad={patrocinadorConPrioridad}
                   userAdmin={userAdmin}
                   liga={liga}
                 />

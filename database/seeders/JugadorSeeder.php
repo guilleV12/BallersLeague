@@ -23,10 +23,10 @@ class JugadorSeeder extends Seeder
             for ($i = 1; $i <= 5; $i++) {
                 $jugador = [
                     'dni' => '012345' . $equipoID . $i,
-                    'nombre' => $faker->firstName(),
-                    'apellido' => $faker->lastName(),
+                    'nombre' => $faker->firstName('male'),
+                    'apellido' => $faker->lastName('male'),
                     'fecha_nacimiento' => '2000-10-10',
-                    'foto_perfil' => 'foto_jugador_' . '012345' . $equipoID . $i . '_equipo_'. $equipoID .'.png',
+                    'foto_perfil' => 'foto_jugador_' . '012345' . $equipoID*$i . $i . '_equipo_'. $equipoID .'.png',
                     'deshabilitado' => false,
                     'equipo_id' => $equipoID,
                     'liga_id' => 1,

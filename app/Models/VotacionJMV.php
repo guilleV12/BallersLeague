@@ -9,6 +9,12 @@ class VotacionJMV extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'liga_id',
+        'user_id',
+        'jugador_id',
+    ];
+
     public function liga()
     {
         return $this->belongsTo(Liga::class);

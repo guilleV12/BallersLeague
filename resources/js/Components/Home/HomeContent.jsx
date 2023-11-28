@@ -3,7 +3,7 @@ import Banners from '../Banners';
 
 export const HomeContent = () => {
   return (
-          <Banners className='rounded-lg w-3/4 lg:w-full border border-black shadow-lg shadow-gray-500'/>  
+            <Banners className='w-full rounded-r-lg rounded-b-lg border border-black shadow-lg shadow-gray-500'/>  
   )
 }
 export default HomeContent;

@@ -252,8 +252,8 @@ return (
             ):(
                 mensajeLeido === false ? (
                     <ModalInformarErrores
-                        titulo={'Iniciar liga!'}
-                        cuerpo={'Al cargar un partido comienza la liga, ya no podra eliminar ni regenerar el fixture.'} 
+                        titulo={esPlayoff ? 'Iniciar playoffs!' : 'Iniciar liga!'}
+                        cuerpo={esPlayoff ? 'Al cargar un partido comienzan los playoffs, ya no podra eliminar ni regenerar el mismo.' : 'Al cargar un partido comienza la liga, ya no podra eliminar ni regenerar el fixture.'} 
                         nombre={'Cerrar'}
                         closeModal={() => {setMensajeLeido(true);}}
                         />

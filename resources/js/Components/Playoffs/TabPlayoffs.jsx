@@ -19,6 +19,7 @@ export const TabPlayoffs = ({
     equipos, 
     liga, 
     patrocinadorConPrioridad,
+    campeon,
     users, 
     user, 
     setShowAlert, 
@@ -68,10 +69,9 @@ export const TabPlayoffs = ({
                 <>
                 <Dropdown>
                 <Dropdown.Trigger>
-                    <BotonFiltros
-                    nombre={'Filtrar'}
-                    className={''}
-                    />
+                    <button className='mx-2 text-sm inline-flex text-white font-semibold bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
+                    FILTRAR <span className='text-xl ml-1 font-semibold w-full flex'><ion-icon name="swap-vertical"></ion-icon></span>
+                    </button> 
                 </Dropdown.Trigger>
                 <Dropdown.Content align='left'>
                     <ul className='p-1'>
@@ -104,36 +104,46 @@ export const TabPlayoffs = ({
                 }
             </div>
             <div className='flex w-[50%] justify-end pr-2'>
-                {fechasPlayoffs&&(
-                    fechasPlayoffs.length > 0 &&(
-                    <BotonAsignarArbitros 
-                        onClick={handleAsignarArbitros}
-                        className={''} 
-                        />
+                {(user && user.id === liga.user_id) &&(
+                    fechasPlayoffs&&(
+                        fechasPlayoffs.length > 0 &&(
+                        <BotonAsignarArbitros 
+                            onClick={handleAsignarArbitros}
+                            className={''} 
+                            />
+                        )
                     )
-                )}
+                )
+                }
                 {partidosPlayoffs ? ((partidosPlayoffs.length == 0)&&(
-                    <BotonContenido
-                        nombre={fechasPlayoffs ? (
-                                    (fechasPlayoffs.length>0)?
-                                        'Regenerar playoffs':'Generar playoffs' )
-                                            : ('Generar playoffs')}
-                        onClick={() => {setGenerarPlayOffOpen(true)}}
-                        className={'ml-2'}
-                        />
-                )) : <BotonContenido
-                        nombre={'Generar playoffs'}
-                        onClick={() => {setGenerarPlayOffOpen(true)}}
-                        className={'ml-2'}
-                        />
+                    user.id === liga.user_id &&(
+                        <BotonContenido
+                            nombre={fechasPlayoffs ? (
+                                        (fechasPlayoffs.length>0)?
+                                            'Regenerar playoffs':'Generar playoffs' )
+                                                : ('Generar playoffs')}
+                            onClick={() => {setGenerarPlayOffOpen(true)}}
+                            className={'ml-2'}
+                            />
+                    )
+                )) : 
+                    user.id === liga.user_id &&(
+                        <BotonContenido
+                            nombre={'Generar playoffs'}
+                            onClick={() => {setGenerarPlayOffOpen(true)}}
+                            className={'ml-2'}
+                            />
+                    )
                 }
                 {fechasPlayoffs&&(
                     fechasPlayoffs.length > 0 &&(
-                        <BotonContenido
-                            className={'ml-2'}
-                            nombre={'Eliminar playoffs'}
-                            onClick={partidosPlayoffs&&(partidosPlayoffs.length > 0 ? openModalInformarErrorFixture : handleDeleteFixture)}
-                            />
+                        ((user && user.id === liga.user_id) || rol === 'admin') &&(
+                            <BotonContenido
+                                className={'ml-2'}
+                                nombre={'Eliminar playoffs'}
+                                onClick={partidosPlayoffs&&(partidosPlayoffs.length > 0 ? (rol ? (rol === 'admin' ? handleDeleteFixture : openModalInformarErrorFixture) : openModalInformarErrorFixture) : handleDeleteFixture)}
+                                />
+                        )
                     )
                 )}
             </div>
@@ -176,6 +186,7 @@ export const TabPlayoffs = ({
             setTituloAlert={setTituloAlert}
             playoffs={playoffs}
             partidos={partidos}
+            campeon={campeon}
             fechasPlayoffs={fechasPlayoffs}
             />
       )}
@@ -210,7 +221,7 @@ export const TabPlayoffs = ({
     {isModalInformarErrorFixtureOpen && (
         <ModalInformarErrores
           titulo={'Ya se jugo un partido!'}
-          cuerpo={'Debe contactarse con el administrador para borrar o regenerar este fixture.'} 
+          cuerpo={'Debe contactarse con el administrador para borrar o regenerar estos playoffs.'} 
           nombre={'Cerrar'}
           closeModal={closeModalInformarErrorFixture}
           />

@@ -56,38 +56,40 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
         />
     )}
     
-    <table className=" text-left text-black dark:text-gray-400 w-full border border-gray-200 rounded-lg shadow">
-      <thead className="text-base font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400 border border-gray-50 rounded-lg">
-        <tr className='grid grid-cols-3 md:grid-cols-5'>
-          <th scope='col' className='px-6 py-1'>
-            
+    <table className=" text-left text-black dark:text-gray-400 w-full rounded-lg shadow">
+      <thead className="text-base font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400 rounded-lg">
+        <tr className={`grid ${(user && user.id === liga.user_id) ? `grid-cols-5` : `grid-cols-4`}`}>
+          <th scope='col' className='flex justify-center'>
+            Jugador
           </th>
-          <th scope="col" className="px-6 py-1">
+          <th scope="col" className="flex justify-center">
             Nombre
           </th>
-          <th scope="col" className="hidden md:flex px-6 py-1">
+          <th scope="col" className="hidden md:flex justify-center">
             Dni
           </th>
-          <th scope="col" className="hidden md:flex px-6 py-1">
+          <th scope="col" className="hidden md:flex justify-center">
             Edad
           </th>
-          <th scope="col" className='px-6 py-1 flex justify-end'>
-            Accion
-          </th>
+          {(user && user.id === liga.user_id) &&(
+            <th scope="col" className='flex justify-center'>
+              Accion
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
         {jugadores
           .filter((jugador) => jugador.deshabilitado === 0)
           .map((jugador) => (
-          <tr key={jugador.id} className="bg-white border-b grid grid-cols-3 md:grid-cols-5 dark:bg-gray-900 dark:border-gray-700 text-sm">
-            <td scope="row" className="items-center px-6 text-lg py-4">
+          <tr key={jugador.id} className={`bg-white border-b grid ${(user && user.id === liga.user_id) ? `grid-cols-5` : `grid-cols-4`} dark:bg-gray-900 dark:border-gray-700 text-sm`}>
+            <td scope="row" className="flex justify-center items-center">
                 <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-24 h-auto rounded-full'></img>
             </td>
-            <td className="px-6 py-1 flex items-center justify-start">{jugador.nombre} {jugador.apellido}</td>
-            <td className="px-6 py-1 hidden md:flex items-center justify-start">{jugador.dni}</td>
-            <td className="px-6 py-1 hidden md:flex items-center justify-start">{edad(jugador)}</td>
-            <td className={`pt-2 pr-5 flex justify-end items-center ${(liga.user_id === user.id) ? '' : 'hidden'}`}>
+            <td className="flex justify-center items-center">{jugador.nombre} {jugador.apellido}</td>
+            <td className="hidden md:flex justify-center items-center">{jugador.dni}</td>
+            <td className="hidden md:flex justify-center items-center">{edad(jugador)}</td>
+            <td className={`flex justify-center items-center ${(user && liga.user_id === user.id) ? '' : 'hidden'}`}>
               <Dropdown>
                   <Dropdown.Trigger>
                       <BotonOpciones />

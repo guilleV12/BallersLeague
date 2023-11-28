@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calendario;
+use App\Models\CampeonLiga;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
+use App\Models\FechaPartidoPlayoff;
 use App\Models\Goleadores;
 use App\Models\Jugador;
 use App\Models\JugadorPartido;
 use App\Models\Liga;
 use App\Models\NotificacionPartido;
 use App\Models\Partido;
+use App\Models\Playoff;
 use App\Models\TablaPosiciones;
+use App\Models\VotacionJMV;
 use Illuminate\Http\Request;
 
 class PartidoController extends Controller
 {
     public function destroy(Request $request, Partido $partido)
     {
-        //dd($partido);
+        //dd($request);
         $fechaPartido = FechaPartido::where('id', $partido->fecha_partido_id)->first();
         
         $jugadorPartido = JugadorPartido::where('partido_id', $partido->id)->get();
@@ -47,6 +51,25 @@ class PartidoController extends Controller
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $fechaPartido->equipo_1)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos - 1;
         }
+
+        $calendario = Calendario::where('id',$request->calendario_id)->first();
+        $liga = Liga::where('id',$calendario->liga_id)->first();
+        $campeon = CampeonLiga::where('liga_id',$liga->id)->first();
+        $playoffs = Playoff::where('liga_id', $liga->id)->first();
+        $fechasPlayoffs = $playoffs ? FechaPartidoPlayoff::where('playoffs_id',$playoffs->id)->get() : [];
+
+        if ($campeon){
+            $campeon->delete();
+            $votosMVP = VotacionJMV::where('liga_id',$liga->id)->get();
+            if ($votosMVP){
+                $votosMVP->each->delete();
+            }
+        }
+
+        if (count($fechasPlayoffs)>0){
+            $fechasPlayoffs->each->delete();
+        }
+
         $tablaPosicionesGanador->save();
         $tablaPosicionesPerdedor->save();
         $jugadorPartido->each->delete();

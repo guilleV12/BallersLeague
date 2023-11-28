@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Models\Liga;
 use App\Models\NotificacionUsuario;
+use App\Models\Patrocinador;
 use Illuminate\Support\Facades\Http;
 
 class JugadorController extends Controller
@@ -29,8 +30,9 @@ class JugadorController extends Controller
                 'liga'=>$liga[0],
                 'jugadores'=>$jugadores,
                 'equipo'=>$equipo,
-                'miLiga'=>Liga::where('user_id',Auth::user()->id)->get(),
+                'miLiga'=>Auth::check() ? Liga::where('user_id',Auth::user()->id)->get() : null,
                 'notificaciones' => Auth::check() ? $notificacionUsuarioController->notificacionesDropDown() : null,
+                'patrocinadores'=>Patrocinador::all(),
             ]);
     }
 

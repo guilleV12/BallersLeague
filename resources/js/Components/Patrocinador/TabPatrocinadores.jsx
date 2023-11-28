@@ -1,5 +1,5 @@
 import React from 'react'
-import CardPatrocinador from './CardPatrocinador'
+import TablaPaginadaPatrocinadores from './TablaPaginadaPatrocinadores'
 
 const TabPatrocinadores = ({
     patrocinadores,
@@ -12,18 +12,15 @@ const TabPatrocinadores = ({
   return (
     <div>
         {
-            patrocinadores.map((patrocinador)=>
-                <div key={patrocinador.id}>
-                    <CardPatrocinador
-                        patrocinador={patrocinador}
-                        userAdmin={userAdmin}
-                        user={user}
-                        setShowAlert={setShowAlert}
-                        setTituloAlert={setTituloAlert}
-                        liga={liga}
-                        />
-                </div>
-            )
+            <TablaPaginadaPatrocinadores
+                data={patrocinadores}
+                user={user}
+                userAdmin={userAdmin}
+                liga={liga}
+                setShowAlert={setShowAlert}
+                setTituloAlert={setTituloAlert}
+
+            />
         }
        
     </div>

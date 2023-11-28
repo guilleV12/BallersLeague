@@ -343,8 +343,7 @@ class NotificacionUsuarioController extends Controller
         }
 
 
-        $user = NotificacionUsuario::where('user_id', Auth::user()->id)->first();
-        $userVisto = $user ? $user->visto : 1;
-        return [$fechasPartidosProx, $fechasPartidosResultados, $invitaciones, $userVisto];
+        $cantNotificaciones = count($fechasPartidosProx)+count($fechasPartidosResultados)+count($invitaciones);
+        return [$fechasPartidosProx, $fechasPartidosResultados, $invitaciones, $cantNotificaciones];
     }
 }

@@ -6,16 +6,18 @@ import PrimaryButton from "../PrimaryButton";
 import BreadCrumb from "../BreadCrumb";
 
 const NavBar = ({auth, toggleSidebar, notificaciones}) => {
-console.log(notificaciones);
+
     return (
        
         <header className="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full 
-        bg-white border-b text-sm py-2.5 sm:py-0.5 lg:pl-64 dark:bg-gray-800 dark:border-gray-700">
+        bg-white border-b text-sm py-2.5 sm:py-0.5 dark:bg-gray-800 dark:border-gray-700">
             <nav className="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8" aria-label="Global">
-                <div className="flex justify-center items-center lg:mr-0 lg:hidden">
+                <div className="flex justify-start items-center ">
                     <div className="px-5">
                         <button
                             onClick={toggleSidebar}
+                            alt='Paginas y menu'
+                            title="Paginas y menu"
                             className="w-10 flex justify-center items-center h-10 text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800"
                         >
                             <span className="flex justify-center items-center text-3xl">
@@ -23,13 +25,13 @@ console.log(notificaciones);
                             </span>
                         </button>
                     </div>
-                    <a className="w-28 flex justify-start text-xl font-semibold dark:text-white" href="#" aria-label="Ballers League">
+                    <a className="w-28 flex justify-start text-xl font-semibold dark:text-white" href='/' aria-label="Ballers League">
                         <ApplicationLogo texto={true}/>
                     </a>
                     
                 </div>
                 <div className="">
-                    <div className="text-sm items-center py-4 hidden sm:flex">
+                    <div className="text-sm items-center py-4 ">
                         <Router>
                                 <BreadCrumb/>
                         </Router>
@@ -37,18 +39,18 @@ console.log(notificaciones);
                 </div>
              
         
-                <div className="w-full flex items-center justify-between ml-auto sm:justify-between sm:gap-x-3 sm:order-3">
+                <div className="w-full flex items-center justify-between ml-auto sm:justify-between sm:gap-x-3 sm:order-3 pr-5">
                     {auth ? (
                         <div className="ml-auto flex items-center gap-x-3">
                             <span className="text-sm font-semibold hidden sm:flex">{auth.nombre+' '+auth.apellido}</span>
                             <Dropdown>
                                 <Dropdown.Trigger>
-                                    <button type="button" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
+                                    <button type="button" alt='Notificaciones' title="Notificaciones" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
                                         <span className="flex justify-center items-center text-3xl ">
                                             <ion-icon name="notifications-circle-outline"/>
                                         </span>
-                                        {notificaciones&&(
-                                            notificaciones[3] === 0 && (
+                                        {(notificaciones)&&(
+                                            notificaciones[3] !== 0 && (
                                             <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-2">!</span>
                                         ))}
                                     </button>
@@ -98,7 +100,7 @@ console.log(notificaciones);
                                                     (index === 2 && notificacion.length>0)&&(<PrimaryButton disabled={true} className="w-full justify-center mb-2">Invitacion de arbitraje</PrimaryButton>)}
                                                     <ul className="text-xs" key={index+1}>{
                                                         notificacion.map((objNotificacion)=>(
-                                                            (index === 2)&&(
+                                                            (index === 2 )&&(
                                                                 <li key={objNotificacion.invitacion.id}>
                                                                     Has sido invitado a arbitrar en la liga: <a className="text-orange-500 font-semibold" href={route('ligas.show',objNotificacion.liga.id)}>{objNotificacion.liga.nombre}</a>!
 
@@ -120,7 +122,7 @@ console.log(notificaciones);
                             <div className="ml-auto flex items-center gap-x-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <button type="button" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
+                                        <button type="button" alt='Perfil' title="Perfil" className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
                                             <span className="flex justify-center items-center text-3xl ">
                                                 <ion-icon name="person-circle"></ion-icon>
                                             </span>
@@ -141,13 +143,13 @@ console.log(notificaciones);
                             </div>
                         </div>
                     ) : (
-                        <div className="ml-auto flex items-center gap-x-3">
-                            <a className="inline-flex justify-center items-center py-1 w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800" href={route('login')}>
+                        <div className="ml-auto flex items-center gap-x-3 px-3">
+                            <a alt="Iniciar sesion" title="Iniciar sesion" className="inline-flex justify-center items-center py-1 w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800" href={route('login')}>
                                 <span className='flex justify-center items-center text-2xl'>
                                     <ion-icon name="log-in"></ion-icon>
                                 </span>        
                             </a>
-                            <a className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800" href={route('register')}>
+                            <a alt='Registrarse' title="Registrarse" className=" inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800" href={route('register')}>
                                 <span className='flex justify-center items-center text-2xl'>
                                     <ion-icon name="person-add"></ion-icon>                                
                                 </span>        

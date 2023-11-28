@@ -10,11 +10,13 @@ export const ModalCrearPlayoffs = ({
     equipos, 
     setShowAlert, 
     setTituloAlert,
+    campeon,
     playoffs,
     fechasPlayoffs
 }) => {
 
     const [isModalConfirmacionPlayoff, setModalConfirmacionPlayoff] = useState(false);
+    const [isModalConfirmacionCampeon, setModalConfirmacionCampeon] = useState(false);
     const [regenerar, setRegenerar] = useState(false);
     const [faseRegularTerminada, setFaseRegularTerminada] = useState(false);
 
@@ -24,6 +26,14 @@ export const ModalCrearPlayoffs = ({
 
     const closeModalConfirmacionPlayoff = () => {
         setModalConfirmacionPlayoff(false);
+    };
+
+    const openModalConfirmacionCampeon = () => {
+        setModalConfirmacionCampeon(true);
+    };
+
+    const closeModalConfirmacionCampeon = () => {
+        setModalConfirmacionCampeon(false);
     };
 
     const formData = {
@@ -39,6 +49,9 @@ export const ModalCrearPlayoffs = ({
                 setFaseRegularTerminada(true);
             }
         }
+        if (campeon){
+            openModalConfirmacionCampeon();
+        }
       }, [fechas, partidos]);
 
     const confirmarGenerarPlayoff = () => {
@@ -46,7 +59,7 @@ export const ModalCrearPlayoffs = ({
         setModalConfirmacionPlayoff(false);
     };
 
-  return (
+return (
     <>
         {faseRegularTerminada === true ? (
             equipos.length >=4 ? (
@@ -94,6 +107,15 @@ export const ModalCrearPlayoffs = ({
                     cuerpo={'Para regenerar los playoffs se eliminara el actual.'}
                     nombre={'Cerrar'}
                     closeModal={() => {confirmarGenerarPlayoff();}}
+                    left={'left-[54%]'}
+                    />
+            )}
+            {isModalConfirmacionCampeon && (
+                <ModalInformarErrores
+                    titulo={'Se eliminara el campeon actual!'}
+                    cuerpo={'El campeon se eliminara para reemplazarse por el resultante de los playoffs.'}
+                    nombre={'Cerrar'}
+                    closeModal={closeModalConfirmacionCampeon}
                     left={'left-[54%]'}
                     />
             )}

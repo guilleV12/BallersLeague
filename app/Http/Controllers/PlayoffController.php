@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CampeonLiga;
 use App\Models\Equipo;
 use App\Models\FechaPartido;
 use App\Models\FechaPartidoPlayoff;
 use App\Models\Playoff;
 use App\Models\TablaPosiciones;
+use App\Models\VotacionJMV;
 use Illuminate\Http\Request;
 
 class PlayoffController extends Controller
@@ -54,6 +56,15 @@ class PlayoffController extends Controller
             $equiposCruces[] = Equipo::where('id', $equipo->equipo_id)->first();
         }
         $this->generarCruces($equiposCruces, $request->cantidad_partidos, $request->cantidad_equipos, $playoff[0]->id);
+
+        $campeon = CampeonLiga::where('liga_id',$request->liga_id)->first();
+        if ($campeon){
+            $campeon->delete();
+            $mvp = VotacionJMV::where('liga_id', $request->liga_id)->get();
+            if ($mvp){
+                $mvp->each->delete();
+            }
+        }
         
     }
 
@@ -108,6 +119,11 @@ class PlayoffController extends Controller
         //}
         //dd($playoff);
         FechaPartidoPlayoff::where('playoffs_id', $playoff->id)->delete();
+        $campeon = CampeonLiga::where('liga_id',$playoff->liga_id)->first();
+
+        if ($campeon){
+            $campeon->delete();
+        }
     }
 
     public function generarFechasHorarios($numDias, $vueltas, $diasExtras) 

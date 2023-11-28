@@ -5,7 +5,7 @@ import ModalCrearArbitro from './ModalCrearArbitro';
 import { BotonAnadirArbitros } from '../BotonesAcciones';
 import TablaPaginadaArbitros from './TablaPaginadaArbitros';
 
-const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos, patrocinadorConPrioridad }) => {
+const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert, setTituloAlert, fechas, partidos, patrocinadorConPrioridad, usuario }) => {
   const [arbitroEliminar, setArbitroEliminar] = useState(null);
   const [arbitroConfirmar, setArbitroConfirmar] = useState(null);
   const [user, setUser] = useState(null);
@@ -75,8 +75,8 @@ const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert,
         />
       )}
       <div className='flex w-full space-x-4 py-5 px-2 bg-black'>
-        <div className='w-[50%] flex justify-left items-center'>
-          {userAdmin.id === userAuth.id && (
+        <div className='w-[50%] flex justify-left items-center px-3'>
+          {(userAuth && userAdmin.id === userAuth.id) && (
               <BotonAnadirArbitros 
                 onClick={openAnadirArbitroModal} 
                 />
@@ -97,6 +97,7 @@ const TabArbitros = ({ arbitros, users, userAdmin, userAuth, liga, setShowAlert,
           arbitros={arbitrosFiltrados}
           users={users}
           userAdmin={userAdmin}
+          user={usuario}
           userAuth={userAuth}
           liga={liga}
           setShowAlert={setShowAlert}

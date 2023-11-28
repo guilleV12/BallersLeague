@@ -11,6 +11,7 @@ import FormNotificaciones from './FormNotificaciones';
 import FormPlayoffs from './FormPlayoffs';
 import FormFinalizarLiga from './FormFinalizarLiga';
 import FormPatrocinador from './FormPatrocinador';
+import FormVoto from './FormVoto';
 
 const FormsCrearEditar = ({
   elementoName,
@@ -33,6 +34,7 @@ const FormsCrearEditar = ({
   handleSelect2Change,
   arbitros,
   users,
+  liga,
   rol,
   arbitrosSelecto1,
   arbitrosSelecto2,
@@ -157,7 +159,20 @@ const FormsCrearEditar = ({
                                                     setData={setData}
                                                     accion={accion}
                                                     />
-                                            ):('')
+                                            ):(
+                                                elementoName === 'Voto' ? (
+                                                    <FormVoto
+                                                        data={data}
+                                                        onCancel={onCancel}
+                                                        errors={errors}
+                                                        setData={setData}
+                                                        accion={accion}
+                                                        liga={liga}
+                                                        jugadores={jugadores}
+                                                        equipos={equipos}
+                                                        />
+                                                ):('')
+                                            )
                                         )
                                     )
                                 )
@@ -187,7 +202,7 @@ const FormsCrearEditar = ({
                     <>
                     <BotonContenido
                         nombre={accion === 'agregar' ? (
-                            'Agregar'
+                            'Aceptar'
                         ) : (
                             'Editar'
                         )}

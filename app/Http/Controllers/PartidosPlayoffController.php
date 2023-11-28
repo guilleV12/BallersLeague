@@ -10,6 +10,7 @@ use App\Models\JugadorPartido;
 use App\Models\Liga;
 use App\Models\PartidosPlayoff;
 use App\Models\Playoff;
+use App\Models\VotacionJMV;
 use Illuminate\Http\Request;
 
 class PartidosPlayoffController extends Controller
@@ -170,7 +171,8 @@ class PartidosPlayoffController extends Controller
     }
 
     public function destroy(PartidosPlayoff $partidoplayoff)
-    {//dd($partidoplayoff);
+    {
+        //dd($request);
         $fechaPartido = FechaPartidoPlayoff::where('id', $partidoplayoff->fecha_partido_playoffs_id)->first();
         
         $jugadorPartido = JugadorPartido::where('partido_playoff_id', $partidoplayoff->id)->get();
@@ -184,6 +186,23 @@ class PartidosPlayoffController extends Controller
                 $jugadorGoleador->promedio = $jugadorGoleador->puntos / $jugadorGoleador->cantidad_partidos;
             }
             $jugadorGoleador->save();
+        }
+
+        $playoffs = Playoff::where('id', $fechaPartido->playoffs_id)->first();
+        $liga = Liga::where('id',$playoffs->liga_id)->first();
+        $campeon = CampeonLiga::where('liga_id',$liga->id)->first();
+        $fechasPlayoffs = $playoffs ? FechaPartidoPlayoff::where('playoffs_id',$playoffs->id)->where('ronda','<',$fechaPartido->ronda)->get() : [];
+
+        if ($campeon){
+            $campeon->delete();
+            $votosMVP = VotacionJMV::where('liga_id',$liga->id)->get();
+            if ($votosMVP){
+                $votosMVP->each->delete();
+            }
+        }
+
+        if (count($fechasPlayoffs)>0){
+            $fechasPlayoffs->each->delete();
         }
 
         $jugadorPartido->each->delete();
