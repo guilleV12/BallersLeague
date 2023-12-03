@@ -76,8 +76,8 @@ const TabFixture = ({
 
   return (
     <div className="tab-fixture">
-      <div className="botones-accion grid md:flex w-full justify-center md:space-x-4 py-5 bg-black">
-        <div className='flex w-[35%] justify-start pl-2'>
+      <div className="botones-accion flex w-full justify-center md:space-x-4 py-5 bg-black">
+        <div className='hidden md:flex w-[35%] justify-start pl-2'>
         {fechas&&(fechas.length > 0 ? (
           <>
           <Dropdown>

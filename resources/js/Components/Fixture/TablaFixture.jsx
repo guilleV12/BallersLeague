@@ -79,7 +79,7 @@ const formatFecha = (fecha) => {
 
         <table className="text-black dark:text-gray-400 w-full">
             <thead className="text-base text-left font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
-                <tr className={`grid ${((user && user.id === liga.user_id) || rol==='admin') ? `grid-cols-7` : `grid-cols-6`}`}>
+                <tr className={`grid grid-cols-3 md:grid-cols-7`}>
                     <th scope="col" className="hidden md:flex justify-center">
                         Fecha
                     </th>
@@ -98,16 +98,14 @@ const formatFecha = (fecha) => {
                     <th scope='col' className='hidden md:flex justify-center'>
                         Ganador
                     </th>
-                    {((user && user.id === liga.user_id) || rol === 'admin') &&(
-                        <th scope="col" className='flex justify-center'>
-                            Accion
-                        </th>
-                    )}
+                    <th scope="col" className='flex justify-center'>
+                        {((user && user.id === liga.user_id) || rol === 'admin') ?( 'Accion'):('Estadisticas')}
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {fechas &&(fechas.map((fecha, index) => (
-                    <tr key={index} className={`grid ${((user && user.id === liga.user_id) || rol==='admin') ? `grid-cols-7` : `grid-cols-6`} py-2 border-b text-sm`}>
+                    <tr key={index} className={`grid grid-cols-3 md:grid-cols-7 py-2 border-b text-sm`}>
                         <td scope="col" className="hidden md:flex items-center justify-center">
                             {fecha.fecha ? formatFecha(fecha.fecha) : 'No definida'}
                         </td>
@@ -115,7 +113,7 @@ const formatFecha = (fecha) => {
                             {fecha.horario ? fecha.horario : 'No definido'}
                         </td>
                         <td scope="col" className="flex-col items-center justify-center">
-                            <div className='hidden md:flex w-full justify-center'>
+                            <div className='flex w-full justify-center'>
                                 {equipos &&(equipos.map((equipo)=>(
                                     equipo.id === fecha.equipo_1 ? <img key={equipo.id} src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img> : ''
                                 )))}
@@ -127,7 +125,7 @@ const formatFecha = (fecha) => {
                             </div>
                         </td>
                         <td scope="col" className="flex-col items-center justify-center">
-                            <div className='hidden md:flex w-full justify-center'>
+                            <div className='flex w-full justify-center'>
                                 {equipos &&(equipos.map((equipo)=>(
                                     equipo.id === fecha.equipo_2 ? <img key={equipo.id} src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img> : ''
                                 )))}
@@ -162,13 +160,13 @@ const formatFecha = (fecha) => {
                                     (partido.puntaje_equipo_1 > partido.puntaje_equipo_2) ? (
                                         equipos.map((equipo) => (equipo.id === fecha.equipo_1) &&(
                                             <div key={index}>
-                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={equipo.nombre} />
+                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={`equipo ganador: ${equipo.nombre}`} title={`equipo ganador: ${equipo.nombre}`}/>
                                             </div>
                                         ))
                                     ) : (
                                         equipos.map((equipo) => (equipo.id === fecha.equipo_2) &&(
                                             <div key={index}>
-                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={equipo.nombre} />
+                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={`equipo ganador: ${equipo.nombre}`} title={`equipo ganador: ${equipo.nombre}`}/>
                                             </div>
                                         ))
                                     )
@@ -178,7 +176,7 @@ const formatFecha = (fecha) => {
                        
                         </td>
                         <td scope="col" className='flex items-center justify-center'>
-                            {((user && liga.user_id === user.id) || rol==='admin') &&(
+                        {((user && liga.user_id === user.id) || rol==='admin') ?(
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                             <BotonOpciones/>
@@ -219,8 +217,13 @@ const formatFecha = (fecha) => {
                                                 )}
                                         </ul>
                                     </Dropdown.Content>
-                                </Dropdown>  
-                            )}
+                                </Dropdown> ):(
+                                    <BotonContenido
+                                        onClick={() => {openModalVerEstadisticas(fecha)}}
+                                        className={' block justify-center mt-1'}
+                                        nombre={'Estadisticas'}
+                                        />
+                                )}
                         </td>
                     </tr>
                     )))}

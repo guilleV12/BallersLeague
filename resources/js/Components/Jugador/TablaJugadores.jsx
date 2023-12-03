@@ -84,7 +84,7 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
           .map((jugador) => (
           <tr key={jugador.id} className={`bg-white border-b grid ${(user && user.id === liga.user_id) ? `grid-cols-5` : `grid-cols-4`} dark:bg-gray-900 dark:border-gray-700 text-sm`}>
             <td scope="row" className="flex justify-center items-center">
-                <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-24 h-auto rounded-full'></img>
+                <img src={`/images/${jugador.foto_perfil}?${new Date().getTime()}`} className='w-24 h-auto rounded-full' title={`jugador: ${jugador.nombre+` `+jugador.apellido}`} alt={`jugador: ${jugador.nombre+` `+jugador.apellido}`}></img>
             </td>
             <td className="flex justify-center items-center">{jugador.nombre} {jugador.apellido}</td>
             <td className="hidden md:flex justify-center items-center">{jugador.dni}</td>
@@ -105,12 +105,6 @@ const TablaJugadores = ({ jugadores, liga, user, equipo, isAnadirJugadorOpen, cl
                           <li>
                               <BotonEliminar
                                 onClick={() => openEliminarJugadorModal(jugador)}
-                                className={' block w-full justify-center mt-1'}
-                                />
-                          </li>
-                          <li>
-                              <BotonContenido
-                                nombre={'Estadisticas'}
                                 className={' block w-full justify-center mt-1'}
                                 />
                           </li>

@@ -59,66 +59,68 @@ export const ModalCrearPlayoffs = ({
         setModalConfirmacionPlayoff(false);
     };
 
-return (
+    return (
     <>
-        {faseRegularTerminada === true ? (
-            equipos.length >=4 ? (
-                    <ModalCrearElemento
-                        elementoName="Playoffs"
-                        actionRoute={'playoffs.store'}
-                        onCancel={closeGenerarPlayoffModal}
-                        onAdd={closeGenerarPlayoffModal}
-                        elemento={''}
-                        setShowAlert={setShowAlert}
-                        regenerar={regenerar}
-                        setTituloAlert={setTituloAlert}
-                        equipos={equipos}
-                        liga={liga}
-                        fechas={fechas}
-                        leftPosition={'left-[40%]'}
-                        formData = {formData}
-                        accion={'agregar'}
-                        fechasPlayoffs={fechasPlayoffs}
-                        openModalConfirmacionPlayoff={openModalConfirmacionPlayoff}
-                        />
+    {faseRegularTerminada === true ? (
+        isModalConfirmacionCampeon ? (
+            <ModalInformarErrores
+                titulo={'Se eliminara el campeon actual!'}
+                cuerpo={'El campeon se eliminara para reemplazarse por el resultante de los playoffs.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalConfirmacionCampeon}
+                left={'left-[50%]'}
+                />
+        ):(
+                equipos.length >=4 ? (
+                    ((fechasPlayoffs && fechasPlayoffs.length >0) && (regenerar === false)) ? ( 
+                        <ModalInformarErrores
+                            titulo={'Se eliminara el playoff actual!'}
+                            cuerpo={'Para regenerar los playoffs se eliminara el actual.'}
+                            nombre={'Cerrar'}
+                            closeModal={confirmarGenerarPlayoff}
+                            left={'left-[50%]'}
+                            />
+                    ):(
+                        <ModalCrearElemento
+                            elementoName="Playoffs"
+                            actionRoute={'playoffs.store'}
+                            onCancel={closeGenerarPlayoffModal}
+                            onAdd={closeGenerarPlayoffModal}
+                            elemento={''}
+                            setShowAlert={setShowAlert}
+                            regenerar={regenerar}
+                            setTituloAlert={setTituloAlert}
+                            equipos={equipos}
+                            liga={liga}
+                            fechas={fechas}
+                            leftPosition={'left-[37%]'}
+                            topPosition={'top-[20%] '}
+                            formData = {formData}
+                            accion={'agregar'}
+                            fechasPlayoffs={fechasPlayoffs}
+                            openModalConfirmacionPlayoff={openModalConfirmacionPlayoff}
+                            />
+                    )
                 ) : (
                     <ModalInformarErrores
                         titulo={'No puede generar playoffs!'}
                         cuerpo={'Debe tener al menos 4 equipos para generar playoffs.'}
                         nombre={'Cerrar'}
                         closeModal={() => {closeGenerarPlayoffModal();}}
-                        left={'left-[57%]'}
+                        left={'left-[50%]'}
                         />
                 )
-            ) : (
-                <>
-                    <ModalInformarErrores
-                        titulo={'Aun no puede generar playoffs!'}
-                        cuerpo={'Debe terminarse la fase regular para generar playoffs.'}
-                        nombre={'Cerrar'}
-                        closeModal={() => {closeGenerarPlayoffModal();}}
-                        left={'left-[57%]'}
-                        />
-                </>
-            )}
-            {isModalConfirmacionPlayoff && (
-                <ModalInformarErrores
-                    titulo={'Se eliminara el playoff actual!'}
-                    cuerpo={'Para regenerar los playoffs se eliminara el actual.'}
-                    nombre={'Cerrar'}
-                    closeModal={() => {confirmarGenerarPlayoff();}}
-                    left={'left-[54%]'}
-                    />
-            )}
-            {isModalConfirmacionCampeon && (
-                <ModalInformarErrores
-                    titulo={'Se eliminara el campeon actual!'}
-                    cuerpo={'El campeon se eliminara para reemplazarse por el resultante de los playoffs.'}
-                    nombre={'Cerrar'}
-                    closeModal={closeModalConfirmacionCampeon}
-                    left={'left-[54%]'}
-                    />
-            )}
+        )
+    ):(
+        <ModalInformarErrores
+            titulo={'Aun no puede generar playoffs!'}
+            cuerpo={'Debe terminarse la fase regular para generar playoffs.'}
+            nombre={'Cerrar'}
+            closeModal={() => {closeGenerarPlayoffModal();}}
+            left={'left-[50%]'}
+            />
+    )}
+      
     </>
   )
 }

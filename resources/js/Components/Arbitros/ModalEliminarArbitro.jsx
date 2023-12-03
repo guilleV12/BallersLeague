@@ -23,7 +23,7 @@ const ModalEliminarArbitro = ({
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       fechas={fechas}
-      leftPosition={'left-[40%]'}
+      leftPosition={'left-[35%]'}
       message={message}
       tipoElemento={'arbitro'}
     />

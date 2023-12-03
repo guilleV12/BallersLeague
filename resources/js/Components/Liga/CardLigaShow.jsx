@@ -202,7 +202,7 @@ const CardLigaShow = ({
         )}
           <li className={`hidden md:flex ml-auto items-center `}  role='tab' aria-controls='liga-tab'>
             {(user ) ? (
-              <button type="button" onClick={() => {setModalNotificacionesOpen(true);}} className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
+              <button alt='Notificaciones' title='Notificaciones' type="button" onClick={() => {setModalNotificacionesOpen(true);}} className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
                 <span className="flex justify-center items-center text-3xl ">
                     <ion-icon name="notifications-circle-outline"/>
                 </span>

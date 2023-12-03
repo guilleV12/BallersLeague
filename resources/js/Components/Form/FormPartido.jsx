@@ -23,7 +23,7 @@ const FormPartido = ({
 
     const jugadoresFiltradosEquipo1 = jugadoresEquipo1.filter(jugador => jugador.deshabilitado === 0);
     const jugadoresFiltradosEquipo2 = jugadoresEquipo2.filter(jugador => jugador.deshabilitado === 0);
-
+//console.log(equiposFiltrados[0][0]);
   return (
     <>
         <div className='border border-black rounded-lg mx-3 p-3 bg-white'>
@@ -32,16 +32,16 @@ const FormPartido = ({
                     </div>
                     <div className='w-full flex justify-between items-center mb-2 text-base font-semibold'>
                         <div>
-                            {equiposFiltrados[0].nombre}
+                            {equiposFiltrados[0][0].nombre}
                         </div>
                         <div>
-                            {equiposFiltrados[1].nombre}
+                            {equiposFiltrados[1][0].nombre}
                         </div>
                     </div>
                     <div className='flex items-center justify-center space-x-2'>
                         <div className='w-1/4 flex justify-start items-center'>
                             <div className='w-24 h-24 rounded-full my-1 bg-white flex justify-center items-center'>
-                                <img src={`/images/${equiposFiltrados[0].logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" />
+                                <img src={`/images/${equiposFiltrados[0][0].logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" />
                             </div>
                         </div>
                         <TextInput 
@@ -85,7 +85,7 @@ const FormPartido = ({
                             />
                         <div className='w-1/4 flex justify-end items-center'>
                             <div className='w-24 h-24 rounded-full my-1 bg-white flex justify-center items-center'>
-                                <img src={`/images/${equiposFiltrados[1].logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" />
+                                <img src={`/images/${equiposFiltrados[1][0].logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" />
                             </div>
                         </div>
                     </div>

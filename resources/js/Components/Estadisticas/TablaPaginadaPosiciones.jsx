@@ -121,12 +121,14 @@ const TablaPaginadaPosiciones = ({ liga, user, tablaPosiciones, equipos}) => {
     <>
       <table className=" text-left text-black dark:text-gray-400 w-full rounded-lg shadow pt-2" id='tabla-posiciones'>
       <thead className="text-base font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400 rounded-lg">
-        <tr className={`grid grid-cols-6`}>
+        <tr className={`grid grid-cols-3 md:grid-cols-6`}>
           <th scope="col" className="flex justify-center">
           <Dropdown>
               <Dropdown.Trigger>
                   Posicion
-                  <button className='mx-2 bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
+                  <button
+                  title='filtros' alt='filtros' 
+                  className='mx-2 bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
                     <span className='text-2xl w-full flex'><ion-icon name="swap-vertical"></ion-icon></span>
                   </button>
               </Dropdown.Trigger>
@@ -151,13 +153,13 @@ const TablaPaginadaPosiciones = ({ liga, user, tablaPosiciones, equipos}) => {
               </Dropdown.Content>
             </Dropdown>
           </th>
-          <th scope="col" className="hidden md:flex pt-3 justify-center">
+          <th scope="col" className="flex pt-3 justify-center">
             Equipo
           </th>
-          <th scope="col" className="flex pt-3 justify-center">
+          <th scope="col" className="hidden md:flex pt-3 justify-center">
             Ganados
           </th>
-          <th scope="col" className='flex pt-3 justify-center'>
+          <th scope="col" className='hidden md:flex pt-3 justify-center'>
             Perdidos
           </th>
           <th scope="col" className="hidden md:flex pt-3 justify-center">
@@ -166,7 +168,7 @@ const TablaPaginadaPosiciones = ({ liga, user, tablaPosiciones, equipos}) => {
           <th scope="col" className="ml-auto py-1 pr-4">
             <button 
             onClick={generarPDF} 
-            title='descargar tabla de posiciones'
+            title='Descargar tabla posiciones' alt='Descargar tabla posiciones'
             className={`boton-accion font-semibold py-3 px-1 border-2 border-orange-500 w-fit h-10 inline-flex justify-center items-center text-white text-center bg-orange-500 hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition`}>
                 <span className='text-3xl p-1'><ion-icon name="download-outline"></ion-icon></span>
               </button>
@@ -177,7 +179,7 @@ const TablaPaginadaPosiciones = ({ liga, user, tablaPosiciones, equipos}) => {
       <tbody>
         {currentData
           .map((equipoPosicion) => (
-          <tr key={equipoPosicion.id} className={`bg-white border-b grid grid-cols-6 dark:bg-gray-900 dark:border-gray-700 text-sm`}>
+          <tr key={equipoPosicion.id} className={`bg-white border-b grid grid-cols-3 md:grid-cols-6 dark:bg-gray-900 dark:border-gray-700 text-sm`}>
             <td className="flex items-center justify-center">{equipoPosicion.posicion}</td>
             <td scope="row" className="flex items-center justify-center">
             {equipos
@@ -192,9 +194,9 @@ const TablaPaginadaPosiciones = ({ liga, user, tablaPosiciones, equipos}) => {
                     />
             ))}
             </td>
-            <td className="flex items-center justify-center">{equipoPosicion.ganados}</td>
-            <td className='flex items-center justify-center'>{equipoPosicion.perdidos}</td>
-            <td className="flex items-center justify-center">{equipoPosicion.puntos_favor ? equipoPosicion.puntos_favor : 0}</td>
+            <td className="hidden md:flex items-center justify-center">{equipoPosicion.ganados}</td>
+            <td className='hidden md:flex items-center justify-center'>{equipoPosicion.perdidos}</td>
+            <td className="hidden md:flex items-center justify-center">{equipoPosicion.puntos_favor ? equipoPosicion.puntos_favor : 0}</td>
             
           </tr>
         ))}

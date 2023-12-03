@@ -170,7 +170,9 @@ const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos}) 
             <Dropdown>
               <Dropdown.Trigger>
                 Promedio
-                  <button className='mx-2 bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
+                  <button
+                  title='filtros' alt='filtros' 
+                  className='mx-2 bg-orange-500 rounded-lg p-1 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition'>
                     <span className='text-2xl w-full flex'><ion-icon name="swap-vertical"></ion-icon></span>
                   </button> 
               </Dropdown.Trigger>
@@ -204,7 +206,7 @@ const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos}) 
           <th scope="col" className="ml-auto py-1 pr-4">
             <button 
             onClick={generarPDF} 
-            title='descargar tabla de posiciones'
+            title='descargar tabla de goleadores' alt='descargar tabla de goleadores'
             className={`boton-accion font-semibold py-3 px-1 border-2 border-orange-500 w-fit h-10 inline-flex justify-center items-center text-white text-center bg-orange-500 hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition`}>
             <span className='text-3xl p-1'><ion-icon name="download-outline"></ion-icon></span>
               </button>
@@ -223,8 +225,8 @@ const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos}) 
                     key={jugadorFiltrado.id}
                     src={`/images/${jugadorFiltrado.foto_perfil}?${new Date().getTime()}`}
                     className='w-24 h-auto rounded-full'
-                    alt={`Foto jugador ${jugadorFiltrado.nombre}`}
-                    title={`jugador: ${jugadorFiltrado.nombre}`}
+                    alt={`Foto jugador ${jugadorFiltrado.nombre+' '+jugadorFiltrado.apellido}`}
+                    title={`jugador: ${jugadorFiltrado.nombre+' '+jugadorFiltrado.apellido}`}
                     />
             ))}
             </td>

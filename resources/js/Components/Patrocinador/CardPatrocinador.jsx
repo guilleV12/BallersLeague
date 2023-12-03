@@ -38,13 +38,13 @@ const CardPatrocinador = ({
   return (
     <div className={`grid ${(user && user.id === userAdmin.id) ? `grid-cols-3` : `grid-cols-2`} border rounded-lg shadow-md m-4 p-5`}>
         <div className='w-52 h-52 rounded-full bg-white flex justify-center items-center border shadow-lg shadow-gray-300'>
-            <img src={`/images/${patrocinador.logo}?${new Date().getTime()}`} alt={`logo liga: ${patrocinador.nombre}`} className="w-auto h-auto object-cover" />
+            <img src={`/images/${patrocinador.logo}?${new Date().getTime()}`} title={`patrocinador: ${patrocinador.nombre}`} alt={`patrocinador: ${patrocinador.nombre}`} className="w-auto h-auto object-cover" />
         </div>
-        <div className="w-full flex justify-center items-end p-4">
+        <div className="w-full hidden md:flex justify-center items-end p-4">
             <h3 className="text-xl font-bold">{patrocinador.nombre}: <span className='text-base font-normal'>{patrocinador.descripcion}.</span></h3>
         </div>
         {(user && user.id === userAdmin.id) && (
-            <div className='w-full flex justify-end items-end p-4'>
+            <div className='w-full flex ml-[99%] md:ml-0 justify-end md:items-end md:p-4'>
                 <Dropdown>
                   <Dropdown.Trigger>
                       <BotonOpciones />

@@ -9,7 +9,7 @@ const TablaEquipos = ({ partidos, fechas, liga, user, equipos, calendario, openE
     <>
     <table className="text-gray-500 dark:text-gray-400 w-full">
           <thead className="text-base text-left font-semibold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
-              <tr className={`grid ${((user && user.id === liga.user_id)) ? `grid-cols-5` : `grid-cols-4`}`}>
+              <tr className={`grid ${((user && user.id === liga.user_id)) ? `grid-cols-3 md:grid-cols-5` : `grid-cols-2 md:grid-cols-4`}`}>
                 <th scope="col" className="flex justify-center">
                   Equipo
                 </th>
@@ -31,7 +31,7 @@ const TablaEquipos = ({ partidos, fechas, liga, user, equipos, calendario, openE
           </thead>
           <tbody className='text-sm'>
               {equipos.map((equipo) => (
-                <tr key={equipo.id} className={`bg-white border-b grid ${((user && user.id === liga.user_id)) ? `grid-cols-5` : `grid-cols-4`} dark:bg-gray-900 dark:border-gray-700`}>
+                <tr key={equipo.id} className={`bg-white border-b grid ${((user && user.id === liga.user_id)) ? `grid-cols-3 md:grid-cols-5` : `grid-cols-2 md:grid-cols-4`} dark:bg-gray-900 dark:border-gray-700`}>
                     <td className="flex justify-center items-center">
                       <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='w-24 h-auto rounded-full' alt={`Logo ${equipo.nombre}`} title={`Logo ${equipo.nombre}`}></img>
                     </td>

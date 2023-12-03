@@ -79,7 +79,7 @@ const formatFecha = (fecha) => {
 
         <table className="text-black dark:text-gray-400 w-full">
             <thead className="text-base text-left font-bold text-white bg-black dark:bg-gray-700 dark:text-gray-400">
-                <tr className={`grid ${((user && user.id === liga.user_id) || rol==='admin') ? `grid-cols-8` : `grid-cols-7`}`}>
+                <tr className={`grid grid-cols-3 md:grid-cols-8`}>
                     <th scope="col" className="hidden md:flex justify-center">
                         Fecha
                     </th>
@@ -100,17 +100,15 @@ const formatFecha = (fecha) => {
                     </th>
                     <th scope='col' className='hidden md:flex justify-center'>
                         Ronda
+                    </th>        
+                    <th scope="col" className='flex justify-center'>
+                    {((user && user.id === liga.user_id) || rol==='admin') ? ('Accion'):('Estadisticas')}
                     </th>
-                    {((user && user.id === liga.user_id) || rol==='admin') && (
-                        <th scope="col" className='flex justify-center'>
-                            Accion
-                        </th>
-                    )}
                 </tr>
             </thead>
             <tbody>
                 {fechas &&(fechas.map((fecha, index) => (
-                    <tr key={index} className={`grid ${((user && user.id === liga.user_id) || rol==='admin') ? `grid-cols-8` : `grid-cols-7`} py-2 border-b text-sm`}>
+                    <tr key={index} className={`grid grid-cols-3 md:grid-cols-8 py-2 border-b text-sm`}>
                         <td scope="col" className="hidden md:flex items-center justify-center">
                             {fecha.fecha ? formatFecha(fecha.fecha) : 'No definida'}
                         </td>
@@ -165,13 +163,13 @@ const formatFecha = (fecha) => {
                                     (partido.puntaje_equipo_1 > partido.puntaje_equipo_2) ? (
                                         equipos.map((equipo) => (equipo.id === fecha.equipo_1) &&(
                                             <div key={index}>
-                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={equipo.nombre} />
+                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={`equipo ganador: ${equipo.nombre}`} title={`equipo ganador: ${equipo.nombre}`}/>
                                             </div>
                                         ))
                                     ) : (
                                         equipos.map((equipo) => (equipo.id === fecha.equipo_2) &&(
                                             <div key={index}>
-                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={equipo.nombre} />
+                                                <img src={`/images/${equipo.logo}?${new Date().getTime()}`} className='h-24 w-auto' alt={`equipo ganador: ${equipo.nombre}`} title={`equipo ganador: ${equipo.nombre}`} />
                                             </div>
                                         ))
                                     )
@@ -188,7 +186,7 @@ const formatFecha = (fecha) => {
                         fecha.ronda === 1 ? "Final" : ""}
                         </td>
                         <td scope="col" className='px-6 py-1 flex items-center justify-end'>
-                            {((user && liga.user_id === user.id) || rol==='admin') &&(
+                            {((user && liga.user_id === user.id) || rol==='admin') ?(
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                             <BotonOpciones/>
@@ -230,6 +228,12 @@ const formatFecha = (fecha) => {
                                         </ul>
                                     </Dropdown.Content>
                                 </Dropdown>  
+                            ):(
+                                <BotonContenido
+                                    onClick={() => {openModalVerEstadisticas(fecha)}}
+                                    className={' block w-full justify-center mt-1'}
+                                    nombre={'Estadisticas'}
+                                    />
                             )}
                         </td>
                     </tr>

@@ -24,10 +24,9 @@ const ModalCrearJugador = ({ jugador, liga, equipo, onCancel, onAdd, onEdit, acc
             setShowAlert={setShowAlert}
             setTituloAlert={setTituloAlert}
             liga={liga}
-            leftPosition={'left-[35%]'}
+            leftPosition={'left-[33%]'}
             topPosition={'top-[5%]'}
             classNameForm={'h-full overflow-y-auto'}
-            classNameModal={'inset-0 mb-[1%]'}
             formData = {formData}
             accion={accion}
             />

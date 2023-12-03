@@ -63,8 +63,8 @@ export const TabPlayoffs = ({
 
   return (
     <div className="tab-playoffs">
-        <div className="botones-accion grid md:flex w-full justify-center md:space-x-4 py-5 bg-black">
-            <div className='flex w-[50%] pl-2'>
+        <div className="botones-accion flex w-full justify-end md:justify-center md:space-x-4 md:py-5 bg-black">
+            <div className='hidden md:flex w-[50%] pl-2'>
             {fechasPlayoffs&&(fechasPlayoffs.length > 0 ? (
                 <>
                 <Dropdown>

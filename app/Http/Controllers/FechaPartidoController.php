@@ -73,7 +73,7 @@ class FechaPartidoController extends Controller
 
         $fechaPartidos = FechaPartido::where('calendario_id', $calendario[0]->id)->get();
 
-        $arbitrosDisponibles = Arbitro::where('id_liga', $calendario[0]->id)->where('confirmado', 1)->get();
+        $arbitrosDisponibles = Arbitro::where('id_liga', $calendario[0]->liga_id)->where('confirmado', 1)->get();
 
         foreach ($fechaPartidos as $fecha) {
             //buscar si este partido ya se jugo

@@ -203,22 +203,22 @@ const ModalCrearElemento = ({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-[65] bg-black opacity-50 pointer-events-none"></div>
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-[70] bg-black opacity-50"></div>
 
       {/* Modal */}
-      <div className={`fixed z-[70] ${topPosition?topPosition:`top-1/2 `} ${leftPosition && leftPosition} ${width?width:' w-fit'}  rounded-lg pointer-events-auto ${classNameModal}`}>
-        <form onSubmit={submit} className={`bg-white pb-5 rounded-lg border border-black ${classNameForm}`} encType='multipart/form-data'>
+      <div className={`fixed z-[74] ${topPosition?topPosition:`top-1/2 `} ${leftPosition && leftPosition} ${width?width:' w-fit'}  rounded-lg pointer-events-auto `}>
+        <form onSubmit={submit} className={`bg-gray-50 pb-5 rounded-lg border border-black ${classNameForm}`} encType='multipart/form-data'>
           {elementoName === 'Partido' ? (
-            <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
+            <div className='w-full flex rounded-t-lg bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
                 Cargar resultado
             </div>
           ):(
             elementoName === 'Fechas' ? (
-                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
+                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white rounded-t-lg'>
                     Asignar arbitros
                 </div>
             ) : (elementoName === 'Campeon' ? (
-                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white'>
+                <div className='w-full flex bg-orange-500 justify-center items-center py-5 text-3xl font-bold text-white rounded-t-lg'>
                     Finalizar liga
                 </div>
             ):(elementoName === 'Voto' ? (

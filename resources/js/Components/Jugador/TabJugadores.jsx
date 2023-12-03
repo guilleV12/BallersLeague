@@ -47,7 +47,7 @@ const TabJugadores = ({ user, liga, equipo, jugadores, patrocinadores }) => {
             </a>
             
             <div className="h-16 w-16 md:h-40 md:w-40 flex justify-center items-center rounded-full bg-white">
-                <img className="h-auto w-full rounded-full" src={'/images/'+equipo.logo}  alt={`Liga `+liga.nombre}/>
+                <img className="h-auto w-full rounded-full" src={'/images/'+equipo.logo}  alt={`equipo: `+equipo.nombre} title={`equipo: `+equipo.nombre}/>
             </div>
             
             {(user && user.id === liga.user_id) && (
@@ -62,7 +62,7 @@ const TabJugadores = ({ user, liga, equipo, jugadores, patrocinadores }) => {
               <div className="hidden md:flex justify-center items-center rounded-full p-1">
               <BotonContenido 
                 onClick={openAnadirJugadorModal}
-                nombre={<span className='flex justify-center text-xl'><span className='text-xs flex items-center'>Añadir jugador </span><ion-icon name="add-circle"></ion-icon></span>}
+                nombre={<span alt='Añadir jugador' title='Añadir jugador' className='flex justify-center text-xl'><span className='text-xs flex items-center'>Añadir jugador </span><ion-icon name="add-circle"></ion-icon></span>}
                 className={' flex justify-center items-center'}
                 />
               </div>

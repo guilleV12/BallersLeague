@@ -30,7 +30,7 @@ return (
         setShowAlert={setShowAlert}
         setTituloAlert={setTituloAlert}
         liga={liga}
-        leftPosition={'left-[40%]'}
+        leftPosition={'left-[0%] md:left-[37%]'}
         topPosition={'top-[20%]'}
         classNameForm={'h-full overflow-y-auto'}
         classNameModal={'inset-0 mb-[1%]'}

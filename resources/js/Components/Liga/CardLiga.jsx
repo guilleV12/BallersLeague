@@ -22,7 +22,7 @@ export const CardLiga = ({ path, liga, className, patrocinadores }) => {
                 )}
 
                         <div className='w-52 h-52 rounded-full bg-white flex justify-center items-center border shadow-lg shadow-gray-300'>
-                          <img className="h-48 w-auto my-5 rounded-full" src={'/images/'+path}  alt={`Liga `+liga.nombre}/>
+                          <img className="h-48 w-auto my-5 rounded-full" src={'/images/'+path}  alt={`Liga `+liga.nombre} title={`Liga `+liga.nombre}/>
                         </div>
                         <h5 className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{liga.nombre}</h5>
                         <span className="hidden md:block text-md text-gray-500 dark:text-gray-400">Descripcion: {liga.descripcion}</span>

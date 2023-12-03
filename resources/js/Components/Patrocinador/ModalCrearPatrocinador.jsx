@@ -19,11 +19,10 @@ const ModalCrearPatrocinador = ({ liga, onCancel, onAdd, setShowAlert, patrocina
             setShowAlert={setShowAlert}
             setTituloAlert={setTituloAlert}
             liga={liga}
-            leftPosition={'left-[35%]'}
+            leftPosition={'left-[32%]'}
             elemento={accion === 'editar' ? patrocinador : null}
             topPosition={'top-[10%]'}
             classNameForm={' overflow-y-auto inset-0 '}
-            classNameModal={'inset-0'}
             formData = {data}
             accion={accion}
             />

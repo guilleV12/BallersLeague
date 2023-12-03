@@ -9,6 +9,7 @@ export const ModalCrearPartido = ({ esPlayoff, eliminar, rol, jugadoresParticipa
     const [equipoErrorPuntos, setEquipoErrorPuntos] = useState('');
     const [esEmpate, setEsEmpate] = useState(false);
     const [mensajeLeido, setMensajeLeido] = useState(false);
+    const [errores, setErrores] = useState(0);
 
     const openModalErrorPuntos = (equipo, empate) => {
         setEquipoErrorPuntos(equipo);
@@ -22,8 +23,11 @@ export const ModalCrearPartido = ({ esPlayoff, eliminar, rol, jugadoresParticipa
     const closeModalErrorPuntos = () => {
         setIsModalErrorPuntosOpen(false);
     };
-    const equiposFiltrados = equipos.filter((equipo) => {
-        return equipo.id === equipos_puntajes[0] || equipo.id === equipos_puntajes[1];
+    const equiposFiltrados1 = equipos.filter((equipo) => {
+        return equipo.id === equipos_puntajes[0] ;
+    });
+    const equiposFiltrados2 = equipos.filter((equipo) => {
+        return equipo.id === equipos_puntajes[1];
     });
     const jugadoresEquipo1 = jugadores.filter((jugador) => {
         return jugador.equipo_id === equipos_puntajes[0];
@@ -107,8 +111,8 @@ export const ModalCrearPartido = ({ esPlayoff, eliminar, rol, jugadoresParticipa
         puntos_equipos_2_jugador_11:0,
         puntos_equipos_2_jugador_12:0,
     };
-
-    const verificarPuntosPartido = (formData) => {console.log('a');
+//console.log(equiposFiltrados1);
+    const verificarPuntosPartido = (formData) => {
         const equipo1 = formData.equipo_1;
         const equipo2 = formData.equipo_2;
         const puntosEquipo1 = parseInt(formData.puntaje_equipo_1);
@@ -149,52 +153,6 @@ export const ModalCrearPartido = ({ esPlayoff, eliminar, rol, jugadoresParticipa
   //console.log(eliminar);
 return (
     <>
-        {(fechaPartido >= hoy)?(
-                <ModalInformarErrores
-                    titulo={'Aun no se ha jugado!'}
-                    cuerpo={'La fecha aun no ha llegado, puede editar la fecha si existe algun error en la registrada.'}
-                    nombre={'Cerrar'}
-                    closeModal={closeModalCargarResultado}
-                    left={'left-[53%]'}
-                    />
-        ):(
-            (!fecha_partido.arbitro_1 || !fecha_partido.arbitro_2)?(
-                <ModalInformarErrores
-                    titulo={'Faltan arbitros!'}
-                    cuerpo={'Deben haber dos arbitros por partido, no hay arbitros suficientes.'}
-                    nombre={'Cerrar'}
-                    closeModal={closeModalCargarResultado}
-                    />
-        ):(
-            (!fecha_partido.horario || !fecha_partido.fecha)?(
-                <ModalInformarErrores
-                    titulo={'No se definio la fecha ni horario!'}
-                    cuerpo={'Deben tener fecha y horario definido.'}
-                    nombre={'Cerrar'}
-                    closeModal={closeModalCargarResultado}
-                    />
-        ):(
-            (jugadoresEquipo1.length < 5)?(
-                <ModalInformarErrores
-                    titulo={'Faltan jugadores!'}
-                    cuerpo={'El equipo '+equiposFiltrados[0].nombre+' no tiene los 5 jugadores minimos para participar.'}
-                    nombre={'Cerrar'}
-                    closeModal={closeModalCargarResultado}
-                    />
-        ):(
-                (jugadoresEquipo2.length < 5)&&(
-                    <ModalInformarErrores
-                        titulo={'Faltan jugadores!'}
-                        cuerpo={'El equipo '+equiposFiltrados[1].nombre+' no tiene los 5 jugadores minimos para participar.'}
-                        nombre={'Cerrar'}
-                        closeModal={closeModalCargarResultado}
-                        />
-                )
-        )
-        )
-        )
-        )}
-
         {isModalErrorPuntosOpen&&(
             <ModalInformarErrores
                 esEmpate={esEmpate}
@@ -204,8 +162,49 @@ return (
                 equipoError={equipoErrorPuntos}
                 closeModal={closeModalErrorPuntos}
                 nombre={'Entendido'}
-                left={'left-[54%]'}
+                left={'left-[50%]'}
                 />    
+        )}
+        {(!fecha_partido.arbitro_1 || !fecha_partido.arbitro_2)&&(
+            <ModalInformarErrores
+                titulo={'No hay suficientes arbitros!'}
+                cuerpo={'Deben tener dos arbitros asignados.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalCargarResultado}
+                />
+        )}
+        {(!fecha_partido.horario || !fecha_partido.fecha)&&(
+            <ModalInformarErrores
+                titulo={'No se definio la fecha ni horario!'}
+                cuerpo={'Deben tener fecha y horario definido.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalCargarResultado}
+                />
+        )}
+        {(fechaPartido >= hoy)&&(
+            <ModalInformarErrores
+                titulo={'Aun no se ha jugado!'}
+                cuerpo={'La fecha aun no ha llegado, puede editar la fecha si existe algun error en la registrada.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalCargarResultado}
+                left={'left-[50%]'}
+                />
+        )}
+        {(jugadoresEquipo1.length < 5)&&(
+            <ModalInformarErrores
+                titulo={'Faltan jugadores!'}
+                cuerpo={'El equipo '+equiposFiltrados[0].nombre+' no tiene los 5 jugadores minimos para participar.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalCargarResultado}
+                />
+        )}
+        {(jugadoresEquipo2.length < 5)&&(
+            <ModalInformarErrores
+                titulo={'Faltan jugadores!'}
+                cuerpo={'El equipo '+equiposFiltrados[1].nombre+' no tiene los 5 jugadores minimos para participar.'}
+                nombre={'Cerrar'}
+                closeModal={closeModalCargarResultado}
+                />
         )}
 
         {eliminar === true? (
@@ -221,43 +220,7 @@ return (
                 fechas={fecha_partido}
                 />
         ):(
-            partidos.length > 0 ? (
-                <ModalCrearElemento
-                    elementoName="Partido"
-                    actionRoute={esPlayoff ? 'partidoplayoffs.store' : 'partido.store'}
-                    onCancel={closeModalCargarResultado}
-                    onAdd={closeModalCargarResultado}
-                    elemento={partido}
-                    setShowAlert={setShowAlert}
-                    setTituloAlert={setTituloAlert}
-                    liga={liga}
-                    fechas={''}
-                    leftPosition={'left-[20%]'}
-                    topPosition={'top-[5%]'}
-                    classNameForm={''}
-                    classNameModal={'h-[90%] overflow-y-auto inset-0 '}
-                    formData = {formData}
-                    accion={'agregar'}
-                    verificarPuntosPartido={verificarPuntosPartido}
-                    eliminar={eliminar}
-                    equiposFiltrados={equiposFiltrados}
-                    selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
-                    selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
-                    jugadores={jugadores}
-                    jugadoresEquipo1={jugadoresEquipo1}
-                    jugadoresEquipo2={jugadoresEquipo2}
-                    handleSelect2Change={handleSelect2Change}
-                    handleSelectChange={handleSelectChange}
-                    />
-            ):(
-                mensajeLeido === false ? (
-                    <ModalInformarErrores
-                        titulo={esPlayoff ? 'Iniciar playoffs!' : 'Iniciar liga!'}
-                        cuerpo={esPlayoff ? 'Al cargar un partido comienzan los playoffs, ya no podra eliminar ni regenerar el mismo.' : 'Al cargar un partido comienza la liga, ya no podra eliminar ni regenerar el fixture.'} 
-                        nombre={'Cerrar'}
-                        closeModal={() => {setMensajeLeido(true);}}
-                        />
-                ):(
+                (partidos.length > 0 ) ? (
                     <ModalCrearElemento
                         elementoName="Partido"
                         actionRoute={esPlayoff ? 'partidoplayoffs.store' : 'partido.store'}
@@ -269,14 +232,14 @@ return (
                         liga={liga}
                         fechas={''}
                         leftPosition={'left-[20%]'}
-                        topPosition={'top-[5%]'}
-                        classNameForm={'inset-0'}
-                        classNameModal={'h-[90%] overflow-y-auto'}
+                        topPosition={'top-[5%] overflow-y-auto inset-0 mb-3'}
+                        width={'w-[60%]'}
+                        classNameForm={''}
                         formData = {formData}
                         accion={'agregar'}
                         verificarPuntosPartido={verificarPuntosPartido}
                         eliminar={eliminar}
-                        equiposFiltrados={equiposFiltrados}
+                        equiposFiltrados={[equiposFiltrados1,equiposFiltrados2]}
                         selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
                         selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
                         jugadores={jugadores}
@@ -285,9 +248,44 @@ return (
                         handleSelect2Change={handleSelect2Change}
                         handleSelectChange={handleSelectChange}
                         />
-                )
-            )
-            
+                ):(
+                    (mensajeLeido === false)?(
+                        <ModalInformarErrores
+                            titulo={esPlayoff ? 'Iniciar playoffs!' : 'Iniciar liga!'}
+                            cuerpo={esPlayoff ? 'Al cargar un partido comienzan los playoffs, ya no podra eliminar ni regenerar el mismo.' : 'Al cargar un partido comienza la liga, ya no podra eliminar ni regenerar el fixture.'} 
+                            nombre={'Cerrar'}
+                            closeModal={() => {setMensajeLeido(true);}}
+                            />
+                    ):(
+                        <ModalCrearElemento
+                        elementoName="Partido"
+                        actionRoute={esPlayoff ? 'partidoplayoffs.store' : 'partido.store'}
+                        onCancel={closeModalCargarResultado}
+                        onAdd={closeModalCargarResultado}
+                        elemento={partido}
+                        setShowAlert={setShowAlert}
+                        setTituloAlert={setTituloAlert}
+                        liga={liga}
+                        fechas={''}
+                        leftPosition={'left-[20%]'}
+                        topPosition={'top-[5%] overflow-y-auto inset-0 mb-3'}
+                        width={'w-[60%]'}
+                        classNameForm={''}
+                        formData = {formData}
+                        accion={'agregar'}
+                        verificarPuntosPartido={verificarPuntosPartido}
+                        eliminar={eliminar}
+                        equiposFiltrados={[equiposFiltrados1,equiposFiltrados2]}
+                        selectsEquipo1Seleccionado={selectsEquipo1Seleccionado}
+                        selectsEquipo2Seleccionado={selectsEquipo2Seleccionado}
+                        jugadores={jugadores}
+                        jugadoresEquipo1={jugadoresEquipo1}
+                        jugadoresEquipo2={jugadoresEquipo2}
+                        handleSelect2Change={handleSelect2Change}
+                        handleSelectChange={handleSelectChange}
+                        />
+                    )
+                )                                       
         )}
                 
     </>

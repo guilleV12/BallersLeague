@@ -5,7 +5,7 @@ import SecondaryButton from './SecondaryButton';
 const BotonAsignarArbitros = ({ onClick, className, alt, title }) => {
   return (
     <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
-      Asignar árbitros
+      Asignar árbitros <span className='flex justify-center text-xl'> <ion-icon name="people"></ion-icon></span>
     </PrimaryButton>
   );
 };
@@ -20,7 +20,7 @@ const BotonRegenerarFixture = ({ onClick, regenerar, className }) => {
 
 const BotonEliminarFixture = ({ onClick, className }) => {
   return (
-    <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
+    <PrimaryButton onClick={onClick} className={`boton-accion bg-red-600 ${className}`}>
       Eliminar fixture
     </PrimaryButton>
   );
@@ -44,7 +44,7 @@ const BotonAnadirEquipos = ({ onClick }) => {
 
 const BotonEliminar = ({ onClick, className }) => {
     return (
-      <PrimaryButton onClick={onClick} className={`boton-accion bg-red-600 ${className}`}>
+      <PrimaryButton alt={'eliminar'} title={'eliminar'} onClick={onClick} className={`boton-accion bg-red-600 ${className}`}>
         Eliminar
       </PrimaryButton>
     );
@@ -85,7 +85,7 @@ const BotonOpciones = ({ onClick, className, alt, title }) => {
 
 const BotonJugadores = ({ onClick, className }) => {
     return (
-      <PrimaryButton onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
+      <PrimaryButton alt={'ir a jugadores'} title={'ir a jugadores'} onClick={onClick} className={`boton-accion bg-orange-500 ${className}`}>
         Jugadores <span className='flex justify-center text-xl'><ion-icon name="person"></ion-icon></span>
       </PrimaryButton>
     );
@@ -93,7 +93,7 @@ const BotonJugadores = ({ onClick, className }) => {
 
 const BotonContenido = ({ onClick, className, nombre }) => {
     return (
-      <PrimaryButton onClick={onClick} className={`boton-accion ${nombre === 'Eliminar resultado' ? 'bg-red-600' : 'bg-orange-500'} ${className}`}>
+      <PrimaryButton onClick={onClick} className={`boton-accion ${(nombre === 'Eliminar resultado' || nombre === 'Eliminar playoffs') ? 'bg-red-600' : 'bg-orange-500'} ${className}`}>
         {nombre}
       </PrimaryButton>
     );

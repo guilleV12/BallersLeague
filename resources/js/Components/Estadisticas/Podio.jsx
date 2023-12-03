@@ -39,8 +39,9 @@ const Podio = ({
                                 >
                                 CAMPEON
                                 </button>
-                            <a href={route('jugadores.index',campeon.equipo_id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
-                                <button className={'flex w-full h-full justify-center items-center p-2 bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
+                            <a alt='ir a jugadores' title='ir a jugadores' href={route('jugadores.index',campeon.equipo_id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
+                                <button
+                                className={'flex w-full h-full justify-center items-center p-2 bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
                                     JUGADORES
                                 </button>
                             </a>
@@ -55,7 +56,8 @@ const Podio = ({
                                         <img 
                                         key={equipoFiltrado.id} 
                                         src={`/images/${equipoFiltrado.logo}?${new Date().getTime()}`} 
-                                        alt={`logo liga: ${equipoFiltrado.nombre}`} 
+                                        alt={`logo equipo: ${equipoFiltrado.nombre}`}
+                                        title={`logo equipo: ${equipoFiltrado.nombre}`} 
                                         className=" object-cover" />
                                 )
                         }
@@ -69,7 +71,7 @@ const Podio = ({
                                 >
                                 SUBCAMPEON
                                 </button>
-                            <a href={route('jugadores.index',subcampeon.id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
+                            <a alt='ir a jugadores' title='ir a jugadores' href={route('jugadores.index',subcampeon.id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
                                 <button className={'flex w-full h-full justify-center items-center p-2 bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
                                     JUGADORES
                                 </button>
@@ -79,7 +81,10 @@ const Podio = ({
                     <div className='w-full bg-white flex justify-center items-center rounded-full'>
                         <div className='w-52 h-52 rounded-full'>
                         {
-                            <img src={`/images/${subcampeon.logo}?${new Date().getTime()}`} alt={`logo liga: ${subcampeon.nombre}`} className="p-5 object-cover" />
+                            <img src={`/images/${subcampeon.logo}?${new Date().getTime()}`} 
+                            alt={`logo equipo: ${subcampeon.nombre}`}
+                            title={`logo equipo: ${subcampeon.nombre}`}  
+                            className="p-5 object-cover" />
                         }
                         </div>
                     </div>
@@ -100,7 +105,7 @@ const Podio = ({
                             >
                             {index === 0?('CAMPEON'):(index === 1 ? ('SUBCAMPEON'): ('TERCERO'))}
                             </button>
-                        <a href={route('jugadores.index',equipoPosicion.equipo_id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
+                        <a alt='ir a jugadores' title='ir a jugadores' href={route('jugadores.index',equipoPosicion.equipo_id)} className={'bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
                             <button className={'flex w-full h-full justify-center items-center p-2 bg-orange-500 rounded-r-lg text-white font-semibold text-xs hover:bg-gray-700'}>
                                 JUGADORES
                             </button>
@@ -116,7 +121,8 @@ const Podio = ({
                                     <img 
                                     key={equipoFiltrado.id} 
                                     src={`/images/${equipoFiltrado.logo}?${new Date().getTime()}`} 
-                                    alt={`logo liga: ${equipoFiltrado.nombre}`} 
+                                    alt={`logo equipo: ${equipoFiltrado.nombre}`} 
+                                    title={`logo equipo: ${equipoFiltrado.nombre}`} 
                                     className="w-44 h-44" />
                             )
                         }

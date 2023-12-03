@@ -70,13 +70,13 @@ const ModalEliminarElemento = ({
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 bottom-0 z-[65] bg-black opacity-50 pointer-events-none"></div>
+      <div className="fixed top-0 left-0 right-0 bottom-0 z-[75] bg-black opacity-50 pointer-events-auto"></div>
 
       {/* Modal */}
-      <div className={`fixed z-[70] top-[24%] ${leftPosition} w-fit border border-black rounded-lg pointer-events-auto`}>
+      <div className={`fixed z-[80] top-[24%] ${leftPosition} w-fit border border-black rounded-lg`}>
       <div className="bg-white rounded-lg">
           <div className="relative bg-white rounded-lg shadow dark-bg-gray-700">
-            <div className="flex items-center justify-center p-5 border-b rounded-t bg-orange-500 dark:border-gray-600">
+            <div className="flex items-center justify-center p-5 border-b rounded-t-lg bg-orange-500 dark:border-gray-600">
               <h3 className="text-lg font-semibold text-white dark:text-white">
                 Confirmar decisión
               </h3>

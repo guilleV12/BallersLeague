@@ -132,7 +132,8 @@ class PartidoController extends Controller
         //buscar si hay un partido en esta liga, si no hay crea una tabla de posiciones y goleadores
         $hayPartidos = Partido::where('calendario_id', $request->calendario_id)->count();
         if ($hayPartidos === 0){
-            $liga = Liga::where('id', $request->calendario_id)->first();
+            $calendarioLiga = Calendario::where('id', $request->calendario_id)->first();
+            $liga = Liga::where('id', $calendarioLiga->liga_id)->first();
             $equipos = Equipo::where('liga_id', $liga->id)->get();
             foreach ($equipos as $equipo) {
                 $this->crearTablasPosiciones($liga->id, $equipo->id);
@@ -219,15 +220,15 @@ class PartidoController extends Controller
 
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $equipo2)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos + 1;
-            $tablaPosicionesPerdedor->puntos_contra = $tablaPosicionesPerdedor->puntos_contra + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
+            $tablaPosicionesPerdedor->puntos_favor = $tablaPosicionesPerdedor->puntos_favor + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
         } else {
             $tablaPosicionesGanador = TablaPosiciones::where('equipo_id', $equipo2)->first();
             $tablaPosicionesGanador->ganados = $tablaPosicionesGanador->ganados + 1;
-            $tablaPosicionesGanador->puntos_favor = $tablaPosicionesGanador->puntos_favor + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
+            $tablaPosicionesGanador->puntos_favor = $tablaPosicionesGanador->puntos_favor + ($partido->puntaje_equipo_2 - $partido->puntaje_equipo_1);
 
             $tablaPosicionesPerdedor = TablaPosiciones::where('equipo_id', $equipo1)->first();
             $tablaPosicionesPerdedor->perdidos = $tablaPosicionesPerdedor->perdidos + 1;
-            $tablaPosicionesPerdedor->puntos_contra = $tablaPosicionesPerdedor->puntos_contra + ($partido->puntaje_equipo_1 - $partido->puntaje_equipo_2);
+            $tablaPosicionesPerdedor->puntos_favor = $tablaPosicionesPerdedor->puntos_favor + ($partido->puntaje_equipo_2 - $partido->puntaje_equipo_1);
         }
         $tablaPosicionesGanador->save();
         $tablaPosicionesPerdedor->save();

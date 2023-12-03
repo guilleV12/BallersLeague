@@ -2,6 +2,7 @@ import React from 'react';
 import { BotonContenido } from '../BotonesAcciones';
 
 const ModalInformarErrores = ({ titulo, cuerpo, accion, nombre, esEmpate, equipos, equipoError, closeModal, left, errorPuntos, confirmar }) => {
+  console.log('a');
   return (
     <>
     <div className="fixed top-0 left-0 right-0 bottom-0 z-[75] bg-black opacity-50"></div>

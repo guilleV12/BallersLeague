@@ -25,7 +25,7 @@ const ModalEliminarPartido = ({
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       fechas={fechas}
-      leftPosition={rol&&rol==='admin'?'left-[40%]':'left-[35%]'}
+      leftPosition={rol&&rol==='admin'?'left-[40%]':'left-[32%]'}
       message={message}
       formData={formData}
       tipoElemento={'partido'}

@@ -35,7 +35,7 @@ const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert,
             cuerpo={partidos && partidos.length > 0 ? 'La liga ya comenzo, no puede agregar equipos hasta que termine.' : 'Si agrega un equipo ahora se eliminara el fixture actual.'}
             nombre={'Cerrar'}
             closeModal={() => {partidos && partidos.length > 0 ? onCancel() : closeModalEliminarFixture();}}
-            left={'left-[50%]'}
+            left={'left-[49%]'}
             />
     ):(
         <ModalCrearElemento
@@ -47,7 +47,8 @@ const ModalCrearEquipo = ({ liga, onCancel, onAdd, setShowAlert, setTituloAlert,
             setShowAlert={setShowAlert}
             setTituloAlert={setTituloAlert}
             liga={liga}
-            leftPosition={'left-[35%]'}
+            leftPosition={'left-[33%]'}
+            topPosition={'top-[5%]'}
             formData = {formDataEquipo}
             accion={accion}
             />

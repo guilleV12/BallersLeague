@@ -25,7 +25,7 @@ const ModalEliminarEquipo = ({
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       fechas={fechas}
-      leftPosition={partidos && partidos.length>0? 'left-[35%]' : 'left-[25%]'}
+      leftPosition={partidos && partidos.length>0? 'left-[33%]' : 'left-[25%]'}
       message={message}
       tipoElemento={'equipo'}
     />

@@ -10,7 +10,7 @@ export const ModalVerEstadisticas = ({ patrocinadorConPrioridad, partidosPlayoff
   const [equipoPerdedor, setEquipoPerdedor] = useState('');
   const [userArbitro1, setUserArbitro1] = useState('');
   const [userArbitro2,setUserArbitro2] = useState('');
-console.log(patrocinadorConPrioridad);
+
   useEffect(() => {
     if (fechaPartidoVer && partidos) {
       // Buscar el partido en la lista de partidos
@@ -45,13 +45,29 @@ console.log(patrocinadorConPrioridad);
       }
     }
   }, [fechaPartidoVer, partidos, equipos, arbitros]); 
+
+  const formatFecha = (fecha) => {
+    const date = new Date(fecha);
+
+    // Obtener la diferencia horaria en minutos
+    const timezoneOffset = date.getTimezoneOffset();
+
+    // Ajustar la fecha sumando la diferencia horaria
+    date.setMinutes(date.getMinutes() + timezoneOffset);
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+
+    return `${day}-${month}-${year}`;
+};
   return (
        <>
-  <div className="fixed top-0 left-0 right-0 bottom-0 z-40 bg-black opacity-50"></div>
-  <div className={`fixed inset-0 flex items-center justify-center z-50 mt-[5%] mb-[1%] pl-[8%]`}>
+  <div className="fixed top-0 left-0 right-0 bottom-0 z-[75] bg-black opacity-50"></div>
+  <div className={`fixed inset-0 flex items-center justify-center z-[80] top-[5%] mb-5`}>
     <div className="bg-gray-100 w-full max-w-3xl max-h-full rounded-l-lg overflow-y-auto">
-      <div className='flex w-full space-x-4 py-5 px-5 bg-black'>
-        <div className='w-[50%] flex justify-left items-center text-white text-xl font-bold'>
+      <div className='flex w-full space-x-4 py-5 px-5 bg-orange-500'>
+        <div className='w-[50%] flex justify-left items-center text-white text-2xl font-bold'>
           Estadisticas
         </div>
         <div className='w-[50%] flex justify-end items-center'>
@@ -73,8 +89,8 @@ console.log(patrocinadorConPrioridad);
         </thead>
         <tbody>
             <tr>
-            <td className="text-base font-bold pt-3">Fecha:</td>
-            <td className="text-base">{fechaPartidoVer.fecha} {fechaPartidoVer.horario}.</td>
+            <td className="text-base font-bold pt-3">Fecha y hora:</td>
+            <td className="text-base">{formatFecha(fechaPartidoVer.fecha)} _ {fechaPartidoVer.horario}Hs.</td>
             </tr>
             <tr>
             <td className="text-base font-bold">Árbitros:</td>
@@ -102,7 +118,7 @@ console.log(patrocinadorConPrioridad);
             <tr>
               <td className=" text-lg font-semibold border-r">
                 <div className='flex justify-center'>
-                    <img src={`/images/${equipo1.logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={equipo1.nombre} />
+                    <img src={`/images/${equipo1.logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={equipo1.nombre} title={equipo1.nombre}/>
                 </div>
               </td>
               <td className=" text-base font-semibold border-r">
@@ -112,7 +128,7 @@ console.log(patrocinadorConPrioridad);
               </td>
               <td className=" text-lg font-semibold">
                   <div className='flex justify-center'>
-                    <img src={`/images/${equipo2.logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={equipo2.nombre} />
+                    <img src={`/images/${equipo2.logo}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={equipo2.nombre} title={equipo2.nombre}/>
                   </div>
               </td>
             </tr>
@@ -134,7 +150,7 @@ console.log(patrocinadorConPrioridad);
                       jugadorObj.id === jugador.jugador_id && jugadorObj.equipo_id === equipo1.id ? (
                         <div className="grid grid-cols-2 justify-start items-center my-3" key={`jugador_${jugadorObj.id}_equipo_1`}>
                           <div>
-                            <img src={`/images/${jugadorObj.foto_perfil}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={jugadorObj.nombre} />
+                            <img src={`/images/${jugadorObj.foto_perfil}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" title={`jugador: ${jugadorObj.nombre + ' ' + jugadorObj.apellido}`} alt={`jugador: ${jugadorObj.nombre + ' ' + jugadorObj.apellido}`} />
                           </div>
                           <div className="flex flex-col justify-start">
                             <span className="text-base font-semibold">{jugadorObj.nombre + ' ' + jugadorObj.apellido}</span>
@@ -157,7 +173,7 @@ console.log(patrocinadorConPrioridad);
                             <span className="text-base font-semibold">Puntos: {jugador.puntos_anotados}</span>
                           </div>
                           <div>
-                            <img src={`/images/${jugadorObj.foto_perfil}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" alt={jugadorObj.nombre} />
+                            <img src={`/images/${jugadorObj.foto_perfil}?${new Date().getTime()}`} className="h-20 w-auto rounded-full" title={`jugador: ${jugadorObj.nombre + ' ' + jugadorObj.apellido}`} alt={`jugador: ${jugadorObj.nombre + ' ' + jugadorObj.apellido}`} />
                           </div>
                         </div>
                       ) : ''

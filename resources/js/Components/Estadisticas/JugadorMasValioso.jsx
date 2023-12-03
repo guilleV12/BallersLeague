@@ -134,7 +134,8 @@ const JugadorMasValioso = ({
             <div className='w-full bg-black mb-5 pb-1 pr-4 flex justify-end'>
                 <button 
                 onClick={generarPDF}
-                title='descargar tabla de posiciones'
+                title='descargar jugador mas valioso'
+                alt='descargar jugador mas valioso'
                 className={`boton-accion font-semibold p-1 border-2 border-orange-500 w-fit h-10 inline-flex justify-center items-center text-white text-center bg-orange-500 hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition`}>
                 <span className='text-3xl p-1'><ion-icon name="download-outline"></ion-icon></span>
                 </button>
@@ -143,7 +144,9 @@ const JugadorMasValioso = ({
       
       <div className='w-full flex pl-5 mb-10 space-x-1'>
         {puedeVotar ? (
-          <BotonContenido nombre={'Votar'} onClick={() => {votoEmitido ? setModalVotoEmitidoOpen(true) : openModalVotar()}} />
+          <BotonContenido 
+          nombre={<span className='flex-inline items-center'>Votar<span className='flex-inline ml-1 items-center'><ion-icon name="star"></ion-icon></span></span>} 
+          onClick={() => {votoEmitido ? setModalVotoEmitidoOpen(true) : openModalVotar()}} />
         ) : (
             <button type="button" onClick={openModalInfo} className="inline-flex justify-center items-center w-10 h-10 text-center text-orange-500 hover:bg-orange-500 hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-orange-600 focus:ring-offset-2 focus:ring-offset-white transition dark:text-gray-500 dark:hover:text-gray-200 dark:hover:bg-gray-800">
                 <span className="flex justify-center items-center text-3xl ">
@@ -162,7 +165,7 @@ const JugadorMasValioso = ({
             {jugadorMasValioso ? (
                 <div className='w-[30%] border rounded-lg shadow-lg flex shadow-orange-500' ref={cardRef} id='jugadorMasValioso'>
                     <div className='w-[50%] h-40 rounded-full bg-white flex justify-start items-center'>
-                        <img src={`/images/${jugadorMasValioso.foto_perfil}?${new Date().getTime()}`} className="h-28 w-auto rounded-full"/>
+                        <img src={`/images/${jugadorMasValioso.foto_perfil}?${new Date().getTime()}`} alt={`jugador mas votado`} title='jugador mas votado' className="h-28 w-auto rounded-full"/>
                     </div>
                     <div className='w-[50%] h-40 rounded-full bg-white flex flex-col justify-center'>
                         <span className='text-lg'>{jugadorMasValioso.nombre+' '+jugadorMasValioso.apellido}</span>

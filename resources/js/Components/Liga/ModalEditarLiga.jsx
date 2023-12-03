@@ -36,12 +36,12 @@ const ModalEditarLiga = ({ setTituloAlert, liga, onEdit, onCancel, setShowAlert 
 
   return (
     <>
-        <div className="fixed top-0 left-0 right-0 bottom-0 z-40  bg-black opacity-50 "></div>
+        <div className="fixed top-0 left-0 right-0 bottom-0 z-[75] bg-black opacity-50"></div>
 
-        <div className="fixed top-[23%] md:top-[10%] left-[55%] md:left-[50%] lg:left-[57%] w-fit inset-0 md:inset-0 transform -translate-x-1/2 z-50 mb-3 md:mb-2 rounded-lg overflow-y-scroll">
+        <div className="fixed z-[80] top-[5%] left-[50%] w-fit inset-0 transform -translate-x-1/2 mb-3 md:mb-2 rounded-lg overflow-y-auto">
            <form onSubmit={submit} className="bg-gray-50 px-2 md:px-20 pb-5 rounded-lg modal-content border border-black" encType="multipart/form-data">
                 <div className='w-full flex justify-center items-center mt-1'>
-                        <div className='w-52 h-52 rounded-full bg-white flex justify-center items-center'>
+                        <div className='w-48 h-48 rounded-full bg-white flex justify-center items-center'>
                                 <img src={`/images/${liga.logo}?${new Date().getTime()}`} alt={`logo liga: ${liga.nombre}`}  className='h-auto w-44 rounded-full'/>
                         </div>
                 </div>

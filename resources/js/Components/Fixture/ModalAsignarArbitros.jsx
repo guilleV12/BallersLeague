@@ -24,7 +24,6 @@ export const ModalAsignarArbitros = ({ calendario, arbitros, fechas, closeModalA
                                 leftPosition={'left-[25%]'}
                                 topPosition={'top-[8%]'}
                                 classNameForm={'overflow-y-auto bg-white'}
-                                classNameModal={'mb-[1%]'}
                                 formData = {''}
                                 arbitros={arbitros}
                                 accion={'editar'}

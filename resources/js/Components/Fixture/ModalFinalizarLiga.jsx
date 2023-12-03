@@ -22,7 +22,8 @@ export const ModalFinalizarLiga = ({
       setShowAlert={setShowAlert}
       setTituloAlert={setTituloAlert}
       liga={liga}
-      leftPosition={'left-[40%]'}
+      leftPosition={'left-[37%]'}
+      topPosition={'top-[20%]'}
       formData = {data}
       accion={'agregar'}
     />
