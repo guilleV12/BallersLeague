@@ -1,3 +1,28 @@
+Proyecto: Administrador de Liga de Básquetbol Amateur
+
+Descripción:
+Este proyecto se creó mientras aprendía ReactJs y Laravel, implementando una aplicación completa para administrar ligas de básquetbol amateur. Logré desarrollar funcionalidades clave, como la creación, edición y eliminación de ligas, la gestión de equipos y jugadores, la generación de fixture y playoffs (opcional), y la visualización y descarga de estadísticas.
+
+Durante el desarrollo, se enfrentaron desafíos emocionantes, aprendiendo a resolver problemas en tiempo real y aplicando conceptos recién adquiridos. Aunque algunas implementaciones pueden no ser completamente eficientes debido a la naturaleza de mi aprendizaje simultáneo, se entrego el proyecto en tiempo y forma.
+
+Logros Destacados:
+- Creación, edición y eliminación de ligas.
+- Administración completa de equipos y jugadores.
+- Generación de fixture y playoffs (opcional).
+- Visualización y descarga de estadísticas.
+
+Lecciones Aprendidas:
+Enfrentar desafíos aprendiendo a abordar problemas en tiempo real e introducirse en ReactJs y Laravel. Este proyecto ha sido una valiosa experiencia de aprendizaje.
+
+Áreas de Mejora Futuras:
+Reconozco que algunas implementaciones pueden no ser óptimas. En futuros proyectos, planeo realizar refactorizaciones, adoptar mejores prácticas y explorar nuevas funcionalidades para mejorar la eficiencia y la calidad del código.
+
+¡Gracias por explorar mi proyecto!
+-
+Guillermo Vera (dueño y unico colaborador).
+-
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
