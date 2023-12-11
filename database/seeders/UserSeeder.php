@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
     {
         //Usuarios manuales
         $superAdmin = [
-            'nombre' => 'Super',
-            'apellido' => 'Admin',
+            'nombre' => 'Alberto',
+            'apellido' => 'Diaz',
             'email' => 'guillermo.vera@est.fi.uncoma.edu.ar',
             'password' => Hash::make('12345678'),
             'dni' => '00000000',
@@ -37,8 +37,8 @@ class UserSeeder extends Seeder
         ];
 
         $usuario2 = [
-            'nombre' => 'Chati',
-            'apellido' => 'Retirate',
+            'nombre' => 'Carlos',
+            'apellido' => 'Renteria',
             'email' => 'veraguillermo345@gmail.com',
             'password' => Hash::make('12345678'),
             'dni' => '12345666',

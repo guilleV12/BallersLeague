@@ -5,6 +5,7 @@ import ModalInformarErrores from '../Modales/ModalInformarErrores';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ModalEliminarVotacion from './ModalEliminarVotacion';
+import PrimaryButton from '../PrimaryButton';
 
 const JugadorMasValioso = ({
   setShowAlert,
@@ -163,7 +164,9 @@ const JugadorMasValioso = ({
       </div>
       <div className='w-full flex justify-center'>
             {jugadorMasValioso ? (
-                <div className='w-[30%] border rounded-lg shadow-lg flex shadow-orange-500' ref={cardRef} id='jugadorMasValioso'>
+                <div className='flex-col justify-center w-[30%]'>
+                <PrimaryButton disabled={true} className='w-fit flex justify-center bg-orange-500 hover:bg-orange-600 hover:text-white rounded-b-none'>Jugador mas valioso</PrimaryButton>
+                <div className='w-full border rounded-b-lg rounded-r-lg shadow-lg flex shadow-orange-500' ref={cardRef} id='jugadorMasValioso'>
                     <div className='w-[50%] h-40 rounded-full bg-white flex justify-start items-center'>
                         <img src={`/images/${jugadorMasValioso.foto_perfil}?${new Date().getTime()}`} alt={`jugador mas votado`} title='jugador mas votado' className="h-28 w-auto rounded-full"/>
                     </div>
@@ -175,6 +178,7 @@ const JugadorMasValioso = ({
                         <span className='text-sm text-gray-600'>Partidos jugados: {goleadores.find((goleador) => goleador.jugador_id === jugadorMasValioso.id).cantidad_partidos}.</span>
 
                     </div>
+                </div>
                 </div>
             ):(
                 <div className='w-[30%] border rounded-lg shadow-lg py-10 flex justify-center'>

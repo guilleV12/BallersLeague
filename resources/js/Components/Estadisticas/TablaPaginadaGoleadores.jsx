@@ -6,7 +6,7 @@ import autoTable from 'jspdf-autotable'
 import { BotonContenido, BotonFiltros } from '../BotonesAcciones';
 import SecondaryButton from '../SecondaryButton';
 
-const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos}) => {
+const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos, patrocinadorConPrioridad}) => {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(0);
   const [sortedData, setSortedData] = useState('');
@@ -51,6 +51,13 @@ const TablaPaginadaGoleadores = ({ liga, user, goleadores, jugadores, equipos}) 
     const logoIzquierda = new Image();
     logoIzquierda.src = `/images/`+liga.logo;
     doc.addImage(logoIzquierda, 'png', 5, 5, 35, 35);
+
+    //Imagen si hay patrocinador prioritario
+    if (patrocinadorConPrioridad && patrocinadorConPrioridad.length>0){
+      const logoCentro = new Image();
+      logoCentro.src = '/images/'+patrocinadorConPrioridad[0].logo;
+      doc.addImage(logoCentro, 'png',doc.internal.pageSize.width - 120, 5, 30, 30);
+    }
 
     doc.text('Goleadores', 90, 45);
 

@@ -18,8 +18,8 @@ class LigaSeeder extends Seeder
         $liga1 = [
             'user_id' => '1',
             'mejor_jugador_id' => null,
-            'nombre' => 'Pagame juga y no te quejes',
-            'descripcion' => 'Liga donde se paga, si no cumplis te sancionan, pero si ellos no cumplen te aguantas.',
+            'nombre' => 'Liga Amateur Neuquen',
+            'descripcion' => 'Liga para competir pero con flexibilidad para trabajadores.',
             'ubicacion' => 'Neuquen Capital',
             'logo' => 'logo_liga_usuario1.png',
             'categoria' => 'Mayores',

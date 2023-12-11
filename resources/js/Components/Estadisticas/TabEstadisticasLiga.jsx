@@ -81,6 +81,7 @@ export const TabEstadisticasLiga = ({
                   goleadores={goleadores}
                   jugadores={jugadores}
                   equipos={equipos}
+                  patrocinadorConPrioridad={patrocinadorConPrioridad}
                   />
             </div>
             {campeon &&(

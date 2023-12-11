@@ -28,7 +28,7 @@ export const FormNotificaciones = ({
                 />
         <InputLabel 
             htmlFor='notificacion_partido' 
-            value='Notificaciones de partidos'
+            value='Recibir notificaciones de partidos entrantes al mail.'
             className={' text-sm'}
             />
         <InputError 
@@ -48,7 +48,7 @@ export const FormNotificaciones = ({
                     />
         <InputLabel 
             htmlFor='notificacion_resultado' 
-            value='Notificaciones de resultados'
+            value='Recibir notificaciones de resultados al mail.'
             className={' text-sm'}
             />
         <InputError 

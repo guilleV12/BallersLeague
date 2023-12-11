@@ -116,7 +116,7 @@ export const TabPlayoffs = ({
                 )
                 }
                 {partidosPlayoffs ? ((partidosPlayoffs.length == 0)&&(
-                    user.id === liga.user_id &&(
+                    (user && user.id === liga.user_id) &&(
                         <BotonContenido
                             nombre={fechasPlayoffs ? (
                                         (fechasPlayoffs.length>0)?
@@ -127,7 +127,7 @@ export const TabPlayoffs = ({
                             />
                     )
                 )) : 
-                    user.id === liga.user_id &&(
+                    (user && user.id === liga.user_id) &&(
                         <BotonContenido
                             nombre={'Generar playoffs'}
                             onClick={() => {setGenerarPlayOffOpen(true)}}
